@@ -9,6 +9,6 @@ class Cate extends Validate{
 
 	protected $message = [
 		'catename.unique' => '栏目不能重复',
-		'catename.require' => '必须填写栏目名称'
+		'catename.require' => '必须填写栏目名称123'
 	];
 }
