@@ -5,6 +5,7 @@ use think\Db;
 use think\Controller;
 use \app\index\controller\User;
 use \app\admin\controller\Index as AdminIndex;
+use think\Config;
 
 class Index extends Controller
 {
@@ -24,6 +25,23 @@ class Index extends Controller
     // test方法
     public function test(){
     	return "<h1>test</h1>";
+    }
+
+    //读取配置文件
+    public function getConfig(){
+        //输出配置文件
+        // dump(config());
+        echo config('database.password');//读取database扩展配置
+        echo "<hr>";
+        //1
+        echo config('paginate.type');
+        echo "<hr>";
+        //2
+        echo \think\Config::get('paginate.type');
+        echo "<hr>";
+        //3
+        echo Config::get('paginate.type');
+        echo "<hr>";
     }
 
     //调用前台的User控制器
