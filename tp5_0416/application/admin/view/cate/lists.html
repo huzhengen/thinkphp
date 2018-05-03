@@ -17,35 +17,39 @@
 </head>
 <body>
 {include file="public/header" /}
-<div class="container">
-	<h3>栏目列表</h3>
-	<table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>栏目名称</th>
-          <th>栏目类型</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-      	{volist name="cateres" id="vo"}
-        <tr>
-          <th scope="row">{$vo.ID}</th>
-          <td><a href="#" title="{$vo.catename}">{$vo.catename}</a></td>
-          <td>
-          	{if condition="$vo.type neq 0"}列表
-          	{else /}留言板
-          	{/if}
-          </td>
-          <td>
-			<a href="{:url('edit', array('id'=>$vo.ID))}">修改</a>
-			<a href="{:url('del', array('id'=>$vo.ID))}" onclick="return confirm('确定删除栏目？')">删除</a>
-          </td>
-        </tr>
-        {/volist}
-      </tbody>
-    </table>
+<div class="container-fluid">
+{include file="public/left" /}
+  <div class="col-lg-9 col-md-9 col-sm-9">
+  	<h3>栏目列表</h3>
+	  <a href="{:url('cate/add')}">新增栏目</a>
+  	<table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>栏目名称</th>
+            <th>栏目类型</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+        	{volist name="cateres" id="vo"}
+          <tr>
+            <th scope="row">{$vo.ID}</th>
+            <td><a href="#" title="{$vo.catename}">{$vo.catename}</a></td>
+            <td>
+            	{if condition="$vo.type neq 0"}列表
+            	{else /}留言板
+            	{/if}
+            </td>
+            <td>
+  			<a href="{:url('edit', array('id'=>$vo.ID))}">修改</a>
+  			<a href="{:url('del', array('id'=>$vo.ID))}" onclick="return confirm('确定删除栏目？')">删除</a>
+            </td>
+          </tr>
+          {/volist}
+        </tbody>
+      </table>
+    </div>
 </div>
 <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>

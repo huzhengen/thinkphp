@@ -2,7 +2,7 @@
 namespace app\admin\controller;
 use think\Controller;
 
-class Cate extends Controller{
+class Cate extends Basic{
 	public function lists(){
 		$cateres = \think\Db::name('cate')->select();
 		$this->assign('cateres', $cateres);
@@ -45,10 +45,11 @@ class Cate extends Controller{
 	}
 
 	public function edit(){
+		// 获取修改的信息
 		$id = input('id');
 		$cates = db('cate')->where('ID', $id)->find();
 		$this->assign('cates', $cates);
-
+		// 修改后提交
 		if(request()->isPost()){
 			$data = [
 				'ID'=>input('id'),
@@ -57,8 +58,9 @@ class Cate extends Controller{
 				'desc'=>input('desc'),
 				'type'=>input('type') ? input('type') : 0,
 			];
+			//验证
 			$validate = \think\Loader::validate('Cate');
-			if($validate->check($data)){
+			if($validate->scene('edit')->check($data)){
 				$res = 	\think\Db::name('cate')->update($data);
 				if($res){
 					return $this->success('修改栏目成功', 'lists');

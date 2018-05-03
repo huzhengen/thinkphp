@@ -5,10 +5,17 @@ use think\Validate;
 class Cate extends Validate{
 	protected $rule = [
 		'catename' => 'require|max:25|unique:cate',
+		'keywords' => 'require'
 	];
 
 	protected $message = [
 		'catename.unique' => '栏目不能重复',
-		'catename.require' => '必须填写栏目名称123'
+		'catename.max' => '栏目名称不能大于25个字符',
+		'catename.require' => '必须填写栏目名称',
+		'keywords.require' => '栏目关键词必须填写'
+	];
+
+	protected $scene = [
+		'edit' => ['catename']
 	];
 }
