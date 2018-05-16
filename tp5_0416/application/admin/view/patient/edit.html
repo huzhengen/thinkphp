@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	{include file="public/head" /}
+	<title>修改</title>
+</head>
+<body>
+{include file="public/header" /}
+<div class="container-fluid">
+	{include file="public/left" /}
+	<div class="col-lg-9 col-md-9 col-sm-9">
+		<h3>修改</h3>
+		<form action="" method="post" id="myform" name="myform" enctype="multipart/form-data">
+			<input type="hidden" name="id" value="{$patientLists.id}">
+			<div class="form-group">
+				<label for="username">是否确认</label><br>
+				<input type="radio" name="queren" value="0">未确认<br>
+				<input type="radio" name="queren"  value="1">确认
+			</div>
+			<div class="form-group">
+				<label for="name">姓名</label>
+				<input type="text" class="form-control" id="name" name="name" value="{$patientLists.name}">
+			</div>
+			<div class="form-group">
+				<label for="dianhua">电话</label>
+				<input type="text" class="form-control" id="dianhua" name="dianhua" value="{$patientLists.dianhua}">
+			</div>
+			<div class="form-group">
+				<label for="shijian">时间</label>
+				<input type="text" class="form-control" id="shijian" name="shijian" value="{$patientLists.shijian}">
+			</div>
+			<div class="form-group">
+				<label for="miaoshu">描述</label>
+				<input type="text" class="form-control" id="miaoshu" name="miaoshu" value="{$patientLists.miaoshu}">
+			</div>
+			<button type="submit" class="btn btn-default">提交</button>
+			<button type="button" class="btn btn-default" onclick="history.go(-1)" value="返回">返回</button>
+		</form>
+	</div>
+</div>
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

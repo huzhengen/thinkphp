@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	{include file="public/head" /}
+	<title>patient</title>
+</head>
+<body>
+{include file="public/header" /}
+<div class="container-fluid">
+	{include file="public/left" /}
+	<div class="col-lg-9 col-md-9 col-sm-9">
+		<h3>patient</h3>
+		<a href="{:url('admin/add')}">管理patient</a>
+		<table class="table table-bordered">
+			<thead>
+			<tr>
+				<th>姓名</th>
+				<th>电话</th>
+				<th>时间</th>
+				<th>描述</th>
+				<th>操作</th>
+			</tr>
+			</thead>
+			<tbody>
+			{volist name="patientLists" id="vo"}
+			<tr>
+				<th scope="row">{$vo.name}</th>
+				<td>{$vo.dianhua}</td>
+				<td>{$vo.shijian}</td>
+				<td>{$vo.miaoshu}</td>
+				<td>
+					{if condition="$vo.queren eq 0" }<span style="color: red;">未审核</span>
+					{else }<span style="color: green;">已审核</span>
+					{/if}
+					<a href="{:url('edit', array('id'=>$vo.id))}">修改</a>
+					<a href="{:url('del', array('id'=>$vo.id))}" onclick="return confirm('确定删除？')">删除</a>
+				</td>
+			</tr>
+			{/volist}
+			</tbody>
+		</table>
+	</div>
+</div>
+{include file="public/footer" /}
+</body>
+</html>
