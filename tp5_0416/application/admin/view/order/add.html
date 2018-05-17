@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	{include file="public/head" /}
+	<title>增加新患者</title>
+	<link href="http://www.bootcss.com/p/bootstrap-datetimepicker/bootstrap-datetimepicker/css/datetimepicker.css" rel="stylesheet">
+</head>
+<body>
+{include file="public/header" /}
+<div class="container-fluid">
+	{include file="public/left" /}
+	<div class="col-lg-9 col-md-9 col-sm-9">
+		<h3>增加</h3>
+		<form action="" method="post" id="myform" name="myform" enctype="multipart/form-data">
+			<div class="col-lg-4">
+				<div class="form-group">
+					<label for="name">姓名</label>
+					<input type="text" class="form-control" id="name" name="name" placeholder="姓名">
+				</div>
+				<div class="form-group">
+					<label for="tel">电话</label>
+					<input type="text" class="form-control" id="tel" name="tel" placeholder="电话">
+				</div>
+				<div class="form-group">
+					<label for="age">年龄</label>
+					<input type="text" class="form-control" id="age" name="age" placeholder="年龄">
+				</div>
+				<div class="form-group">
+					<label for="sex">性别</label>
+					<label class="radio-inline">
+						<input type="radio" name="sex" id="" value="男"> 男
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="sex" id="" checked value="女"> 女
+					</label>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="form-group">
+					<label for="djtime">登记时间</label>
+					<input type="text" value="" class="form-control Wdate" id="djtime" name="djtime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+					<input type="hidden" value="" class="form-control" id="xgtime" name="xgtime">
+				</div>
+				<div class="form-group">
+					<label for="yytime">预约时间</label>
+					<input type="text" value="" class="form-control Wdate" id="" name="yytime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+				</div>
+				<div class="form-group">
+					<label for="dztime">到诊时间</label>
+					<input type="text" value="" class="form-control Wdate" id="" name="dztime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="form-group">
+					<label>客服</label>
+					<input type="text" class="form-control" name="kefu" readonly value="<?php echo session('name'); ?>">
+					<input type="hidden" name="kefuid" value="<?php echo session('id'); ?>">
+				</div>
+				<div class="form-group">
+					<label for="qudao">渠道</label>
+					<input type="text" class="form-control" id="qudao" name="qudao" placeholder="渠道">
+				</div>
+				<div class="form-group">
+					<label for="daozhen">是否到诊</label>
+					<label class="radio-inline">
+						<input type="radio" name="daozhen" id="" value="1"> 到诊
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="daozhen" id="" value="0"> 未到诊
+					</label>
+				</div>
+			</div>
+			<div class="col-lg-12">
+				<div class="form-group">
+					<label for="pic">上传图片</label>
+					<input type="file" name="pic" id="pic">
+				</div>
+				<div class="form-group">
+					<label for="desc">病情描述</label>
+					<textarea class="form-control" rows="3" name="desc"></textarea>
+				</div>
+				<div class="form-group">
+					<label for="beizhu">备注</label>
+					<textarea class="form-control" rows="3" name="beizhu"></textarea>
+				</div>
+				<button type="submit" class="btn btn-default">Submit</button>
+			</div>
+		</form>
+	</div>
+</div>
+{include file="public/footer" /}
+<!--<script src="http://www.bootcss.com/p/bootstrap-datetimepicker/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>-->
+<script language="javascript" type="text/javascript" src="/public/static/admin/lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/public/static/admin/lib/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="/public/static/admin/lib/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" src="/public/static/admin/lib/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+    UE.getEditor('content', {initialFramWidth: '100%', initialFramHeight: 1000});
+    // console.log($("#datetimepicker"));
+    // $(".datetimepicker").datetimepicker({format: 'yyyy-mm-dd hh:ii'});
+    var nowDate = new Date();
+    var timeStr = nowDate.getFullYear()+"-"+(addzero(nowDate.getMonth() + 1))+"-"+addzero(nowDate.getDate())+" "+nowDate.getHours()+":"+addzero(nowDate.getMinutes())+":"+addzero(nowDate.getSeconds());
+    $('.inittime').val(timeStr);
+    function addzero(dateVal) {
+        return dateVal < 10 ? '0' + dateVal: dateVal;
+    }
+</script>
+</body>
+</html>

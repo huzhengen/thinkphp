@@ -4,7 +4,8 @@
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
     (function () {
-        let str1 = location.href.substring(16);
+        var str1 = location.href.substring(15);
+        console.log(str1)
         $('.col-lg-3 .list-group a').each(function () {
             if ($(this).attr('href') == str1) {
                 $(this).addClass('active');

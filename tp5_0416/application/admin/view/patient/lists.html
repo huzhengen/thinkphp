@@ -14,6 +14,7 @@
 		<table class="table table-bordered">
 			<thead>
 			<tr>
+				<th>ID</th>
 				<th>姓名</th>
 				<th>电话</th>
 				<th>时间</th>
@@ -24,7 +25,8 @@
 			<tbody>
 			{volist name="patientLists" id="vo"}
 			<tr>
-				<th scope="row">{$vo.name}</th>
+				<th scope="row">{$vo.id}</th>
+				<td>{$vo.name}</td>
 				<td>{$vo.dianhua}</td>
 				<td>{$vo.shijian}</td>
 				<td>{$vo.miaoshu}</td>
@@ -42,5 +44,83 @@
 	</div>
 </div>
 {include file="public/footer" /}
+<script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+
+<script>
+    setInterval(function () {
+        $.get('http://test.com/index.php/admin/patient/listsAjax',function(data1){
+            var len = data1.total;
+            // console.log(len);
+            var storage = localStorage.getItem("radarResult");
+            if (storage == null) {
+                console.log('localstorage目前是空的');
+                localStorage.setItem("radarResult", len);
+            }else{
+				// console.log(storage);
+	            console.log(data1.total, parseInt(storage));
+				if(data1.total != parseInt(storage)){
+				    console.log('数据增加了')
+                    tixing();
+                    desktop()
+                    var len = data1.total;
+                    localStorage.setItem("radarResult", len);
+				}else{
+				    console.log('数据没有变化，不提醒')
+				}
+            }
+            // localStorage.setItem("radarResult_" + len + "", len); //存储的时候 使用JSON.stringify()将对象解析出字符串
+
+            // console.log(data1.total)
+            // console.log(data1.data[0].id);
+            // console.log(data1.data.length)
+            // console.log($.trim(data1));
+            // document.title = data1.data[0].id +'个患者了';
+        })
+    },10000)
+
+	function tixing(){
+        var titleInit = document.title, isShine = true;
+        setInterval(function() {
+            var title = document.title;
+            if (isShine == true) {
+                if (/新/.test(title) == false) {
+                    document.title = '【你有新消息】';
+                } else {
+                    document.title = '【　　　　　】';
+                }
+            } else {
+                document.title = titleInit;
+            }
+        }, 500);
+	}
+
+	function desktop(){
+        if (window.Notification) {
+            var button = document.getElementById('button'), text = document.getElementById('text');
+            var popNotice = function() {
+                if (Notification.permission == "granted") {
+                    var notification = new Notification("通知", {
+                        body: '有新患者了',
+                        icon: 'http://image.zhangxinxu.com/image/study/s/s128/mm1.jpg'
+                    });
+
+                    // notification.onclick = function() {
+                    //     text.innerHTML = '张小姐已于' + new Date().toTimeString().split(' ')[0] + '加你为好友！';
+                    //     notification.close();
+                    // };
+                }
+            };
+            if (Notification.permission == "granted") {
+                popNotice();
+            } else if (Notification.permission != "denied") {
+                Notification.requestPermission(function (permission) {
+                    popNotice();
+                });
+            }
+        } else {
+            alert('浏览器不支持Notification');
+        }
+	}
+</script>
 </body>
 </html>

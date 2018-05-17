@@ -2,11 +2,17 @@
 namespace app\admin\controller;
 use think\Controller;
 
-class Patient extends Controller{
+class Patient extends Basic {
 	public function lists(){
-		$patientLists = \think\Db::name('atfckform')->paginate();
+		$patientLists = \think\Db::name('atfckform')->order('id DESC')->paginate();
 		$this->assign('patientLists', $patientLists);
 		return $this->fetch();
+	}
+	public function listsAjax(){
+
+		$patientLists = \think\Db::name('atfckform')->order('id DESC')->paginate();
+		$this->assign('patientLists', $patientLists);
+		return $patientLists;
 	}
 
 	public function edit(){
@@ -42,6 +48,7 @@ class Patient extends Controller{
 			'dianhua'=>input('tel'),
 			'shijian'=>input('time'),
 			'miaoshu'=>input('desc'),
+			'queren'=>input('queren'),
 		];
 
 		$res = \think\Db::name('atfckform')->insert($data);

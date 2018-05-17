@@ -14,6 +14,7 @@ class Login extends Model{
 				//将登陆id和名词存入sesion
 				\think\Session::set('id', $admin['id']);
 				\think\Session::set('username', $admin['username']);
+				\think\Session::set('name', $admin['name']);
 				return 1;
 			}else{
 				return 2;
