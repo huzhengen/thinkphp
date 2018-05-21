@@ -1,13 +1,16 @@
+<hr>
 <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script language="javascript" type="text/javascript" src="/public/static/admin/lib/My97DatePicker/WdatePicker.js"></script>
 <script>
-    (function () {
+    ;(function () {
         var str1 = location.href.substring(15);
-        console.log(str1)
-        $('.col-lg-3 .list-group a').each(function () {
+        console.log(str1);
+        $('.col-lg-2 .list-group a').each(function () {
             if ($(this).attr('href') == str1) {
+                console.log('匹配')
                 $(this).addClass('active');
             }
         })

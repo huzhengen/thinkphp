@@ -9,7 +9,9 @@ class Login extends Controller{
 			$login = new Log;
 			$status = $login->login(input('username'), input('password'));
 			if($status === 1){
-				return $this->success('登陆成功，正在跳转', 'Index/index');
+				return $this->success('登陆成功，正在跳转', 'order/lists');
+			}else if($status === 4){
+				return $this->error('该用户已被锁定，无法登录');
 			}else if($status === 2){
 				return $this->error('帐号或者密码错误');
 			}else{

@@ -4,14 +4,23 @@ use think\Controller;
 
 class Admin extends Basic{
 	public function lists(){
-		$adminres = \think\Db::name('admin')->paginate(3);
+		$adminres = \think\Db::name('admin')->where('lock', '0')->paginate(11);
 		$this->assign('adminres', $adminres);
 		return $this->fetch();
 	}
+
+	public function listslock(){
+		$adminres = \think\Db::name('admin')->where('lock', '1')->paginate(11);
+		$this->assign('adminres', $adminres);
+		return $this->fetch();
+	}
+
 	public function add(){
 		if(request()->isPost()){
 			$data = [
 				'username'=>input('username'),
+				'name'=>input('name'),
+				'type'=>input('type'),
 				'password'=>input('password'),
 			];
 			$validate = \think\Loader::validate('Admin');
@@ -19,9 +28,9 @@ class Admin extends Basic{
 				$data['password'] = md5($data['password']);
 				$res = \think\Db::name('admin')->insert($data);
 				if($res){
-					return $this->success('管理员添加成功', 'lists');
+					return $this->success('添加用户成功', 'lists');
 				}else{
-					return $this->error('管理员添加失败');
+					return $this->error('添加用户失败');
 				}
 			}else{
 				return $this->error($validate->getError());
@@ -38,6 +47,8 @@ class Admin extends Basic{
 			$data = [
 				'id'=>input('id'),
 				'username'=>input('username'),
+				'name'=>input('name'),
+				'type'=>input('type'),
 				'password'=>input('password'),
 			];
 			$validate = \think\Loader::validate('Admin');
@@ -46,9 +57,9 @@ class Admin extends Basic{
 				$res = \think\Db::name('admin')->update($data);
 //				var_dump($res);
 				if($res){
-					return $this->success('修改管理员成功', 'lists');
+					return $this->success('修改用户成功', 'lists');
 				}else{
-					return $this->error('修改管理员失败');
+					return $this->error('修改用户失败');
 				}
 			}
 		}
@@ -60,11 +71,35 @@ class Admin extends Basic{
 			return $this->error('初始管理员不能删除！');
 		}else{
 			if(db('admin')->delete($id)){
-				return $this->success('删除管理员成功');
+				return $this->success('删除用户成功');
 			}else{
-				return $this->error('删除管理员失败');
+				return $this->error('删除用户失败');
 			}
 		}
 		return $this->fetch();
+	}
+
+	public function lock(){
+		$id = input('id');
+		$data = [
+			'lock' => 1,
+		];
+		if(db('admin')->where('id', $id)->update($data)){
+			return $this->success('锁定用户成功');
+		}else{
+			return $this->error('锁定用户失败');
+		}
+	}
+
+	public function unlock(){
+		$id = input('id');
+		$data = [
+			'lock' => 0,
+		];
+		if(db('admin')->where('id', $id)->update($data)){
+			return $this->success('解锁用户成功');
+		}else{
+			return $this->error('解锁用户失败');
+		}
 	}
 }

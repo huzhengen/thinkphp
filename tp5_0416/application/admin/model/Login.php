@@ -10,12 +10,15 @@ class Login extends Model{
 //		var_dump($username);
 		$admin = \think\Db::name('admin')->where('username' , '=', $username)->find();
 		if($admin){
-			if($admin['password'] === md5($password)){
+			if($admin['password'] === md5($password) && $admin['lock'] != 1){
 				//将登陆id和名词存入sesion
 				\think\Session::set('id', $admin['id']);
 				\think\Session::set('username', $admin['username']);
 				\think\Session::set('name', $admin['name']);
+				\think\Session::set('type', $admin['type']);
 				return 1;
+			}else if($admin['lock'] = 1){
+				return 4;
 			}else{
 				return 2;
 			}

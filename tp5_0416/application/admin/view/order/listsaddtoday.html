@@ -2,20 +2,33 @@
 <html lang="zh-CN">
 <head>
 	{include file="public/head" /}
-	<title>今日添加</title>
+	<title>今日登记</title>
 </head>
 <body>
 {include file="public/header" /}
 <div class="container-fluid">
 	{include file="public/left" /}
 	<div class="col-lg-9 col-md-9 col-sm-9">
-		<h3>今日添加</h3>
+		<h3>今日登记</h3>
+		<div class="row">
+			<form action="" method="post" id="myform" name="myform" enctype="multipart/form-data" class="form-inline">
+				<div class="col-lg-4">
+					<div class="form-group">
+						<label for="time">时间：</label>
+						<input type="text" value="" class="form-control Wdate" id="time" name="time" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd'})">
+						<button type="submit" class="btn btn-default">查询</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<hr>
 		<table class="table table-bordered table-hover">
 			<thead>
 			<tr>
 				<th>点诊</th>
 				<th>预约号</th>
 				<th>患者</th>
+				<th>登记时间</th>
 				<th>预约时间</th>
 				<th>到诊时间</th>
 				<th>客服</th>
@@ -33,8 +46,9 @@
 				{/if}
 				<td>AT{$vo.id}</td>
 				<td>{$vo.name} | {$vo.sex} | {if condition="$vo.dztime" }{$vo.age}岁 |{else}{/if} {$vo.tel}</td>
-				<td>{$vo.yytime}</td>
-				<td>{if condition="$vo.dztime" }{$vo.dztime}{else}未确定{/if}</td>
+				<td>{$vo.djtime}</td>
+				<td>{if condition="!$vo.yytime" }未预约{else}{$vo.yytime}{/if}</td>
+				<td>{if condition="!$vo.dztime" }未到诊{else}{$vo.dztime}{/if}</td>
 				<td>{$vo.kefu}</td>
 				<td>{$vo.desc}</td>
 				<td>

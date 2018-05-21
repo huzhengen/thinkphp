@@ -9,9 +9,8 @@ class Admin extends Validate{
 	];
 
 	protected $message = [
-		'username.unique' => '管理员名称不能重复',
-		'username.max' => '管理员名词不能大于5个字符',
-		'username.require' => '管理员名词必须填写',
+		'username.unique' => '用户名不能重复',
+		'username.require' => '用户名必须填写',
 		'password.require' => '密码必须填写',
 		'password.min' => '密码不能少于1位',
 	];

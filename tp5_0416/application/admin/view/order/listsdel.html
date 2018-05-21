@@ -8,8 +8,9 @@
 {include file="public/header" /}
 <div class="container-fluid">
 	{include file="public/left" /}
-	<div class="col-lg-9 col-md-9 col-sm-9">
+	<div class="col-lg-10 col-md-10 col-sm-10">
 		<h3>回收站列表</h3>
+		<hr>
 		<table class="table table-bordered table-hover">
 			<thead>
 			<tr>
@@ -38,8 +39,8 @@
 				<td>{$vo.kefu}</td>
 				<td>{$vo.desc}</td>
 				<td>
-					<a href="{:url('edit', array('id'=>$vo.id))}">修改</a>
-					<a href="{:url('del', array('id'=>$vo.id))}" onclick="return confirm('确认删除该文章？')">删除</a>
+					<a href="{:url('recover', array('id'=>$vo.id))}" onclick="return confirm('确认恢复该信息？')">恢复</a>
+					<a href="{:url('del', array('id'=>$vo.id))}" onclick="return confirm('彻底删除该信息？无法恢复')">删除</a>
 				</td>
 			</tr>
 			{/volist}

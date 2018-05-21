@@ -4,80 +4,157 @@ use think\Controller;
 
 class Order extends Basic {
 	public function lists(){
-		$orderList = \think\Db::name('order')->where('del', 0)->paginate('11');
-		$this->assign('orderList', $orderList);
-		return $this->fetch();
-	}
-	public function listsquery(){
-		$orderList = \think\Db::name('order')->where('del', 0)->paginate('11');
+		$orderList = \think\Db::name('order')->where('del', 0)->order('id', 'desc')->paginate('15');
 		if(request()->isPost()){
-			$queryname = input('name');
-			$querybegintime = input('begintime');
-			$queryendtime = input('endtime');
-			if($queryname){
+			$begintime = input('begintime') . ' 00:00:00';
+			$endtime = input('endtime') . ' 23:59:59';
+			$kefu = input('kefu');
+			$id = input('id');
+			$disease = input('disease');
+			$name = input('name');
+			$beizhu = input('beizhu');
+			$tel = input('tel');
+			$weixin = input('weixin');
+			$qq = input('qq');
+			if($begintime && !$endtime){
 				$orderList = \think\Db::name('order')
 					->where('del', 0)
-					->where('name',$queryname)
-					->paginate('11');
-			}else if($querybegintime){
-				$orderList = \think\Db::name('order')
-					->where('del', 0)
-					->where('djtime', '>', $querybegintime)
-					->paginate('11');
-			}else if($queryname && $querybegintime){
-				$orderList = \think\Db::name('order')
-					->where('del', 0)
-					->where('name',$queryname)
-					->where('djtime', '>', $querybegintime)
-					->paginate('11');
-			}else{
-				$orderList = \think\Db::name('order')
-					->where('del', 0)
-					->where('name',$queryname)
-					->where('djtime', 'between', [$querybegintime, $queryendtime])
-					->paginate('11');
+					->where('djtime','>', $begintime)
+					->order('id', 'desc')->paginate('15');
 			}
-//			dump($orderList);
+			if($begintime && $endtime){
+				$orderList = \think\Db::name('order')
+					->where('del', 0)
+					->where('djtime','>', $begintime)
+					->where('djtime','<', $endtime)
+					->order('id', 'desc')->paginate('15');
+			}
+			if($kefu){
+				$orderList = \think\Db::name('order')
+					->where('del', 0)
+					->where('kefu', $kefu)
+					->order('id', 'desc')->paginate('15');
+			}
+			if($id){
+				$orderList = \think\Db::name('order')
+					->where('del', 0)
+					->where('id', $id)
+					->order('id', 'desc')->paginate('15');
+			}
+			if($disease){
+				$orderList = \think\Db::name('order')
+					->where('del', 0)
+					->where('disease', $disease)
+					->order('id', 'desc')->paginate('15');
+			}
+			if($name){
+				$orderList = \think\Db::name('order')
+					->where('del', 0)
+					->where('name', $name)
+					->order('id', 'desc')->paginate('15');
+			}
+			if($beizhu){
+				$orderList = \think\Db::name('order')
+					->where('del', 0)
+					->where('beizhu', $beizhu)
+					->order('id', 'desc')->paginate('15');
+			}
+			if($tel){
+				$orderList = \think\Db::name('order')
+					->where('del', 0)
+					->where('tel', $tel)
+					->order('id', 'desc')->paginate('15');
+			}
+			if($weixin){
+				$orderList = \think\Db::name('order')
+					->where('del', 0)
+					->where('weixin', $weixin)
+					->order('id', 'desc')->paginate('15');
+			}
+			if($qq){
+				$orderList = \think\Db::name('order')
+					->where('del', 0)
+					->where('qq', $qq)
+					->order('id', 'desc')->paginate('15');
+			}
 		}
 		$this->assign('orderList', $orderList);
 		return $this->fetch();
 	}
 
+	//回收站
 	public function listsdel(){
-		$orderList = \think\Db::name('order')->where('del', 1)->paginate('11');
+		$orderList = \think\Db::name('order')->where('del', 1)->order('id', 'desc')->paginate('15');
 		$this->assign('orderList', $orderList);
 		return $this->fetch();
 	}
 
+	//自己信息
 	public function listsmyself(){
 		$kefuid = session('id');
-		$orderList = \think\Db::name('order')->where('kefuid', $kefuid)->where('del', 0)->paginate('11');
+		$orderList = \think\Db::name('order')->where('kefuid', $kefuid)->where('del', 0)->order('id', 'desc')->paginate('15');
 		$this->assign('orderList', $orderList);
 		return $this->fetch();
 	}
 
-	public function listsordertoday(){
-		$datebegin = date("Y-m-d",time());
-		$dateend = date("Y-m-d",time()+3600*24);
-		$orderList = \think\Db::name('order')->where('yytime', 'between', [$datebegin, $dateend])->paginate('11');
-		$this->assign('orderList', $orderList);
-		return $this->fetch();
-	}
-
-	public function listsdztoday(){
-		$datebegin = date("Y-m-d",time());
-		$dateend = date("Y-m-d",time()+3600*24);
-		$orderList = \think\Db::name('order')->where('dztime', 'between', [$datebegin, $dateend])->paginate('11');
-		$this->assign('orderList', $orderList);
-		return $this->fetch();
-	}
-
+	//今日登记
 	public function listsaddtoday(){
 		$datebegin = date("Y-m-d",time());
 		$dateend = date("Y-m-d",time()+3600*24);
-		$orderList = \think\Db::name('order')->where('djtime', 'between', [$datebegin, $dateend])->paginate('11');
+		$orderList = \think\Db::name('order')->where('del', 0)->where('djtime', 'between', [$datebegin, $dateend])->order('id', 'desc')->paginate('15');
+		$time = input('time');
+		$timebegin = $time . ' 00:00:00';
+		$timeend = $time . ' 23:59:59';
+		if($time){
+			$orderList = \think\Db::name('order')
+				->where('del', 0)
+				->where('djtime','between', [$timebegin, $timeend])
+				->order('id', 'desc')->paginate('15');
+		}
 		$this->assign('orderList', $orderList);
 		return $this->fetch();
+	}
+	//今日预约
+	public function listsordertoday(){
+		$datebegin = date("Y-m-d",time());
+		$dateend = date("Y-m-d",time()+3600*24);
+		$orderList = \think\Db::name('order')->where('del', 0)->where('yytime', 'between', [$datebegin, $dateend])->order('id', 'desc')->paginate('15');
+		$time = input('time');
+		$timebegin = $time . ' 00:00:00';
+		$timeend = $time . ' 23:59:59';
+		if($time){
+			$orderList = \think\Db::name('order')
+				->where('del', 0)
+				->where('yytime','between', [$timebegin, $timeend])
+				->order('id', 'desc')->paginate('15');
+		}
+		$this->assign('orderList', $orderList);
+		return $this->fetch();
+	}
+	//今日到诊
+	public function listsdztoday(){
+		$datebegin = date("Y-m-d",time());
+		$dateend = date("Y-m-d",time()+3600*24);
+		$orderList = \think\Db::name('order')->where('del', 0)->where('dztime', 'between', [$datebegin, $dateend])->order('id', 'desc')->paginate('15');
+		$time = input('time');
+		$timebegin = $time . ' 00:00:00';
+		$timeend = $time . ' 23:59:59';
+		if($time){
+			$orderList = \think\Db::name('order')
+				->where('del', 0)
+				->where('dztime','between', [$timebegin, $timeend])
+				->order('id', 'desc')->paginate('15');
+		}
+		$this->assign('orderList', $orderList);
+		return $this->fetch();
+	}
+
+	public function tel(){
+		if(request()->isAjax()){
+			$tel = input('tel');
+			$orderList = \think\Db::name('order')->where('del', 0)->where('tel', $tel)->find();
+			return $orderList;
+		}
 	}
 
 	public function add(){
@@ -94,8 +171,20 @@ class Order extends Basic {
 				'kefuid' => input('kefuid'),
 				'desc' => input('desc'),
 				'qudao' => input('qudao'),
-				'tel' => input('tel'),
 				'beizhu' => input('beizhu'),
+				'daozhen' => input('daozhen'),
+				'tel' => input('tel'),
+				'del' => input('del'),
+				'keshi' => input('keshi'),
+				'doctor' => input('doctor'),
+				'weixin' => input('weixin'),
+				'qq' => input('qq'),
+				'address' => input('address'),
+				'jiehun' => input('jiehun'),
+				'liaotian' => input('liaotian'),
+				'yuanqu' => input('yuanqu'),
+				'type' => input('type'),
+				'disease' => input('disease'),
 			];
 			// 判断表单是否上传了文件
 			if($_FILES['pic']['tmp_name']){
@@ -143,8 +232,20 @@ class Order extends Basic {
 				'kefuid' => input('kefuid'),
 				'desc' => input('desc'),
 				'qudao' => input('qudao'),
-				'tel' => input('tel'),
 				'beizhu' => input('beizhu'),
+				'daozhen' => input('daozhen'),
+				'tel' => input('tel'),
+				'del' => input('del'),
+				'keshi' => input('keshi'),
+				'doctor' => input('doctor'),
+				'weixin' => input('weixin'),
+				'qq' => input('qq'),
+				'address' => input('address'),
+				'jiehun' => input('jiehun'),
+				'liaotian' => input('liaotian'),
+				'yuanqu' => input('yuanqu'),
+				'type' => input('type'),
+				'disease' => input('disease'),
 			];
 			$validate = \think\Loader::validate('order');
 			if($validate->check($data)){
@@ -154,6 +255,8 @@ class Order extends Basic {
 				}else{
 					$this->error('修改失败');
 				}
+			}else{
+				return $this->error($validate->getError());
 			}
 		}
 		return $this->fetch();
@@ -179,6 +282,26 @@ class Order extends Basic {
 		}else{
 			return $this->error('彻底删除信息失败');
 		}
+		return $this->fetch();
+	}
+
+	public function recover(){
+		$id = input('id');
+		$data = [
+			'del' => 0,
+		];
+		if(db('order')->where('id', $id)->update($data)){
+			return $this->success('恢复成功', 'listsdel');
+		}else{
+			return $this->error('恢复失败');
+		}
+		return $this->fetch();
+	}
+
+	public function preview(){
+		$id = input('id');
+		$orderList = db('order')->where('id', $id)->find();
+		$this->assign('orderList', $orderList);
 		return $this->fetch();
 	}
 }

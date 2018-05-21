@@ -2,24 +2,51 @@
 <html lang="zh-CN">
 <head>
 	{include file="public/head" /}
-	<title>增加新患者</title>
+	<title>增加信息</title>
 	<link href="http://www.bootcss.com/p/bootstrap-datetimepicker/bootstrap-datetimepicker/css/datetimepicker.css" rel="stylesheet">
+	<link href="/public/static/admin/lib/css/admin.css" rel="stylesheet">
 </head>
 <body>
 {include file="public/header" /}
 <div class="container-fluid">
 	{include file="public/left" /}
-	<div class="col-lg-9 col-md-9 col-sm-9">
-		<h3>增加</h3>
+	<div class="col-lg-10 col-md-10 col-sm-10">
+		<h3>咨询预约患者登记</h3>
+		<hr>
 		<form action="" method="post" id="myform" name="myform" enctype="multipart/form-data">
-			<div class="col-lg-4">
+			<input type="hidden" class="form-control" id="del" name="del" value="0">
+			<div class="col-lg-3">
 				<div class="form-group">
-					<label for="name">姓名</label>
+					<label for="keshi">预约科室</label>
+					<select class="form-control" name="keshi">
+						<option value="妇科">妇科</option>
+						<option value="产科">产科</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="name" class="colorred">姓名</label>
 					<input type="text" class="form-control" id="name" name="name" placeholder="姓名">
 				</div>
 				<div class="form-group">
-					<label for="tel">电话</label>
-					<input type="text" class="form-control" id="tel" name="tel" placeholder="电话">
+					<label for="qudao" class="colorred">渠道</label>
+					<select class="form-control" name="qudao" id="qudao">
+						<option value="请选择">请选择</option>
+						<option value="商务通">商务通</option>
+						<option value="微信">微信</option>
+						<option value="QQ">QQ</option>
+						<option value="电话">电话</option>
+						<option value="大众&美团">大众&美团</option>
+						<option value="百度糯米">百度糯米</option>
+						<option value="安太宝">安太宝</option>
+						<option value="其它">其它</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="disease" class="colorred">病种</label>
+					<input type="text" class="form-control" id="disease" name="disease" placeholder="病种">
 				</div>
 				<div class="form-group">
 					<label for="age">年龄</label>
@@ -27,19 +54,67 @@
 				</div>
 				<div class="form-group">
 					<label for="sex">性别</label>
-					<label class="radio-inline">
-						<input type="radio" name="sex" id="" value="男"> 男
-					</label>
-					<label class="radio-inline">
-						<input type="radio" name="sex" id="" checked value="女"> 女
-					</label>
+					<select class="form-control" name="sex">
+						<option value="女">女</option>
+						<option value="男">男</option>
+					</select>
 				</div>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-3">
+				<div class="form-group">
+					<label for="doctor">预约医生</label>
+					<select class="form-control" name="doctor">
+						<option value="暂不确定">暂不确定</option>
+						<option value="杨淑华">杨淑华</option>
+						<option value="杨焕玲">杨焕玲</option>
+						<option value="艾朝辉">艾朝辉</option>
+						<option value="张智君">张智君</option>
+						<option value="陶新凤">陶新凤</option>
+						<option value="荣 琪">荣 琪</option>
+						<option value="齐金燕">齐金燕</option>
+						<option value="胡朝钢">胡朝钢</option>
+						<option value="黄长海">黄长海</option>
+						<option value="赵清秀">赵清秀</option>
+						<option value="陈凤林">陈凤林</option>
+					</select>
+				</div>
+
+				<div class="form-group telerror">
+					<label for="tel">电话</label>
+					<input type="text" class="form-control" id="tel" name="tel" placeholder="电话">
+				</div>
+				<div class="form-group">
+					<label for="weixin">微信</label>
+					<input type="text" class="form-control" id="weixin" name="weixin" placeholder="微信">
+				</div>
+				<div class="form-group">
+					<label for="qq">QQ</label>
+					<input type="text" class="form-control" id="qq" name="qq" placeholder="QQ">
+				</div>
+				<div class="form-group">
+					<label for="address">地址</label>
+					<input type="text" class="form-control" id="address" name="address" placeholder="地址">
+				</div>
+
+				<div class="form-group">
+					<label for="jiehun">婚否</label>
+					<select class="form-control" name="jiehun">
+						<option value="已婚">已婚</option>
+						<option value="未婚">未婚</option>
+						<option value="保密">保密</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="form-group">
+					<label>客服姓名</label>
+					<input type="text" class="form-control" name="kefu" value="<?php echo session('name'); ?>">
+					<input type="hidden" name="kefuid" value="<?php echo session('id'); ?>">
+				</div>
 				<div class="form-group">
 					<label for="djtime">登记时间</label>
-					<input type="text" value="" class="form-control Wdate" id="djtime" name="djtime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})">
-					<input type="hidden" value="" class="form-control" id="xgtime" name="xgtime">
+					<input type="text" value="" class="form-control Wdate inittime" readonly id="djtime" name="djtime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+					<input type="hidden" value="" class="form-control Wdate inittime" id="xgtime" name="xgtime">
 				</div>
 				<div class="form-group">
 					<label for="yytime">预约时间</label>
@@ -49,42 +124,70 @@
 					<label for="dztime">到诊时间</label>
 					<input type="text" value="" class="form-control Wdate" id="" name="dztime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})">
 				</div>
-			</div>
-			<div class="col-lg-4">
 				<div class="form-group">
-					<label>客服</label>
-					<input type="text" class="form-control" name="kefu" readonly value="<?php echo session('name'); ?>">
-					<input type="hidden" name="kefuid" value="<?php echo session('id'); ?>">
-				</div>
-				<div class="form-group">
-					<label for="qudao">渠道</label>
-					<input type="text" class="form-control" id="qudao" name="qudao" placeholder="渠道">
-				</div>
-				<div class="form-group">
-					<label for="daozhen">是否到诊</label>
-					<label class="radio-inline">
-						<input type="radio" name="daozhen" id="" value="1"> 到诊
-					</label>
-					<label class="radio-inline">
-						<input type="radio" name="daozhen" id="" value="0"> 未到诊
-					</label>
+					<label for="daozhen">类别（未到诊/初诊/复诊）</label>
+					<select class="form-control" name="daozhen">
+						<option value="0">未到诊</option>
+						<option value="1">初诊</option>
+						<option value="2">复诊</option>
+					</select>
 				</div>
 			</div>
+			<div class="col-lg-3">
+
+			</div>
+			<div class="col-lg-12"></div>
+			<div class="col-lg-3">
+				<div class="form-group">
+					<label>病情描述</label>
+					<textarea class="form-control" rows="3" name="desc"></textarea>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="form-group">
+					<label>备注</label>
+					<textarea class="form-control" rows="3" name="beizhu"></textarea>
+				</div>
+			</div>
+			<div class="col-lg-3"></div>
+			<div class="col-lg-3"></div>
 			<div class="col-lg-12">
 				<div class="form-group">
 					<label for="pic">上传图片</label>
 					<input type="file" name="pic" id="pic">
 				</div>
-				<div class="form-group">
-					<label for="desc">病情描述</label>
-					<textarea class="form-control" rows="3" name="desc"></textarea>
-				</div>
-				<div class="form-group">
-					<label for="beizhu">备注</label>
-					<textarea class="form-control" rows="3" name="beizhu"></textarea>
-				</div>
-				<button type="submit" class="btn btn-default">Submit</button>
 			</div>
+			<div class="col-lg-9">
+				<div class="form-group" id="ltjl">
+					<label for="liaotian" class="colorred">上传聊天记录</label>
+					<textarea class="form-control1" id="liaotian" rows="13" name="liaotian"></textarea>
+				</div>
+			</div>
+			<div class="col-lg-3"></div>
+			<div class="col-lg-12"></div>
+			<div class="col-lg-3">
+				<div class="form-group">
+					<label for="yuanqu" class="colorred">就诊院区</label>
+					<select class="form-control" name="yuanqu">
+						<option value="安太">安太</option>
+						<option value="海婴">海婴</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="form-group">
+					<label for="type">类别</label>
+					<select class="form-control" name="type">
+						<option value="个人">个人</option>
+						<option value="科室">科室</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-3">
+			</div>
+			<div class="col-lg-3">
+			</div>
+			<div class="col-lg-12"><button type="submit" class="btn btn-default">添加</button></div>
 		</form>
 	</div>
 </div>
@@ -95,14 +198,32 @@
 <script type="text/javascript" src="/public/static/admin/lib/ueditor/ueditor.all.min.js"></script>
 <script type="text/javascript" src="/public/static/admin/lib/ueditor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript">
-    UE.getEditor('content', {initialFramWidth: '100%', initialFramHeight: 1000});
-    // console.log($("#datetimepicker"));
-    // $(".datetimepicker").datetimepicker({format: 'yyyy-mm-dd hh:ii'});
+    UE.getEditor('liaotian', {initialFramWidth: '100%', initialFramHeight: 1000});
     var nowDate = new Date();
-    var timeStr = nowDate.getFullYear()+"-"+(addzero(nowDate.getMonth() + 1))+"-"+addzero(nowDate.getDate())+" "+nowDate.getHours()+":"+addzero(nowDate.getMinutes())+":"+addzero(nowDate.getSeconds());
+    var timeStr = nowDate.getFullYear()+"-"+(addzero(nowDate.getMonth() + 1))+"-"+addzero(nowDate.getDate())+" "+addzero(nowDate.getHours())+":"+addzero(nowDate.getMinutes())+":"+addzero(nowDate.getSeconds());
     $('.inittime').val(timeStr);
     function addzero(dateVal) {
         return dateVal < 10 ? '0' + dateVal: dateVal;
+    }
+    $('#qudao').change(function () {
+        qudao();
+    })
+    $('#tel').blur(function(){
+        var telVal = $('#tel').val();
+        $.post('/index.php/admin/order/tel', { tel: telVal}, function(data) {
+            if(data.tel == telVal){
+                alert('电话已存在');
+                $('.telerror').addClass('has-error');
+            }
+        });
+    })
+    function qudao(){
+        var qudaoVal = $('#qudao').val();
+        if(qudaoVal == '商务通' || qudaoVal == '微信' || qudaoVal == 'QQ'){
+            $('#ltjl').show();
+        }else{
+            $('#ltjl').hide();
+        }
     }
 </script>
 </body>

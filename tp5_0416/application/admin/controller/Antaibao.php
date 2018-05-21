@@ -2,7 +2,7 @@
 namespace app\admin\controller;
 use think\Controller;
 
-class Patient extends Basic {
+class Antaibao extends Basic {
 	public function lists(){
 		$patientLists = \think\Db::name('atfckform')->order('id DESC')->paginate();
 		$this->assign('patientLists', $patientLists);

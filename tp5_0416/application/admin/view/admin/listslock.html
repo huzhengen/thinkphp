@@ -2,14 +2,14 @@
 <html lang="zh-CN">
 <head>
 	{include file="public/head" /}
-	<title>用户列表</title>
+	<title>锁定用户列表</title>
 </head>
 <body>
 {include file="public/header" /}
 <div class="container-fluid">
 	{include file="public/left" /}
 	<div class="col-lg-10 col-md-10 col-sm-10">
-		<h3>用户列表</h3>
+		<h3>锁定用户列表</h3>
 		<hr>
 		<table class="table table-bordered">
 			<thead>
@@ -31,7 +31,7 @@
 				<td>
 					<a href="{:url('edit', array('id'=>$vo.id))}">修改</a>
 					<a href="{:url('del', array('id'=>$vo.id))}" onclick="return confirm('确定删除该用户？')">删除</a>
-					<a href="{:url('lock', array('id'=>$vo.id))}" onclick="return confirm('确定锁定该用户？')">锁定</a>
+					<a href="{:url('unlock', array('id'=>$vo.id))}" onclick="return confirm('确定解锁该用户？')">解锁</a>
 				</td>
 			</tr>
 			{/volist}
