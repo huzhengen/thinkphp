@@ -4,15 +4,23 @@ use think\Controller;
 
 class Admin extends Basic{
 	public function lists(){
-		$adminres = \think\Db::name('admin')->where('lock', '0')->paginate(11);
-		$this->assign('adminres', $adminres);
-		return $this->fetch();
+		if(session('type') != 1){
+			echo "<script>alert('木有权限');history.go(-1)</script>";
+		}else{
+			$adminres = \think\Db::name('admin')->where('lock', '0')->paginate(11);
+			$this->assign('adminres', $adminres);
+			return $this->fetch();
+		}
 	}
 
 	public function listslock(){
-		$adminres = \think\Db::name('admin')->where('lock', '1')->paginate(11);
-		$this->assign('adminres', $adminres);
-		return $this->fetch();
+		if(session('type') != 1){
+			echo "<script>alert('木有权限');history.go(-1)</script>";
+		}else {
+			$adminres = \think\Db::name('admin')->where('lock', '1')->paginate(11);
+			$this->assign('adminres', $adminres);
+			return $this->fetch();
+		}
 	}
 
 	public function add(){
@@ -37,29 +45,65 @@ class Admin extends Basic{
 			}
 			return;
 		}
-		return $this->fetch();
+		if(session('type') != 1){
+			echo "<script>alert('木有权限');history.go(-1)</script>";
+		}else {
+			return $this->fetch();
+		}
 	}
 	public function edit(){
-		$id = input('id');
-		$admins = db('admin')->find($id);
-		$this->assign('admins', $admins);
-		if(request()->isPost()){
-			$data = [
-				'id'=>input('id'),
-				'username'=>input('username'),
-				'name'=>input('name'),
-				'type'=>input('type'),
-				'password'=>input('password'),
-			];
-			$validate = \think\Loader::validate('Admin');
-			if($validate->check($data)){
-				$data['password'] = md5($data['password']);
-				$res = \think\Db::name('admin')->update($data);
+		if(session('type') != 1){
+			$id = input('id');
+			if($id != session('id')){
+				echo "<script>alert('只能修改自己的信息');history.go(-1)</script>";
+				$admins = db('admin')->find($id);
+				$this->assign('admins', $admins);
+			}else{
+				$admins = db('admin')->find($id);
+				$this->assign('admins', $admins);
+				if (request()->isPost()) {
+					$data = [
+						'id' => input('id'),
+						'username' => input('username'),
+						'name' => input('name'),
+						'type' => input('type'),
+						'password' => input('password'),
+					];
+					$validate = \think\Loader::validate('Admin');
+					if ($validate->check($data)) {
+						$data['password'] = md5($data['password']);
+						$res = \think\Db::name('admin')->update($data);
 //				var_dump($res);
-				if($res){
-					return $this->success('修改用户成功', 'lists');
-				}else{
-					return $this->error('修改用户失败');
+						if ($res) {
+							return $this->success('修改用户成功', 'lists');
+						} else {
+							return $this->error('修改用户失败');
+						}
+					}
+				}
+			}
+		}else {
+			$id = input('id');
+			$admins = db('admin')->find($id);
+			$this->assign('admins', $admins);
+			if (request()->isPost()) {
+				$data = [
+					'id' => input('id'),
+					'username' => input('username'),
+					'name' => input('name'),
+					'type' => input('type'),
+					'password' => input('password'),
+				];
+				$validate = \think\Loader::validate('Admin');
+				if ($validate->check($data)) {
+					$data['password'] = md5($data['password']);
+					$res = \think\Db::name('admin')->update($data);
+//				var_dump($res);
+					if ($res) {
+						return $this->success('修改用户成功', 'lists');
+					} else {
+						return $this->error('修改用户失败');
+					}
 				}
 			}
 		}

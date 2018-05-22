@@ -4,6 +4,8 @@ use think\Controller;
 
 class Patient extends Basic {
 	public function lists(){
+		$tel = \think\Db::name('atfckform')->field('dianhua,count(dianhua)')->group('dianhua')->select();
+		$this->assign('tel', $tel);
 		$patientLists = \think\Db::name('atfckform')->order('id DESC')->paginate();
 		$this->assign('patientLists', $patientLists);
 		return $this->fetch();
@@ -21,11 +23,11 @@ class Patient extends Basic {
 		if(request()->isPost()){
 			$data = [
 				'id'=>input('id'),
-				'name'=>input('name'),
-				'dianhua'=>input('dianhua'),
-				'miaoshu'=>input('miaoshu'),
-				'shijian'=>input('shijian'),
 				'queren'=>input('queren'),
+				'kefuid'=>input('kefuid'),
+				'kefutype'=>input('kefutype'),
+				'kefuname'=>input('kefuname'),
+				'beizhu'=>input('beizhu'),
 			];
 			$res = \think\Db::name('atfckform')->update($data);
 			if($res){

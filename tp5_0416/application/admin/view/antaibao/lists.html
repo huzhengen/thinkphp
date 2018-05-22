@@ -2,25 +2,23 @@
 <html lang="zh-CN">
 <head>
 	{include file="public/head" /}
-	<title>patient</title>
+	<title>安太宝</title>
 </head>
 <body>
 {include file="public/header" /}
 <div class="container-fluid">
 	{include file="public/left" /}
 	<div class="col-lg-10 col-md-10 col-sm-10">
-		<h3>patient</h3>
+		<h3>安太宝</h3>
+		<hr>
 		<hr>
 		<table class="table table-bordered">
 			<thead>
 			<tr>
 				<th>ID</th>
 				<th>提交时间</th>
-				<th>预约时间</th>
 				<th>IP</th>
-				<th>姓名</th>
 				<th>电话</th>
-				<th>描述</th>
 				<th>归属地</th>
 				<th>设备</th>
 				<th>网址</th>
@@ -32,11 +30,8 @@
 			<tr>
 				<td>{$vo.id}</td>
 				<td>{$vo.tjtime}</td>
-				<td>{$vo.shijian}</td>
 				<td>{$vo.ip}</td>
-				<td>{$vo.name}</td>
 				<td>{if condition="$vo.queren eq 1"}*******{$vo.dianhua|substr=7,10}{else}{$vo.dianhua}{/if}<span class="colorred">({volist name="tel" id="telvo"}{if condition="$vo.dianhua eq $telvo.dianhua"}{$telvo['count(dianhua)']}{/if}{/volist})</span></td>
-				<td>{$vo.miaoshu}</td>
 				<td>{$vo.padd}</td>
 				<td>{$vo.shebei}</td>
 				<td>{$vo.url}</td>

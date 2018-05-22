@@ -4,34 +4,32 @@ use think\Controller;
 
 class Antaibao extends Basic {
 	public function lists(){
-		$patientLists = \think\Db::name('atfckform')->order('id DESC')->paginate();
+//		$sql = "SELECT `dianhua`,COUNT(`dianhua`) AS c FROM `tp5_0416_antaibao` GROUP BY `dianhua` ORDER BY c DESC LIMIT 10";
+		$tel = \think\Db::name('antaibao')->field('dianhua,count(dianhua)')->group('dianhua')->select();
+		$this->assign('tel', $tel);
+		$patientLists = \think\Db::name('antaibao')->order('id DESC')->paginate();
 		$this->assign('patientLists', $patientLists);
 		return $this->fetch();
-	}
-	public function listsAjax(){
-		$patientLists = \think\Db::name('atfckform')->order('id DESC')->paginate();
-		$this->assign('patientLists', $patientLists);
-		return $patientLists;
 	}
 
 	public function edit(){
 		$id = input('id');
-		$patientLists = db('atfckform')->find($id);
+		$patientLists = db('antaibao')->find($id);
 		$this->assign('patientLists', $patientLists);
 		if(request()->isPost()){
 			$data = [
 				'id'=>input('id'),
-				'name'=>input('name'),
-				'dianhua'=>input('dianhua'),
-				'miaoshu'=>input('miaoshu'),
-				'shijian'=>input('shijian'),
+				'kefuid'=>input('kefuid'),
+				'kefutype'=>input('kefutype'),
+				'kefuname'=>input('kefuname'),
 				'queren'=>input('queren'),
+				'beizhu'=>input('beizhu'),
 			];
-			$res = \think\Db::name('atfckform')->update($data);
+			$res = \think\Db::name('antaibao')->update($data);
 			if($res){
-				return $this->success('修改成功', 'lists');
+				return $this->success('审核成功', 'lists');
 			}else{
-				return $this->error('修改失败');
+				return $this->error('审核失败');
 			}
 		}
 		return $this->fetch();
@@ -41,22 +39,7 @@ class Antaibao extends Basic {
 		return $this->fetch();
 	}
 
-	public function add(){
-		$data = [
-			'name'=>input('name'),
-			'dianhua'=>input('tel'),
-			'shijian'=>input('time'),
-			'miaoshu'=>input('desc'),
-			'queren'=>input('queren'),
-		];
 
-		$res = \think\Db::name('atfckform')->insert($data);
-		if($res){
-			echo "<script>alert('提交成功！'); history.go(-1)</script>";
-		}else{
-			echo "<script>alert('提交失败，请重新提交！'); history.go(-1)</script>";
-		}
-	}
 
 
 

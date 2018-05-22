@@ -14,12 +14,13 @@
 			<input type="hidden" name="id" value="{$admins.id}">
 			<div class="form-group">
 				<label for="username">用户名</label>
-				<input type="text" class="form-control" id="username" name="username" value="{$admins.username}">
+				<input type="text" class="form-control" id="username" name="username" {if condition="$admins.type eq 2"}readonly{else}{/if} value="{$admins.username}">
 			</div>
 			<div class="form-group">
 				<label for="name">姓名</label>
 				<input type="text" class="form-control" id="name" name="name" value="{$admins.name}">
 			</div>
+			{if condition="$admins.type eq 1"}
 			<div class="form-group">
 				<label for="type">类型</label>
 				<select class="form-control" name="type" id="type">
@@ -28,6 +29,7 @@
 					<option value="2">客服</option>
 				</select>
 			</div>
+			{else}{/if}
 			<div class="form-group">
 				<label for="password">password</label>
 				<input type="password" class="form-control" id="password" name="password">

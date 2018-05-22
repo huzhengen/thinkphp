@@ -31,16 +31,7 @@
 				<label for="">提交时间：{$patientLists.tjtime}</label>
 			</div>
 			<div class="form-group">
-				<label for="">姓名：{$patientLists.name}</label>
-			</div>
-			<div class="form-group">
 				<label for="">电话：{$patientLists.dianhua}</label>
-			</div>
-			<div class="form-group">
-				<label for="">预约时间：{$patientLists.shijian}</label>
-			</div>
-			<div class="form-group">
-				<label for="miaoshu">描述：{$patientLists.miaoshu}</label>
 			</div>
 			<div class="form-group">
 				<label for="">归属地：{$patientLists.padd}</label>
@@ -70,16 +61,13 @@
 			</div>
 			{/if}
 			<div class="form-group">
-				<label for="">备注{$patientLists.id}</label>
+				<label for="">备注</label>
 				<textarea class="form-control" rows="3" name="beizhu">{$patientLists.beizhu}</textarea>
 			</div>
-			<button type="submit" class="btn btn-default">确认审核</button>
+			<button type="submit" class="btn btn-default">提交</button>
 			<button type="button" class="btn btn-default" onclick="history.go(-1)" value="返回">返回</button>
 		</form>
 	</div>
-	<!--{elseif condition="empty($patientLists.id) eq true"}-->
-	<!--{elseif condition=" $patientLists.id  eq '' "}-->
-	<!--<script>alert('无效id');history.go(-1)</script>-->
 	{else}
 	<script>alert('没有权限');history.go(-1)</script>
 	{/if}

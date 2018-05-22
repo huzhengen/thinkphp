@@ -118,31 +118,5 @@
 </div>
 </div>
 {include file="public/footer" /}
-<script language="javascript" type="text/javascript" src="/public/static/admin/lib/My97DatePicker/WdatePicker.js"></script>
-<script type="text/javascript" src="/public/static/admin/lib/ueditor/ueditor.config.js"></script>
-<script type="text/javascript" src="/public/static/admin/lib/ueditor/ueditor.all.min.js"></script>
-<script type="text/javascript" src="/public/static/admin/lib/ueditor/lang/zh-cn/zh-cn.js"></script>
-<script type="text/javascript">
-    UE.getEditor('liaotian', {initialFramWidth: '100%', initialFramHeight: 1000});
-    var nowDate = new Date();
-    var timeStr = nowDate.getFullYear()+"-"+(addzero(nowDate.getMonth() + 1))+"-"+addzero(nowDate.getDate())+" "+nowDate.getHours()+":"+addzero(nowDate.getMinutes())+":"+addzero(nowDate.getSeconds());
-    $('.inittime').val(timeStr);
-    function addzero(dateVal) {
-        return dateVal < 10 ? '0' + dateVal: dateVal;
-    }
-    qudao();
-    $('#qudao').change(function () {
-        qudao();
-    })
-    function qudao(){
-        var qudaoVal = $('#qudao').val();
-        console.log(qudaoVal)
-        if(qudaoVal == '商务通' || qudaoVal == '微信' || qudaoVal == 'QQ'){
-            $('#ltjl').show();
-        }else{
-            $('#ltjl').hide();
-        }
-    }
-</script>
 </body>
 </html>
