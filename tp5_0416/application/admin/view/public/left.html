@@ -3,7 +3,6 @@
 		<a href="{:url('order/add')}" class="list-group-item">添加信息</a>
 	</div>
 	<div class="list-group">
-		<a href="#" class="list-group-item disabled">用户信息</a>
 		<a href="{:url('order/listsmyself')}" class="list-group-item">自己信息</a>
 		<a href="{:url('order/lists')}" class="list-group-item">全部信息</a>
 		<!--<a href="{:url('order/listsquery')}" class="list-group-item">查询信息</a>-->
@@ -16,7 +15,6 @@
 	</div>
 	{if condition="session('type') eq 1"}
 	<div class="list-group">
-		<a href="#" class="list-group-item disabled">系统管理</a>
 		<a href="{:url('admin/lists')}" class="list-group-item">查看用户</a>
 		<a href="{:url('admin/add')}" class="list-group-item">新增用户</a>
 		<a href="{:url('admin/listslock')}" class="list-group-item">锁定账户</a>

@@ -5,6 +5,24 @@ use think\Controller;
 class Order extends Basic {
 	public function lists(){
 		$orderList = \think\Db::name('order')->where('del', 0)->order('id', 'desc')->paginate('15');
+		if(request()->isAjax()){
+			$id = input('id');
+			$daozhen = input('daozhen');
+			$dztime = date('Y-m-d H:i:s', time());
+			if($daozhen == 1){
+				$data = [
+					'daozhen' => input('daozhen'),
+					'dztime' => $dztime,
+				];
+				$res = \think\Db::name('order')->where('id', $id)->update($data);
+				if($res){
+					$ajaxdztime = \think\Db::name('order')->where('del', 0)->where('id', $id)->select();
+					return $ajaxdztime;
+				}
+			}else{
+				return '没有变化';
+			}
+		}
 		if(request()->isPost()){
 			$begintime = input('begintime') . ' 00:00:00';
 			$endtime = input('endtime') . ' 23:59:59';
@@ -102,48 +120,92 @@ class Order extends Basic {
 		$datebegin = date("Y-m-d",time());
 		$dateend = date("Y-m-d",time()+3600*24);
 		$orderList = \think\Db::name('order')->where('del', 0)->where('djtime', 'between', [$datebegin, $dateend])->order('id', 'desc')->paginate('15');
-		$time = input('time');
-		$timebegin = $time . ' 00:00:00';
-		$timeend = $time . ' 23:59:59';
-		if($time){
-			$orderList = \think\Db::name('order')
-				->where('del', 0)
-				->where('djtime','between', [$timebegin, $timeend])
-				->order('id', 'desc')->paginate('15');
+		if(request()->isAjax()){
+			$id = input('id');
+			$daozhen = input('daozhen');
+			$dztime = date('Y-m-d H:i:s', time());
+			if($daozhen == 1){
+				$data = [
+					'daozhen' => input('daozhen'),
+					'dztime' => $dztime,
+				];
+				$res = \think\Db::name('order')->where('id', $id)->update($data);
+				if($res){
+					$ajaxdztime = \think\Db::name('order')->where('del', 0)->where('id', $id)->select();
+					return $ajaxdztime;
+				}
+			}else{
+				return '没有变化';
+			}
+		}
+		if(request()->isPost()){
+			$time = input('time');
+			$timebegin = $time . ' 00:00:00';
+			$timeend = $time . ' 23:59:59';
+			if($time){
+				$orderList = \think\Db::name('order')
+					->where('del', 0)
+					->where('djtime','between', [$timebegin, $timeend])
+					->order('id', 'desc')->paginate('15');
+			}
 		}
 		$this->assign('orderList', $orderList);
 		return $this->fetch();
 	}
+
 	//今日预约
 	public function listsordertoday(){
 		$datebegin = date("Y-m-d",time());
 		$dateend = date("Y-m-d",time()+3600*24);
 		$orderList = \think\Db::name('order')->where('del', 0)->where('yytime', 'between', [$datebegin, $dateend])->order('id', 'desc')->paginate('15');
-		$time = input('time');
-		$timebegin = $time . ' 00:00:00';
-		$timeend = $time . ' 23:59:59';
-		if($time){
-			$orderList = \think\Db::name('order')
-				->where('del', 0)
-				->where('yytime','between', [$timebegin, $timeend])
-				->order('id', 'desc')->paginate('15');
+		if(request()->isAjax()){
+			$id = input('id');
+			$daozhen = input('daozhen');
+			$dztime = date('Y-m-d H:i:s', time());
+			if($daozhen == 1){
+				$data = [
+					'daozhen' => input('daozhen'),
+					'dztime' => $dztime,
+				];
+				$res = \think\Db::name('order')->where('id', $id)->update($data);
+				if($res){
+					$ajaxdztime = \think\Db::name('order')->where('del', 0)->where('id', $id)->select();
+					return $ajaxdztime;
+				}
+			}else{
+				return '没有变化';
+			}
+		}
+		if(request()->isPost()){
+			$time = input('time');
+			$timebegin = $time . ' 00:00:00';
+			$timeend = $time . ' 23:59:59';
+			if($time){
+				$orderList = \think\Db::name('order')
+					->where('del', 0)
+					->where('yytime','between', [$timebegin, $timeend])
+					->order('id', 'desc')->paginate('15');
+			}
 		}
 		$this->assign('orderList', $orderList);
 		return $this->fetch();
 	}
+
 	//今日到诊
 	public function listsdztoday(){
 		$datebegin = date("Y-m-d",time());
 		$dateend = date("Y-m-d",time()+3600*24);
 		$orderList = \think\Db::name('order')->where('del', 0)->where('dztime', 'between', [$datebegin, $dateend])->order('id', 'desc')->paginate('15');
-		$time = input('time');
-		$timebegin = $time . ' 00:00:00';
-		$timeend = $time . ' 23:59:59';
-		if($time){
-			$orderList = \think\Db::name('order')
-				->where('del', 0)
-				->where('dztime','between', [$timebegin, $timeend])
-				->order('id', 'desc')->paginate('15');
+		if(request()->isPost()){
+			$time = input('time');
+			$timebegin = $time . ' 00:00:00';
+			$timeend = $time . ' 23:59:59';
+			if($time){
+				$orderList = \think\Db::name('order')
+					->where('del', 0)
+					->where('dztime','between', [$timebegin, $timeend])
+					->order('id', 'desc')->paginate('15');
+			}
 		}
 		$this->assign('orderList', $orderList);
 		return $this->fetch();
@@ -158,13 +220,21 @@ class Order extends Basic {
 	}
 
 	public function add(){
+		$djtime = date('Y-m-d H:i:s', time());
+		$yytime = input('yytime');
+		if($yytime){
+			$yuyue = 1;
+		}else{
+			$yuyue = 0;
+		}
 		if(request()->isPost()){
 			$data = [
 				'name' => input('name'),
 				'sex' => input('sex'),
 				'age' => input('age'),
-				'djtime' => input('djtime'),
-				'xgtime' => input('xgtime'),
+//				'djtime' => input('djtime'),
+				'djtime' => $djtime,
+				'xgtime' => $djtime,
 				'yytime' => input('yytime'),
 				'dztime' => input('dztime'),
 				'kefu' => input('kefu'),
@@ -172,7 +242,9 @@ class Order extends Basic {
 				'desc' => input('desc'),
 				'qudao' => input('qudao'),
 				'beizhu' => input('beizhu'),
+				'yuyue' => $yuyue,
 				'daozhen' => input('daozhen'),
+				'czfz' => input('czfz'),
 				'tel' => input('tel'),
 				'del' => input('del'),
 				'keshi' => input('keshi'),
@@ -220,22 +292,30 @@ class Order extends Basic {
 		$orderList = db('order')->where('id', $id)->find();
 		$this->assign('orderList', $orderList);
 		if(request()->isPost()){
+			$yytime = input('yytime');
+			$dztime = input('dztime');
+			if($yytime){
+				$yuyue = 1;
+			}else{
+				$yuyue = 0;
+			}
+			if($dztime){
+				$daozhen = 1;
+			}else{
+				$daozhen = 0;
+			}
 			$data = [
-				'name' => input('name'),
 				'sex' => input('sex'),
 				'age' => input('age'),
-				'djtime' => input('djtime'),
 				'xgtime' => input('xgtime'),
 				'yytime' => input('yytime'),
 				'dztime' => input('dztime'),
-				'kefu' => input('kefu'),
-				'kefuid' => input('kefuid'),
 				'desc' => input('desc'),
 				'qudao' => input('qudao'),
 				'beizhu' => input('beizhu'),
-				'daozhen' => input('daozhen'),
-				'tel' => input('tel'),
-				'del' => input('del'),
+				'yuyue' => $yuyue,
+				'daozhen' => $daozhen,
+				'czfz' => input('czfz'),
 				'keshi' => input('keshi'),
 				'doctor' => input('doctor'),
 				'weixin' => input('weixin'),
@@ -245,18 +325,14 @@ class Order extends Basic {
 				'liaotian' => input('liaotian'),
 				'yuanqu' => input('yuanqu'),
 				'type' => input('type'),
-				'disease' => input('disease'),
 			];
 			$validate = \think\Loader::validate('order');
-			if($validate->check($data)){
-				$res = \think\Db::name('order')->where('id', $id)->update($data);
-				if($res){
-					$this->success('修改成功', 'lists');
-				}else{
-					$this->error('修改失败');
-				}
+			$res = \think\Db::name('order')->where('id', $id)->update($data);
+			if($res){
+//				$this->success('修改成功', 'lists');
+				echo "<script>alert('修改成功');history.go(-2)</script>";
 			}else{
-				return $this->error($validate->getError());
+				$this->error('修改失败');
 			}
 		}
 		return $this->fetch();

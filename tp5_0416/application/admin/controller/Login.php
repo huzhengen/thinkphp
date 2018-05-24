@@ -2,6 +2,7 @@
 namespace app\admin\controller;
 use think\Controller;
 use app\admin\model\Login as Log;
+use think\Request;
 
 class Login extends Controller{
 	public function login(){
@@ -31,7 +32,15 @@ class Login extends Controller{
 					$login = new Log;
 					$status = $login->login(input('username'), input('password'));
 					if($status === 1){
-						return $this->success('登陆成功，正在跳转', 'order/lists');
+						$id = session('id');
+						$logintime = date('Y-m-d H:i:s', time());
+						$loginip = Request::instance()->ip();
+						$data = [
+							'logintime' => $logintime,
+							'loginip' => $loginip,
+						];
+						\think\Db::name('admin')->where('id', $id)->update($data);
+						return $this->success('登陆成功，正在跳转', 'index/index');
 					}else if($status === 4){
 						return $this->error('该用户已被锁定，无法登录');
 					}else if($status === 2){
@@ -48,7 +57,15 @@ class Login extends Controller{
 					$login = new Log;
 					$status = $login->login(input('username'), input('password'));
 					if($status === 1){
-						return $this->success('登陆成功，正在跳转', 'order/lists');
+						$id = session('id');
+						$logintime = date('Y-m-d H:i:s', time());
+						$loginip = Request::instance()->ip();
+						$data = [
+							'logintime' => $logintime,
+							'loginip' => $loginip,
+						];
+						\think\Db::name('admin')->where('id', $id)->update($data);
+						return $this->success('登陆成功，正在跳转', 'index/index');
 					}else if($status === 4){
 						return $this->error('该用户已被锁定，无法登录');
 					}else if($status === 2){

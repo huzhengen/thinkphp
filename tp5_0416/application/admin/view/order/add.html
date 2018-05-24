@@ -112,11 +112,6 @@
 					<input type="hidden" name="kefuid" value="<?php echo session('id'); ?>">
 				</div>
 				<div class="form-group">
-					<label for="djtime">登记时间</label>
-					<input type="text" value="" class="form-control Wdate inittime" readonly id="djtime" name="djtime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})">
-					<input type="hidden" value="" class="form-control Wdate inittime" id="xgtime" name="xgtime">
-				</div>
-				<div class="form-group">
 					<label for="yytime">预约时间</label>
 					<input type="text" value="" class="form-control Wdate" id="" name="yytime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})">
 				</div>
@@ -125,9 +120,8 @@
 					<input type="text" value="" class="form-control Wdate" id="" name="dztime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})">
 				</div>
 				<div class="form-group">
-					<label for="daozhen">类别（未到诊/初诊/复诊）</label>
-					<select class="form-control" name="daozhen">
-						<option value="0">未到诊</option>
+					<label for="czfz">初诊/复诊</label>
+					<select class="form-control" name="czfz">
 						<option value="1">初诊</option>
 						<option value="2">复诊</option>
 					</select>

@@ -18,11 +18,13 @@ class Patient extends Basic {
 
 	public function edit(){
 		$id = input('id');
+		$shtime = date('Y-m-d H:i:s', time());
 		$patientLists = db('atfckform')->find($id);
 		$this->assign('patientLists', $patientLists);
 		if(request()->isPost()){
 			$data = [
 				'id'=>input('id'),
+				'shtime' => $shtime,
 				'queren'=>input('queren'),
 				'kefuid'=>input('kefuid'),
 				'kefutype'=>input('kefutype'),
@@ -31,9 +33,11 @@ class Patient extends Basic {
 			];
 			$res = \think\Db::name('atfckform')->update($data);
 			if($res){
-				return $this->success('修改成功', 'lists');
+//				return $this->success('修改成功', 'lists');
+//				return $this->success('修改成功');
+				echo "<script>alert('审核成功');history.go(-2)</script>";
 			}else{
-				return $this->error('修改失败');
+				return $this->error('审核失败');
 			}
 		}
 		return $this->fetch();
@@ -42,24 +46,5 @@ class Patient extends Basic {
 	public function del(){
 		return $this->fetch();
 	}
-
-	public function add(){
-		$data = [
-			'name'=>input('name'),
-			'dianhua'=>input('tel'),
-			'shijian'=>input('time'),
-			'miaoshu'=>input('desc'),
-			'queren'=>input('queren'),
-		];
-
-		$res = \think\Db::name('atfckform')->insert($data);
-		if($res){
-			echo "<script>alert('提交成功！'); history.go(-1)</script>";
-		}else{
-			echo "<script>alert('提交失败，请重新提交！'); history.go(-1)</script>";
-		}
-	}
-
-
 
 }

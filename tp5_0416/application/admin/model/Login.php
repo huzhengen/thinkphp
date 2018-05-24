@@ -7,7 +7,6 @@ class Login extends Model{
 	//获取控制器传过来的登录名和密码，根据登录名在数据库中获取密码
 	//若密码一样则给控制器返回1，若密码存在但是不一样放回2，或密码不存在返回3
 	public function login($username, $password){
-//		var_dump($username);
 		$admin = \think\Db::name('admin')->where('username' , '=', $username)->find();
 		if($admin){
 			if($admin['password'] === md5($password) && $admin['lock'] != 1){
@@ -16,6 +15,8 @@ class Login extends Model{
 				\think\Session::set('username', $admin['username']);
 				\think\Session::set('name', $admin['name']);
 				\think\Session::set('type', $admin['type']);
+				\think\Session::set('logintime', $admin['logintime']);
+				\think\Session::set('loginip', $admin['loginip']);
 				return 1;
 			}else if($admin['lock'] = 1){
 				return 4;
