@@ -62,7 +62,7 @@
 
 <script>
     setInterval(function () {
-        $.get('http://test.com/index.php/admin/patient/listsAjax',function(data1){
+        $.get('http://test.com/index.php/admin/antaibao/listsAjax',function(data1){
             var len = data1.total;
             // console.log(len);
             var storage = localStorage.getItem("radarResult");
@@ -114,7 +114,7 @@
             var popNotice = function() {
                 if (Notification.permission == "granted") {
                     var notification = new Notification("通知", {
-                        body: '有新患者了',
+                        body: '安太宝有新留电',
                         icon: 'http://image.zhangxinxu.com/image/study/s/s128/mm1.jpg'
                     });
 

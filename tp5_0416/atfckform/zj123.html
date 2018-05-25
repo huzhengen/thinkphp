@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>在线自助挂号</title>
+</head>
+<body>
+<div class="guahao" id="skipguahao" style="text-align: center;">
+	<h3>在线自助挂号</h3>
+	<h4>(网络预约 免排队当日就诊<span>*信息已加密*</span>)</h4>
+	<form action="http://test.com/atfckform/zj.php" enctype="multipart/form-data" method="post" id="guahao">
+		<input type="hidden" name="action" value="post" />
+		<input type="hidden" name="diyid" value="1" />
+		<input type="hidden" name="do" value="2" />
+		<input type="hidden" name="queren" value="0" />
+		<p><input type="text" class="name" name="name" placeholder="请输入您的姓名" datatype="s2-10" nullmsg="请输入您的姓名" errormsg="姓名至少输入2个汉字"></p>
+		<p><input type="text" class="tel" name="tel" placeholder="请输入您的电话" datatype="n7-18" nullmsg="请输入您的电话" errormsg="电话格式不对"></p>
+		<p class="time">就诊时间：<input type='radio' name='time' value='今天' checked>今天 <input type='radio' name='time' value='明天'>明天 <input type='radio' name='time' value='后天'>后天 <input type='radio' name='time' value='一周内'>一周内</p>
+		<p>
+			<textarea name='desc' id='desc' class="desc" placeholder="请简单阐述您的病情..." datatype="s4-18" nullmsg="请输阐述您的病情..." errormsg="病情描述至少4个汉字"></textarea>
+			<input name="tjsj" type="hidden" value="" type="text" id="tjsj" />
+		</p>
+		<p><input type="hidden" name="dede_fields" value="name,text;time,radio;tel,text;tjsj,datetime;desc,multitext" />
+			<input type="hidden" name="dede_fieldshash" value="43c45426faa025c72304221246f43d6a" /></p>
+		<p>
+			<button name="submit">提交信息</button>
+		</p>
+	</form>
+</div>
+
+</body>
+</html>

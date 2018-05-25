@@ -24,8 +24,10 @@ class Order extends Basic {
 			}
 		}
 		if(request()->isPost()){
-			$begintime = input('begintime') . ' 00:00:00';
-			$endtime = input('endtime') . ' 23:59:59';
+			$btime = input('begintime');
+			$begintime = $btime . ' 00:00:00';
+			$etime = input('endtime');
+			$endtime = $etime . ' 23:59:59';
 			$kefu = input('kefu');
 			$id = input('id');
 			$disease = input('disease');
@@ -34,13 +36,20 @@ class Order extends Basic {
 			$tel = input('tel');
 			$weixin = input('weixin');
 			$qq = input('qq');
-			if($begintime && !$endtime){
+
+			if($btime && !$etime){
 				$orderList = \think\Db::name('order')
 					->where('del', 0)
 					->where('djtime','>', $begintime)
 					->order('id', 'desc')->paginate('15');
 			}
-			if($begintime && $endtime){
+			if(!$btime && $etime){
+				$orderList = \think\Db::name('order')
+					->where('del', 0)
+					->where('djtime','<', $endtime)
+					->order('id', 'desc')->paginate('15');
+			}
+			if($btime && $etime){
 				$orderList = \think\Db::name('order')
 					->where('del', 0)
 					->where('djtime','>', $begintime)
@@ -48,51 +57,61 @@ class Order extends Basic {
 					->order('id', 'desc')->paginate('15');
 			}
 			if($kefu){
+				dump($kefu);
+				$kefu = '%' . $kefu . '%';
 				$orderList = \think\Db::name('order')
 					->where('del', 0)
-					->where('kefu', $kefu)
+					->where('kefu', 'like', $kefu)
 					->order('id', 'desc')->paginate('15');
 			}
 			if($id){
+				$id = '%' . $id . '%';
 				$orderList = \think\Db::name('order')
 					->where('del', 0)
-					->where('id', $id)
+					->where('id', 'like', $id)
 					->order('id', 'desc')->paginate('15');
 			}
 			if($disease){
+				$disease = '%' . $disease . '%';
 				$orderList = \think\Db::name('order')
 					->where('del', 0)
-					->where('disease', $disease)
+					->where('disease', 'like', $disease)
 					->order('id', 'desc')->paginate('15');
 			}
 			if($name){
+				dump($name);
+				$name = '%' . $name . '%';
 				$orderList = \think\Db::name('order')
 					->where('del', 0)
-					->where('name', $name)
+					->where('name', 'like', $name)
 					->order('id', 'desc')->paginate('15');
 			}
 			if($beizhu){
+				$beizhu = '%' . $beizhu . '%';
 				$orderList = \think\Db::name('order')
 					->where('del', 0)
-					->where('beizhu', $beizhu)
+					->where('beizhu',  'like', $beizhu)
 					->order('id', 'desc')->paginate('15');
 			}
 			if($tel){
+				$tel = '%' . $tel . '%';
 				$orderList = \think\Db::name('order')
 					->where('del', 0)
-					->where('tel', $tel)
+					->where('tel', 'like', $tel)
 					->order('id', 'desc')->paginate('15');
 			}
 			if($weixin){
+				$weixin = '%' . $weixin . '%';
 				$orderList = \think\Db::name('order')
 					->where('del', 0)
-					->where('weixin', $weixin)
+					->where('weixin', 'like', $weixin)
 					->order('id', 'desc')->paginate('15');
 			}
 			if($qq){
+				$qq = '%' . $qq . '%';
 				$orderList = \think\Db::name('order')
 					->where('del', 0)
-					->where('qq', $qq)
+					->where('qq', 'like', $qq)
 					->order('id', 'desc')->paginate('15');
 			}
 		}

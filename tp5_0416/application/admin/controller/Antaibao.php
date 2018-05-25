@@ -12,6 +12,12 @@ class Antaibao extends Basic {
 		return $this->fetch();
 	}
 
+	public function listsAjax(){
+		$patientLists = \think\Db::name('antaibao')->order('id DESC')->paginate();
+		$this->assign('patientLists', $patientLists);
+		return $patientLists;
+	}
+
 	public function edit(){
 		$id = input('id');
 		$shtime = date('Y-m-d H:i:s', time());

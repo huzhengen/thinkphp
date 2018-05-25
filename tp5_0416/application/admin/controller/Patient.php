@@ -10,6 +10,7 @@ class Patient extends Basic {
 		$this->assign('patientLists', $patientLists);
 		return $this->fetch();
 	}
+
 	public function listsAjax(){
 		$patientLists = \think\Db::name('atfckform')->order('id DESC')->paginate();
 		$this->assign('patientLists', $patientLists);
