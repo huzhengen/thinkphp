@@ -57,7 +57,6 @@ class Order extends Basic {
 					->order('id', 'desc')->paginate('15');
 			}
 			if($kefu){
-				dump($kefu);
 				$kefu = '%' . $kefu . '%';
 				$orderList = \think\Db::name('order')
 					->where('del', 0)
@@ -79,7 +78,6 @@ class Order extends Basic {
 					->order('id', 'desc')->paginate('15');
 			}
 			if($name){
-				dump($name);
 				$name = '%' . $name . '%';
 				$orderList = \think\Db::name('order')
 					->where('del', 0)
@@ -241,10 +239,16 @@ class Order extends Basic {
 	public function add(){
 		$djtime = date('Y-m-d H:i:s', time());
 		$yytime = input('yytime');
+		$dztime = input('dztime');
 		if($yytime){
 			$yuyue = 1;
 		}else{
 			$yuyue = 0;
+		}
+		if($dztime){
+			$daozhen = 1;
+		}else{
+			$daozhen = 0;
 		}
 		if(request()->isPost()){
 			$data = [
@@ -262,7 +266,7 @@ class Order extends Basic {
 				'qudao' => input('qudao'),
 				'beizhu' => input('beizhu'),
 				'yuyue' => $yuyue,
-				'daozhen' => input('daozhen'),
+				'daozhen' => $daozhen,
 				'czfz' => input('czfz'),
 				'tel' => input('tel'),
 				'del' => input('del'),
@@ -278,17 +282,17 @@ class Order extends Basic {
 				'disease' => input('disease'),
 			];
 			// 判断表单是否上传了文件
-			if($_FILES['pic']['tmp_name']){
-				//获取表单上传的文件
-				$file = request()->file('pic');
-				//移动到框架应用根目录/public/uploads/目录下
-				$info = $file->move(ROOT_PATH . 'public' . DS . '/static/uploads');
-				if($info){
-					$data['pic'] = '/static/uploads' . '/' . date('Ymd') . '/' . $info->getFilename();
-				}else{
-					return $this->error($file->getError());
-				}
-			}
+//			if($_FILES['pic']['tmp_name']){
+//				//获取表单上传的文件
+//				$file = request()->file('pic');
+//				//移动到框架应用根目录/public/uploads/目录下
+//				$info = $file->move(ROOT_PATH . 'public' . DS . '/static/uploads');
+//				if($info){
+//					$data['pic'] = '/static/uploads' . '/' . date('Ymd') . '/' . $info->getFilename();
+//				}else{
+//					return $this->error($file->getError());
+//				}
+//			}
 			// 对输入的内容进行验证，使用tp5推荐的验证器的方式
 			$validate = \think\Loader::validate('order');
 			if($validate->check($data)){
@@ -311,6 +315,7 @@ class Order extends Basic {
 		$orderList = db('order')->where('id', $id)->find();
 		$this->assign('orderList', $orderList);
 		if(request()->isPost()){
+			$xgtime = date('Y-m-d H:i:s', time());
 			$yytime = input('yytime');
 			$dztime = input('dztime');
 			if($yytime){
@@ -326,7 +331,7 @@ class Order extends Basic {
 			$data = [
 				'sex' => input('sex'),
 				'age' => input('age'),
-				'xgtime' => input('xgtime'),
+				'xgtime' => $xgtime,
 				'yytime' => input('yytime'),
 				'dztime' => input('dztime'),
 				'desc' => input('desc'),

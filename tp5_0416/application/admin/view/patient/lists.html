@@ -25,7 +25,7 @@
 				<th>归属地</th>
 				<th>设备</th>
 				<th width="1%">网址</th>
-				<th width="5%">操作</th>
+				<th width="6%">操作</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -67,13 +67,13 @@
 
 <script>
     setInterval(function () {
-        $.get('http://test.com/index.php/admin/patient/listsAjax',function(data1){
+        $.get('/index.php/admin/patient/listsAjax',function(data1){
             var len = data1.total;
             // console.log(len);
-            var storage = localStorage.getItem("radarResult");
+            var storage = localStorage.getItem("patientResult");
             if (storage == null) {
                 console.log('localstorage目前是空的');
-                localStorage.setItem("radarResult", len);
+                localStorage.setItem("patientResult", len);
             }else{
 				// console.log(storage);
 	            console.log(data1.total, parseInt(storage));
@@ -82,12 +82,12 @@
                     tixing();
                     desktop()
                     var len = data1.total;
-                    localStorage.setItem("radarResult", len);
+                    localStorage.setItem("patientResult", len);
 				}else{
 				    console.log('数据没有变化，不提醒')
 				}
             }
-            // localStorage.setItem("radarResult_" + len + "", len); //存储的时候 使用JSON.stringify()将对象解析出字符串
+            // localStorage.setItem("patientResult" + len + "", len); //存储的时候 使用JSON.stringify()将对象解析出字符串
 
             // console.log(data1.total)
             // console.log(data1.data[0].id);
@@ -119,7 +119,7 @@
             var popNotice = function() {
                 if (Notification.permission == "granted") {
                     var notification = new Notification("通知", {
-                        body: '有新患者了',
+                        body: '网站预约挂号有新信息',
                         icon: 'http://image.zhangxinxu.com/image/study/s/s128/mm1.jpg'
                     });
 

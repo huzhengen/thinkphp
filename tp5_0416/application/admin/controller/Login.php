@@ -6,6 +6,9 @@ use think\Request;
 
 class Login extends Controller{
 	public function login(){
+		if(session('id')){
+			return $this->success('已登录', 'index/index');
+		}
 		if(request()->isPost()){
 
 			/**
@@ -16,7 +19,7 @@ class Login extends Controller{
 //			require_once dirname(dirname(__FILE__)) . '/config/config.php';
 			require_once '/gt3-php-sdk/lib/class.geetestlib.php';
 			require_once '/gt3-php-sdk/config/config.php';
-			session_start();
+//			session_start();
 			$GtSdk = new \GeetestLib(CAPTCHA_ID, PRIVATE_KEY);
 
 			$data = array(

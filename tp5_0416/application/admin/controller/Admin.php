@@ -5,7 +5,7 @@ use think\Controller;
 class Admin extends Basic{
 	public function lists(){
 		if(session('type') != 1){
-			echo "<script>alert('木有权限');history.go(-1)</script>";
+			echo "<script>alert('需要管理员权限');history.go(-1)</script>";
 		}else{
 			$adminres = \think\Db::name('admin')->where('lock', '0')->paginate(11);
 			$this->assign('adminres', $adminres);

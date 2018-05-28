@@ -30,7 +30,7 @@
 			<tr>
 				<td>{$vo.id}</td>
 				<td>{$vo.tjtime}</td>
-				<td>{$vo.shtime} - {$vo.kefuname}</td>
+				<td>{if condition="$vo.shtime"}{$vo.shtime} - {$vo.kefuname}{/if}</td>
 				<td>{$vo.ip}</td>
 				<td>{if condition="$vo.queren eq 1"}*******{$vo.dianhua|substr=7,10}{else}{$vo.dianhua}{/if}<span class="colorred">({volist name="tel" id="telvo"}{if condition="$vo.dianhua eq $telvo.dianhua"}{$telvo['count(dianhua)']}{/if}{/volist})</span></td>
 				<td>{$vo.padd}</td>
@@ -62,13 +62,13 @@
 
 <script>
     setInterval(function () {
-        $.get('http://test.com/index.php/admin/antaibao/listsAjax',function(data1){
+        $.get('/index.php/admin/antaibao/listsAjax',function(data1){
             var len = data1.total;
             // console.log(len);
-            var storage = localStorage.getItem("radarResult");
+            var storage = localStorage.getItem("antaibaoResult");
             if (storage == null) {
                 console.log('localstorage目前是空的');
-                localStorage.setItem("radarResult", len);
+                localStorage.setItem("antaibaoResult", len);
             }else{
 				// console.log(storage);
 	            console.log(data1.total, parseInt(storage));
@@ -77,12 +77,12 @@
                     tixing();
                     desktop()
                     var len = data1.total;
-                    localStorage.setItem("radarResult", len);
+                    localStorage.setItem("antaibaoResult", len);
 				}else{
 				    console.log('数据没有变化，不提醒')
 				}
             }
-            // localStorage.setItem("radarResult_" + len + "", len); //存储的时候 使用JSON.stringify()将对象解析出字符串
+            // localStorage.setItem("antaibaoResult" + len + "", len); //存储的时候 使用JSON.stringify()将对象解析出字符串
 
             // console.log(data1.total)
             // console.log(data1.data[0].id);

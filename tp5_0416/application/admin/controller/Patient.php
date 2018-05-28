@@ -4,15 +4,15 @@ use think\Controller;
 
 class Patient extends Basic {
 	public function lists(){
-		$tel = \think\Db::name('atfckform')->field('dianhua,count(dianhua)')->group('dianhua')->select();
+		$tel = \think\Db::name('atfck')->field('dianhua,count(dianhua)')->group('dianhua')->select();
 		$this->assign('tel', $tel);
-		$patientLists = \think\Db::name('atfckform')->order('id DESC')->paginate();
+		$patientLists = \think\Db::name('atfck')->order('id DESC')->paginate();
 		$this->assign('patientLists', $patientLists);
 		return $this->fetch();
 	}
 
 	public function listsAjax(){
-		$patientLists = \think\Db::name('atfckform')->order('id DESC')->paginate();
+		$patientLists = \think\Db::name('atfck')->order('id DESC')->paginate();
 		$this->assign('patientLists', $patientLists);
 		return $patientLists;
 	}
@@ -20,7 +20,7 @@ class Patient extends Basic {
 	public function edit(){
 		$id = input('id');
 		$shtime = date('Y-m-d H:i:s', time());
-		$patientLists = db('atfckform')->find($id);
+		$patientLists = db('atfck')->find($id);
 		$this->assign('patientLists', $patientLists);
 		if(request()->isPost()){
 			$data = [
@@ -32,7 +32,7 @@ class Patient extends Basic {
 				'kefuname'=>input('kefuname'),
 				'beizhu'=>input('beizhu'),
 			];
-			$res = \think\Db::name('atfckform')->update($data);
+			$res = \think\Db::name('atfck')->update($data);
 			if($res){
 //				return $this->success('修改成功', 'lists');
 //				return $this->success('修改成功');

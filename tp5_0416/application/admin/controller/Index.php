@@ -203,7 +203,7 @@ class Index extends Basic
 
 
 	    //网站自助预约（挂号）数据统计
-	    $form = \think\Db::name('atfckform');
+	    $form = \think\Db::name('atfck');
 	    $formtoday = $form->where('tjtime', 'between', [$todaytime, $tomorrowtime])->count();
 	    $formtodayyes = $form->where('queren', '1')->where('tjtime', 'between', [$todaytime, $tomorrowtime])->count();
 	    $formtodayno = $form->where('queren', '0')->where('tjtime', 'between', [$todaytime, $tomorrowtime])->count();

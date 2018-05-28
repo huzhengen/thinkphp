@@ -4,7 +4,6 @@
 	{include file="public/head" /}
 	<title>修改信息</title>
 	<link href="http://www.bootcss.com/p/bootstrap-datetimepicker/bootstrap-datetimepicker/css/datetimepicker.css" rel="stylesheet">
-	<link href="/public/static/admin/lib/css/admin.css" rel="stylesheet">
 </head>
 <body>
 {include file="public/header" /}
@@ -25,9 +24,13 @@
 							<option value="{$orderList.keshi}">{$orderList.keshi}</option>
 							<option value="妇科">妇科</option>
 							<option value="产科">产科</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
+							<option value="不孕科">不孕科</option>
+							<option value="计生科">计生科</option>
+							<option value="男科">男科</option>
+							<option value="儿科">儿科</option>
+							<option value="口腔科">口腔科</option>
+							<option value="外科">外科</option>
+							<option value="妇产科">妇产科</option>
 						</select>
 					</div>
 					<div class="form-group">
@@ -111,7 +114,6 @@
 					</div>
 					<div class="form-group">
 						<label for="">登记时间：{$orderList.djtime}</label>
-						<input type="hidden" value="{$orderList.xgtime}" class="form-control Wdate inittime" name="xgtime">
 					</div>
 					<div class="form-group">
 						<label for="yytime">预约时间（{if condition="$orderList.yuyue eq 1"}已预约{else}还未预约{/if}）</label>
