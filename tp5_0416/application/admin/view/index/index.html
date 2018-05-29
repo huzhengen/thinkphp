@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 	{include file="public/head" /}
-	<title>后台首页</title>
+	<title>北京安太妇产医院-客服预约管理系统</title>
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
 </head>
 <body>
@@ -26,6 +26,31 @@
 					<li class="list-group-item pdr10"><span>昨日预约：{$allusersyuyueyesterday}</span><span>昨日到诊：{$allusersdaozhenyesterday}</span><span>昨日登记：{$allusersdengjiyesterday}</span></li>
 					<li class="list-group-item pdr10"><span>本月预约：{$allusersyuyuemonth}</span><span>本月到诊：{$allusersdaozhenmonth}</span><span>本月登记：{$allusersdengjimonth}</span></li>
 					<li class="list-group-item pdr10"><span>所有预约：{$allusersyuyue}</span><span>所有到诊：{$allusersdaozhen}</span><span>所有登记：{$allusersdengji}</span></li>
+				</ul>
+			</div>
+			<div class="col-lg-4">
+				<ul class="list-group">
+					<li class="list-group-item active">安太宝（留电）数据统计</li>
+					<li class="list-group-item pdr10"><span>今日留电：{$antaibaotoday}</span><span class="colorred">未处理：{$antaibaotodayno}</span><span class="colorgreen">已处理：{$antaibaotodayyes}</span></li>
+					<li class="list-group-item pdr10"><span>昨日留电：{$antaibaoyesterday}</span><span class="colorred">未处理：{$antaibaoyesterdayno}</span><span class="colorgreen">已处理：{$antaibaoyesterdayyes}</span></li>
+					<li class="list-group-item pdr10"><span>本月留电：{$antaibaomonth}</span><span class="colorred">未处理：{$antaibaomonthno}</span><span class="colorgreen">已处理：{$antaibaomonthyes}</span></li>
+					<li class="list-group-item pdr10"><span>所有留电：{$antaibaoall}</span><span class="colorred">未处理：{$antaibaoallno}</span><span class="colorgreen">已处理：{$antaibaoallyes}</span></li>
+				</ul>
+				<ul class="list-group">
+					<li class="list-group-item active">网站自助预约（挂号）数据统计</li>
+					<li class="list-group-item pdr10"><span>今日留电：{$formtoday}</span><span class="colorred">未处理：{$formtodayno}</span><span class="colorgreen">已处理：{$formtodayyes}</span></li>
+					<li class="list-group-item pdr10"><span>昨日留电：{$formyesterday}</span><span class="colorred">未处理：{$formyesterdayno}</span><span class="colorgreen">已处理：{$formyesterdayyes}</span></li>
+					<li class="list-group-item pdr10"><span>本月留电：{$formmonth}</span><span class="colorred">未处理：{$formmonthno}</span><span class="colorgreen">已处理：{$formmonthyes}</span></li>
+					<li class="list-group-item pdr10"><span>所有留电：{$formall}</span><span class="colorred">未处理：{$formallno}</span><span class="colorgreen">已处理：{$formallyes}</span></li>
+				</ul>
+			</div>
+			<div class="col-lg-4">
+				<ul class="list-group">
+					<li class="list-group-item active">用户信息</li>
+					<li class="list-group-item">当前用户：<?php echo session('name') ?></li>
+					<li class="list-group-item">当前IP：{$ip}</li>
+					<li class="list-group-item">上次登录时间：<?php echo session('logintime') ?></li>
+					<li class="list-group-item">用户类型：<?php if(session('type') == 1){echo '管理员';}else{echo '客服';} ?></li>
 				</ul>
 				<ul class="list-group">
 					<li class="list-group-item active">本月客服初诊排行</li>
@@ -56,29 +81,6 @@
 						</tr>
 						</tbody>
 					</table>
-				</ul>
-			</div>
-			<div class="col-lg-4">
-				<ul class="list-group">
-					<li class="list-group-item active">用户信息</li>
-					<li class="list-group-item">当前用户：<?php echo session('name') ?></li>
-					<li class="list-group-item">当前IP：{$ip}</li>
-					<li class="list-group-item">上次登录时间：<?php echo session('logintime') ?></li>
-					<li class="list-group-item">用户类型：<?php if(session('type') == 1){echo '管理员';}else{echo '客服';} ?></li>
-				</ul>
-				<ul class="list-group">
-					<li class="list-group-item active">安太宝（留电）数据统计</li>
-					<li class="list-group-item pdr10"><span>今日留电：{$antaibaotoday}</span><span class="colorred">未处理：{$antaibaotodayno}</span><span class="colorgreen">已处理：{$antaibaotodayyes}</span></li>
-					<li class="list-group-item pdr10"><span>昨日留电：{$antaibaoyesterday}</span><span class="colorred">未处理：{$antaibaoyesterdayno}</span><span class="colorgreen">已处理：{$antaibaoyesterdayyes}</span></li>
-					<li class="list-group-item pdr10"><span>本月留电：{$antaibaomonth}</span><span class="colorred">未处理：{$antaibaomonthno}</span><span class="colorgreen">已处理：{$antaibaomonthyes}</span></li>
-					<li class="list-group-item pdr10"><span>所有留电：{$antaibaoall}</span><span class="colorred">未处理：{$antaibaoallno}</span><span class="colorgreen">已处理：{$antaibaoallyes}</span></li>
-				</ul>
-				<ul class="list-group">
-					<li class="list-group-item active">网站自助预约（挂号）数据统计</li>
-					<li class="list-group-item pdr10"><span>今日留电：{$formtoday}</span><span class="colorred">未处理：{$formtodayno}</span><span class="colorgreen">已处理：{$formtodayyes}</span></li>
-					<li class="list-group-item pdr10"><span>昨日留电：{$formyesterday}</span><span class="colorred">未处理：{$formyesterdayno}</span><span class="colorgreen">已处理：{$formyesterdayyes}</span></li>
-					<li class="list-group-item pdr10"><span>本月留电：{$formmonth}</span><span class="colorred">未处理：{$formmonthno}</span><span class="colorgreen">已处理：{$formmonthyes}</span></li>
-					<li class="list-group-item pdr10"><span>所有留电：{$formall}</span><span class="colorred">未处理：{$formallno}</span><span class="colorgreen">已处理：{$formallyes}</span></li>
 				</ul>
 			</div>
 		</div>

@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 	{include file="public/head" /}
-	<title>增加信息</title>
+	<title>咨询预约患者登记_{$Think.BASETITLE}</title>
 	<link href="http://www.bootcss.com/p/bootstrap-datetimepicker/bootstrap-datetimepicker/css/datetimepicker.css" rel="stylesheet">
 </head>
 <body>
@@ -15,20 +15,6 @@
 		<form action="" method="post" id="myform" name="myform" enctype="multipart/form-data">
 			<input type="hidden" class="form-control" id="del" name="del" value="0">
 			<div class="col-lg-3">
-				<div class="form-group">
-					<label for="keshi">预约科室</label>
-					<select class="form-control" name="keshi">
-						<option value="妇科">妇科</option>
-						<option value="产科">产科</option>
-						<option value="不孕科">不孕科</option>
-						<option value="计生科">计生科</option>
-						<option value="男科">男科</option>
-						<option value="儿科">儿科</option>
-						<option value="口腔科">口腔科</option>
-						<option value="外科">外科</option>
-						<option value="妇产科">妇产科</option>
-					</select>
-				</div>
 				<div class="form-group">
 					<label for="name" class="colorred">姓名</label>
 					<input type="text" class="form-control" id="name" name="name" placeholder="姓名">
@@ -52,18 +38,39 @@
 					<input type="text" class="form-control" id="disease" name="disease" placeholder="病种">
 				</div>
 				<div class="form-group">
-					<label for="age">年龄</label>
-					<input type="text" class="form-control" id="age" name="age" placeholder="年龄">
+					<label for="yuanqu" class="colorred">就诊院区</label>
+					<select class="form-control" name="yuanqu">
+						<option value="安太">安太</option>
+						<option value="海婴">海婴</option>
+					</select>
 				</div>
 				<div class="form-group">
-					<label for="sex">性别</label>
-					<select class="form-control" name="sex">
-						<option value="女">女</option>
-						<option value="男">男</option>
+					<label for="type">类别</label>
+					<select class="form-control" name="type">
+						<option value="个人">个人</option>
+						<option value="科室">科室</option>
 					</select>
 				</div>
 			</div>
 			<div class="col-lg-3">
+				<div class="form-group telerror">
+					<label for="tel">电话</label>
+					<input type="text" class="form-control" id="tel" name="tel" placeholder="电话">
+				</div>
+				<div class="form-group">
+					<label for="keshi">预约科室</label>
+					<select class="form-control" name="keshi">
+						<option value="妇科">妇科</option>
+						<option value="产科">产科</option>
+						<option value="不孕科">不孕科</option>
+						<option value="计生科">计生科</option>
+						<option value="男科">男科</option>
+						<option value="儿科">儿科</option>
+						<option value="口腔科">口腔科</option>
+						<option value="外科">外科</option>
+						<option value="妇产科">妇产科</option>
+					</select>
+				</div>
 				<div class="form-group">
 					<label for="doctor">预约医生</label>
 					<select class="form-control" name="doctor">
@@ -81,11 +88,19 @@
 						<option value="陈凤林">陈凤林</option>
 					</select>
 				</div>
-
-				<div class="form-group telerror">
-					<label for="tel">电话</label>
-					<input type="text" class="form-control" id="tel" name="tel" placeholder="电话">
+				<div class="form-group">
+					<label for="age">年龄</label>
+					<input type="text" class="form-control" id="age" name="age" placeholder="年龄">
 				</div>
+				<div class="form-group">
+					<label for="sex">性别</label>
+					<select class="form-control" name="sex">
+						<option value="女">女</option>
+						<option value="男">男</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-3">
 				<div class="form-group">
 					<label for="weixin">微信</label>
 					<input type="text" class="form-control" id="weixin" name="weixin" placeholder="微信">
@@ -130,9 +145,6 @@
 					</select>
 				</div>
 			</div>
-			<div class="col-lg-3">
-
-			</div>
 			<div class="col-lg-12"></div>
 			<div class="col-lg-3">
 				<div class="form-group">
@@ -148,49 +160,35 @@
 			</div>
 			<div class="col-lg-3"></div>
 			<div class="col-lg-3"></div>
-
-			<div class="col-lg-9">
+			<div class="col-lg-12">
+				<div class="form-group" id="sctp">
+					<label for="liaotian" style="cursor:pointer;">如果要上传图片，可以点击这里打开“聊天记录”框，直接上传</label>
+				</div>
 				<div class="form-group" id="ltjl">
 					<label for="liaotian" class="colorred">上传聊天记录</label>
 					<textarea class="form-control1" id="liaotian" rows="13" name="liaotian"></textarea>
 				</div>
-			</div>
-			<div class="col-lg-3"></div>
-			<div class="col-lg-12"></div>
-			<div class="col-lg-3">
-				<div class="form-group">
-					<label for="yuanqu" class="colorred">就诊院区</label>
-					<select class="form-control" name="yuanqu">
-						<option value="安太">安太</option>
-						<option value="海婴">海婴</option>
-					</select>
-				</div>
-			</div>
-			<div class="col-lg-3">
-				<div class="form-group">
-					<label for="type">类别</label>
-					<select class="form-control" name="type">
-						<option value="个人">个人</option>
-						<option value="科室">科室</option>
-					</select>
-				</div>
-			</div>
-			<div class="col-lg-3">
-			</div>
-			<div class="col-lg-3">
 			</div>
 			<div class="col-lg-12"><button type="submit" class="btn btn-default">添加</button></div>
 		</form>
 	</div>
 </div>
 {include file="public/footer" /}
-<!--<script src="http://www.bootcss.com/p/bootstrap-datetimepicker/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>-->
 <script language="javascript" type="text/javascript" src="/public/static/admin/lib/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="/public/static/admin/lib/ueditor/ueditor.config.js"></script>
 <script type="text/javascript" src="/public/static/admin/lib/ueditor/ueditor.all.min.js"></script>
 <script type="text/javascript" src="/public/static/admin/lib/ueditor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript">
-    UE.getEditor('liaotian', {initialFramWidth: '100%', initialFramHeight: 1000});
+    var ue = UE.getEditor(
+        'liaotian',
+	    {
+	        initialFramWidth: '100%',
+		    initialFramHeight: 1000
+	    }
+    );
+    ue.ready(function(){
+        ue.setHeight(200);
+    })
     var nowDate = new Date();
     var timeStr = nowDate.getFullYear()+"-"+(addzero(nowDate.getMonth() + 1))+"-"+addzero(nowDate.getDate())+" "+addzero(nowDate.getHours())+":"+addzero(nowDate.getMinutes())+":"+addzero(nowDate.getSeconds());
     $('.inittime').val(timeStr);
@@ -217,6 +215,9 @@
             $('#ltjl').hide();
         }
     }
+    $('#sctp').click(function(){
+        $('#ltjl').toggle();
+    })
 </script>
 </body>
 </html>

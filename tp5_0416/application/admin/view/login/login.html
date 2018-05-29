@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="w100">
 <head>
 	{include file="public/head" /}
-	<title>后台登陆</title>
+	<title>北京安太妇产医院-客服预约管理系统</title>
 </head>
-<body>
+<body class="login w100">
 
 <div class="container-fluid">
-	<h1 style="text-align: center;padding-top: 50px;">登陆</h1>
-	<div class="col-lg-4"></div>
-	<div class="col-lg-4">
+	<div class="logo"></div>
+	<div class="login-container">
+		<h1>登陆</h1>
 		<form action="" method="post">
 			<div class="form-group">
-				<label for="username">用户名</label>
+				<label for="username">用户名：</label>
 				<input type="text" class="form-control" name="username" id="username" placeholder="">
 			</div>
 			<div class="form-group">
-				<label for="password">密码</label>
+				<label for="password">密码：</label>
 				<input type="password" class="form-control" name="password" id="password" placeholder="">
 			</div>
 			<div class="form-group" id="captcha" style="display: none;">
@@ -30,9 +30,8 @@
 			</div>
 		</form>
 	</div>
-	<div class="col-lg-4"></div>
 </div>
-{include file="public/footer" /}
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script src="/gt3-php-sdk/static/gt.js"></script>
 <script>
 	$('#username').blur(function(){
