@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 	{include file="public/head" /}
-	<title><?php echo session('name'); ?>登记的信息</title>
+	<title><?php echo session('name'); ?>登记的信息_{$Think.BASETITLE}</title>
 </head>
 <body>
 {include file="public/header" /}
@@ -30,9 +30,9 @@
 			<tr>
 				{if condition="$vo.daozhen eq 0" }
 				{if condition="session('type') eq 1 || $vo.kefuid eq session('id')"}
-				<td id="daozhenparent">
-					<input type="hidden" name="id" value="{$vo.id}" id="trid">
-					<select class="form-control" id="daozhen">
+				<td class="daozhen">
+					<input type="hidden" name="id" value="{$vo.id}" class="trid">
+					<select class="form-control">
 						<option value="0">未到诊</option>
 						<option value="1">已到诊</option>
 					</select>
@@ -47,7 +47,7 @@
 				<td>{$vo.name} | {$vo.sex}{if condition="$vo.age" } | {$vo.age}岁{else}{/if}{if condition="$vo.czfz eq 1"} | 初诊{else}复诊{/if}{if condition="$vo.kefuid eq session('id')"} | {$vo.tel}{/if}</td>
 				<td>{$vo.djtime}</td>
 				<td>{if condition="!$vo.yytime" }-{else}{$vo.yytime}{/if}</td>
-				<td>{if condition="!$vo.dztime" }-{else}<span class="colorred">{$vo.dztime}</span>{/if}</td>
+				<td class="dztime">{if condition="!$vo.dztime" }-{else}<span class="colorred">{$vo.dztime}</span>{/if}</td>
 				<td>{$vo.kefu}</td>
 				<td>{$vo.disease}</td>
 				<td>
@@ -55,7 +55,8 @@
 					<a href="{:url('edit', array('id'=>$vo.id))}">修改</a>
 					{else}
 					{/if}
-					<!--<a href="{:url('del', array('id'=>$vo.id))}" onclick="return confirm('确认删除该文章？')">删除</a>-->
+					<!--<a href="{:url('delfalse', array('id'=>$vo.id))}" onclick="return confirm('确认删除该信息到回收站？')">删除</a>-->
+					<!--<a href="{:url('preview', array('id'=>$vo.id))}">预览</a>-->
 				</td>
 			</tr>
 			{/volist}
@@ -64,5 +65,26 @@
 	</div>
 </div>
 {include file="public/footer" /}
+<script>
+    $('.daozhen').find('select').each(function(){
+        $(this).change(function(){
+            var daozhen = $(this).val();
+            var id = $(this).parent().find('.trid').val();
+            var _this = $(this);
+            $.ajax({
+                type: 'post',
+                data: {'daozhen':daozhen,'id':id},
+                success: function(data){
+                    alert('成功修改为已到诊');
+                    _this.parent().parent().find('.dztime').html('<span class="colorred">'+ data[0].dztime +'</span>');
+                    _this.parent().html('<span class="colorgreen">已到诊</span>');
+                },
+                error:function(error){
+                    console.log(error);
+                }
+            })
+        })
+    })
+</script>
 </body>
 </html>

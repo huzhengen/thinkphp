@@ -19,7 +19,30 @@
 				<input type="hidden" class="form-control" id="del" name="del" value="{$orderList.del}">
 				<div class="col-lg-3">
 					<div class="form-group">
-						<label for="keshi">预约科室</label>
+						<label for="">姓名：{$orderList.name}</label>
+					</div>
+					<div class="form-group">
+						<label for="">电话：{$orderList.tel}</label>
+					</div>
+					<div class="form-group">
+						<label for="">渠道：{$orderList.qudao}</label>
+					</div>
+					<div class="form-group">
+						<label for="">病种：{$orderList.disease}</label>
+					</div>
+					<div class="form-group">
+						<label>客服：{$orderList.kefu}</label>
+					</div>
+					<div class="form-group">
+						<label for="">登记时间：{$orderList.djtime}</label>
+					</div>
+					<div class="form-group">
+						<label for="">是否到诊：{if condition="$orderList.daozhen eq 0"}未到诊{else}已到诊{/if}</label>
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="form-group">
+						<label for="">预约科室</label>
 						<select class="form-control" name="keshi">
 							<option value="{$orderList.keshi}">{$orderList.keshi}</option>
 							<option value="妇科">妇科</option>
@@ -34,40 +57,7 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="" class="colorred">姓名：{$orderList.name}</label>
-					</div>
-					<div class="form-group">
-						<label for="qudao" class="colorred">渠道</label>
-						<select class="form-control" name="qudao" id="qudao">
-							<option value="{$orderList.qudao}">{$orderList.qudao}</option>
-							<option value="商务通">商务通</option>
-							<option value="微信">微信</option>
-							<option value="QQ">QQ</option>
-							<option value="电话">电话</option>
-							<option value="大众&美团">大众&美团</option>
-							<option value="百度糯米">百度糯米</option>
-							<option value="安太宝">安太宝</option>
-							<option value="其它">其它</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<label for="" class="colorred">病种：{$orderList.disease}</label>
-					</div>
-					<div class="form-group">
-						<label for="age">年龄</label>
-						<input type="text" class="form-control" id="age" name="age" value="{$orderList.age}">
-					</div>
-					<div class="form-group">
-						<label for="sex">性别</label>
-						<select class="form-control" name="sex">
-							<option value="{$orderList.sex}">{$orderList.sex}</option>
-							<option value='{if condition="$orderList.sex eq '女'" }男{/if}'>{if condition="$orderList.sex eq '女'" }男{/if}</option>
-						</select>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="form-group">
-						<label for="doctor">预约医生</label>
+						<label for="">预约医生</label>
 						<select class="form-control" name="doctor">
 							<option value="{$orderList.doctor}">{$orderList.doctor}</option>
 							<option value="杨淑华">杨淑华</option>
@@ -84,9 +74,6 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="tel">电话：{$orderList.tel}</label>
-					</div>
-					<div class="form-group">
 						<label for="weixin">微信</label>
 						<input type="text" class="form-control" id="weixin" name="weixin" value="{$orderList.weixin}">
 					</div>
@@ -95,11 +82,31 @@
 						<input type="text" class="form-control" id="qq" name="qq" value="{$orderList.qq}">
 					</div>
 					<div class="form-group">
+						<label for="">就诊院区</label>
+						<select class="form-control" name="yuanqu">
+							<option value="{$orderList.yuanqu}">{$orderList.yuanqu}</option>
+							<option value="{if condition="$orderList.yuanqu eq '安太'"}海婴{else}安太{/if}">{if condition="$orderList.yuanqu eq '安太'"}海婴{else}安太{/if}</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="form-group">
+						<label for="age">年龄</label>
+						<input type="text" class="form-control" id="age" name="age" value="{$orderList.age}">
+					</div>
+					<div class="form-group">
+						<label for="">性别</label>
+						<select class="form-control" name="sex">
+							<option value="{$orderList.sex}">{$orderList.sex}</option>
+							<option value='{if condition="$orderList.sex eq '女'" }男{/if}'>{if condition="$orderList.sex eq '女'" }男{/if}</option>
+						</select>
+					</div>
+					<div class="form-group">
 						<label for="address">地址</label>
 						<input type="text" class="form-control" id="address" name="address" value="{$orderList.address}">
 					</div>
 					<div class="form-group">
-						<label for="jiehun">婚否</label>
+						<label for="">婚否</label>
 						<select class="form-control" name="jiehun">
 							<option value="{$orderList.jiehun}">{$orderList.jiehun}</option>
 							<option value="已婚">已婚</option>
@@ -107,36 +114,33 @@
 							<option value="保密">保密</option>
 						</select>
 					</div>
+					<div class="form-group">
+						<label for="">类别</label>
+						<select class="form-control" name="type">
+							<option value="{$orderList.type}">{$orderList.type}</option>
+							<option value="{if condition="$orderList.type eq '个人'"}科室{else}个人{/if}">{if condition="$orderList.type eq '个人'"}科室{else}个人{/if}</option>
+						</select>
+					</div>
 				</div>
 				<div class="col-lg-3">
 					<div class="form-group">
-						<label>客服：{$orderList.kefu}</label>
-					</div>
-					<div class="form-group">
-						<label for="">登记时间：{$orderList.djtime}</label>
-					</div>
-					<div class="form-group">
-						<label for="yytime">预约时间（{if condition="$orderList.yuyue eq 1"}已预约{else}还未预约{/if}）</label>
+						<label for="">预约时间（{if condition="$orderList.yuyue eq 1"}已预约{else}还未预约{/if}）</label>
 						<input type="text" value="{$orderList.yytime}" class="form-control Wdate" id="" name="yytime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})">
 					</div>
 					<div class="form-group">
-						<label for="dztime">到诊时间</label>
+						<label for="">到诊时间</label>
 						<input type="text" value="{$orderList.dztime}" class="form-control Wdate" id="" name="dztime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})">
 					</div>
 					<div class="form-group">
-						<label for="czfz">初诊/复诊</label>
+						<label for="">初诊/复诊</label>
 						<select class="form-control" name="czfz">
 							<option value="{if condition="$orderList.czfz eq 1"}1{else}2{/if}">{if condition="$orderList.czfz eq 1"}初诊{else}复诊{/if}</option>
 							<option value="{if condition="$orderList.czfz eq 2"}1{else}2{/if}">{if condition="$orderList.czfz eq 2"}初诊{else}复诊{/if}</option>
 						</select>
 					</div>
-					<div class="form-group">
-						<label for="daozhen">是否到诊：{if condition="$orderList.daozhen eq 0"}未到诊{else}已到诊{/if}</label>
-					</div>
-				</div>
-				<div class="col-lg-3">
 				</div>
 				<div class="col-lg-12"></div>
+				<div class="col-lg-3"></div>
 				<div class="col-lg-3">
 					<div class="form-group">
 						<label>病情描述</label>
@@ -150,42 +154,17 @@
 					</div>
 				</div>
 				<div class="col-lg-3"></div>
-				<div class="col-lg-3"></div>
 				<!--<div class="col-lg-12">-->
 					<!--<div class="form-group">-->
 						<!--<label for="pic">上传图片</label>-->
 						<!--<input type="file" name="pic" id="pic">-->
 					<!--</div>-->
 				<!--</div>-->
-				<div class="col-lg-9">
-					<div class="form-group" id="ltjl">
-						<label for="liaotian" class="colorred">聊天记录、截图</label>
+				<div class="col-lg-12">
+					<div class="form-group">
+						<label for="liaotian">聊天记录、截图</label>
 						<textarea class="form-control1" id="liaotian" rows="13" name="liaotian">{$orderList.liaotian}</textarea>
 					</div>
-				</div>
-				<div class="col-lg-3"></div>
-				<div class="col-lg-12"></div>
-				<div class="col-lg-3">
-					<div class="form-group">
-						<label for="yuanqu" class="colorred">就诊院区</label>
-						<select class="form-control" name="yuanqu">
-							<option value="{$orderList.yuanqu}">{$orderList.yuanqu}</option>
-							<option value="{if condition="$orderList.yuanqu eq '安太'"}海婴{else}安太{/if}">{if condition="$orderList.yuanqu eq '安太'"}海婴{else}安太{/if}</option>
-						</select>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="form-group">
-						<label for="type">类别</label>
-						<select class="form-control" name="type">
-							<option value="{$orderList.type}">{$orderList.type}</option>
-							<option value="{if condition="$orderList.type eq '个人'"}科室{else}个人{/if}">{if condition="$orderList.type eq '个人'"}科室{else}个人{/if}</option>
-						</select>
-					</div>
-				</div>
-				<div class="col-lg-3">
-				</div>
-				<div class="col-lg-3">
 				</div>
 				<div class="col-lg-12"><button type="submit" class="btn btn-default">修改</button></div>
 			</form>
@@ -203,26 +182,22 @@
 <script type="text/javascript" src="/public/static/admin/lib/ueditor/ueditor.all.min.js"></script>
 <script type="text/javascript" src="/public/static/admin/lib/ueditor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript">
-    UE.getEditor('liaotian', {initialFramWidth: '100%', initialFramHeight: 1000});
+    var ue = UE.getEditor(
+        'liaotian',
+        {
+            initialFramWidth: '100%',
+            initialFramHeight: 1000
+        }
+    );
+    ue.ready(function(){
+        ue.setHeight(200);
+    })
     var nowDate = new Date();
     var timeStr = nowDate.getFullYear()+"-"+(addzero(nowDate.getMonth() + 1))+"-"+addzero(nowDate.getDate())+" "+nowDate.getHours()+":"+addzero(nowDate.getMinutes())+":"+addzero(nowDate.getSeconds());
     $('.inittime').val(timeStr);
     function addzero(dateVal) {
         return dateVal < 10 ? '0' + dateVal: dateVal;
     }
-    qudao();
-    $('#qudao').change(function () {
-        qudao();
-    })
-	function qudao(){
-        var qudaoVal = $('#qudao').val();
-        console.log(qudaoVal)
-        if(qudaoVal == '商务通' || qudaoVal == '微信' || qudaoVal == 'QQ'){
-            $('#ltjl').show();
-        }else{
-            $('#ltjl').hide();
-        }
-	}
 </script>
 </body>
 </html>

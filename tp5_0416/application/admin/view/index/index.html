@@ -11,49 +11,48 @@
 	{include file="public/left" /}
 	<div class="col-lg-10 col-md-10 col-sm-10">
 		<div class="row">
+			<div class="col-lg-12 text-center"><h2>欢迎使用北京安太妇产医院客服预约管理系统</h2><h5 class="colorgreen"></h5></div>
 			<div class="col-lg-12"><h4>数据统计时段：2018-05-17 ~ {$nowtime}</h4></div>
-			<div class="col-lg-4">
+			<div class="col-lg-6">
 				<ul class="list-group">
-					<li class="list-group-item active">个人数据预览</li>
+					<li class="list-group-item active"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 个人数据预览</li>
 					<li class="list-group-item colorred pdr10"><span>今日预约：{$myselfyuyuetoday}</span><span>今日到诊：{$myselfdaozhentoday}</span><span>今日登记：{$myselfdengjitoday}</span></li>
 					<li class="list-group-item pdr10"><span>昨日预约：{$myselfyuyueyesterday}</span><span>昨日到诊：{$myselfdaozhenyesterday}</span><span>昨日登记：{$myselfdengjiyesterday}</span></li>
 					<li class="list-group-item pdr10"><span>本月预约：{$myselfyuyuemonth}</span><span>本月到诊：{$myselfdaozhenmonth}</span><span>本月登记：{$myselfdengjimonth}</span></li>
 					<li class="list-group-item pdr10"><span>所有预约：{$myselfyuyue}</span><span>所有到诊：{$myselfdaozhen}</span><span>所有登记：{$myselfdengji}</span></li>
 				</ul>
 				<ul class="list-group">
-					<li class="list-group-item active">总数据预览</li>
+					<li class="list-group-item active"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 总数据预览</li>
 					<li class="list-group-item colorred pdr10"><span>今日预约：{$allusersyuyuetoday}</span><span>今日到诊：{$allusersdaozhentoday}</span><span>今日登记：{$allusersdengjitoday}</span></li>
 					<li class="list-group-item pdr10"><span>昨日预约：{$allusersyuyueyesterday}</span><span>昨日到诊：{$allusersdaozhenyesterday}</span><span>昨日登记：{$allusersdengjiyesterday}</span></li>
 					<li class="list-group-item pdr10"><span>本月预约：{$allusersyuyuemonth}</span><span>本月到诊：{$allusersdaozhenmonth}</span><span>本月登记：{$allusersdengjimonth}</span></li>
 					<li class="list-group-item pdr10"><span>所有预约：{$allusersyuyue}</span><span>所有到诊：{$allusersdaozhen}</span><span>所有登记：{$allusersdengji}</span></li>
 				</ul>
-			</div>
-			<div class="col-lg-4">
 				<ul class="list-group">
-					<li class="list-group-item active">安太宝（留电）数据统计</li>
+					<li class="list-group-item active"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 安太宝（留电）数据统计</li>
 					<li class="list-group-item pdr10"><span>今日留电：{$antaibaotoday}</span><span class="colorred">未处理：{$antaibaotodayno}</span><span class="colorgreen">已处理：{$antaibaotodayyes}</span></li>
 					<li class="list-group-item pdr10"><span>昨日留电：{$antaibaoyesterday}</span><span class="colorred">未处理：{$antaibaoyesterdayno}</span><span class="colorgreen">已处理：{$antaibaoyesterdayyes}</span></li>
 					<li class="list-group-item pdr10"><span>本月留电：{$antaibaomonth}</span><span class="colorred">未处理：{$antaibaomonthno}</span><span class="colorgreen">已处理：{$antaibaomonthyes}</span></li>
 					<li class="list-group-item pdr10"><span>所有留电：{$antaibaoall}</span><span class="colorred">未处理：{$antaibaoallno}</span><span class="colorgreen">已处理：{$antaibaoallyes}</span></li>
 				</ul>
 				<ul class="list-group">
-					<li class="list-group-item active">网站自助预约（挂号）数据统计</li>
+					<li class="list-group-item active"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 网站自助预约（挂号）数据统计</li>
 					<li class="list-group-item pdr10"><span>今日留电：{$formtoday}</span><span class="colorred">未处理：{$formtodayno}</span><span class="colorgreen">已处理：{$formtodayyes}</span></li>
 					<li class="list-group-item pdr10"><span>昨日留电：{$formyesterday}</span><span class="colorred">未处理：{$formyesterdayno}</span><span class="colorgreen">已处理：{$formyesterdayyes}</span></li>
 					<li class="list-group-item pdr10"><span>本月留电：{$formmonth}</span><span class="colorred">未处理：{$formmonthno}</span><span class="colorgreen">已处理：{$formmonthyes}</span></li>
 					<li class="list-group-item pdr10"><span>所有留电：{$formall}</span><span class="colorred">未处理：{$formallno}</span><span class="colorgreen">已处理：{$formallyes}</span></li>
 				</ul>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-6">
 				<ul class="list-group">
-					<li class="list-group-item active">用户信息</li>
+					<li class="list-group-item active"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 用户信息</li>
 					<li class="list-group-item">当前用户：<?php echo session('name') ?></li>
 					<li class="list-group-item">当前IP：{$ip}</li>
 					<li class="list-group-item">上次登录时间：<?php echo session('logintime') ?></li>
 					<li class="list-group-item">用户类型：<?php if(session('type') == 1){echo '管理员';}else{echo '客服';} ?></li>
 				</ul>
 				<ul class="list-group">
-					<li class="list-group-item active">本月客服初诊排行</li>
+					<li class="list-group-item active"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 本月客服初诊排行</li>
 					<table class="table_class table table-bordered table-hover">
 						<thead>
 						<tr>
@@ -98,6 +97,12 @@
             "bInfo": false,// Showing 1 to 10 of 23 entries 总记录数每页显示多少等信息
             "order": [[1, "desc"]],
         });
+    });
+    $.get('/public/static/admin/lib/data/text1.js', function(data) {
+        var textarr = data.split(',');
+        var randomNum = Math.floor(Math.random()*10);
+        var h5text = textarr[randomNum].split("\'")[1];
+        $('h5').html(h5text);
     });
 </script>
 </body>

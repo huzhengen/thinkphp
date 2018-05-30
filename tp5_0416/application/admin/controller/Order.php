@@ -128,6 +128,24 @@ class Order extends Basic {
 	public function listsmyself(){
 		$kefuid = session('id');
 		$orderList = \think\Db::name('order')->where('kefuid', $kefuid)->where('del', 0)->order('id', 'desc')->paginate('15');
+		if(request()->isAjax()){
+			$id = input('id');
+			$daozhen = input('daozhen');
+			$dztime = date('Y-m-d H:i:s', time());
+			if($daozhen == 1){
+				$data = [
+					'daozhen' => input('daozhen'),
+					'dztime' => $dztime,
+				];
+				$res = \think\Db::name('order')->where('id', $id)->update($data);
+				if($res){
+					$ajaxdztime = \think\Db::name('order')->where('del', 0)->where('id', $id)->select();
+					return $ajaxdztime;
+				}
+			}else{
+				return '没有变化';
+			}
+		}
 		$this->assign('orderList', $orderList);
 		return $this->fetch();
 	}

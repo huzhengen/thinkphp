@@ -5,7 +5,6 @@
 	<title>北京安太妇产医院-客服预约管理系统</title>
 </head>
 <body class="login w100">
-
 <div class="container-fluid">
 	<div class="logo"></div>
 	<div class="login-container">
@@ -39,7 +38,10 @@
 	})
     $('#password').blur(function(){
         $('#captcha').show();
-    })
+    });
+	var randomNum = Math.floor(Math.random()*10);
+	var backimgurl = 'url("/public/static/admin/lib/images/backimg'+randomNum+'.jpg")'
+	$('body').css('background-image',backimgurl);
     var handlerEmbed = function (captchaObj) {
         $("#embed-submit").click(function (e) {
             var validate = captchaObj.getValidate();

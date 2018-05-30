@@ -6,13 +6,18 @@
 <script language="javascript" type="text/javascript" src="/public/static/admin/lib/My97DatePicker/WdatePicker.js"></script>
 <script>
     ;(function () {
-        var str1 = location.href.substring(15);
-        console.log(str1);
+        var origin = window.location.origin;
+        var len = origin.length;
+        var str1 = window.location.href.substring(len);
         $('.col-lg-2 .list-group a').each(function () {
             if ($(this).attr('href') == str1) {
-                console.log('匹配')
-                $(this).addClass('active');
+                if(str1 != '/index.php/admin/order/add.html'){
+                    $(this).addClass('active');
+	            }
             }
         })
+	    if(str1 == '/index.php/admin/index/index.html'){
+            $('.lefuserinfo').css('margin-top', '50px');
+	    }
     })()
 </script>
