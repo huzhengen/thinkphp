@@ -1,0 +1,7 @@
+.idea
+.travis.yml
+composer.lock
+*.log
+thinkphp
+ueditor
+test1.html
