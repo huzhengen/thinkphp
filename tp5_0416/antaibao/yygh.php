@@ -1,5 +1,7 @@
 <?php
-header("Access-Control-Allow-Origin:*"); //跨域权限设置，允许所有
+$origin = 'http://m.atfck.com,http://4g.atfck.com';
+header('Access-Control-Allow-Origin:' . $origin);
+//header("Access-Control-Allow-Origin:*"); //跨域权限设置，允许所有
 header('Content-type:text/html; charset=utf-8');
 date_default_timezone_set('PRC');
 set_time_limit(0);
@@ -42,14 +44,14 @@ if(array_key_exists('carrier', $a)){
 	$padd = '该手机号没检测出来，固话目前没有检测';
 }
 
-$conn = mysql_connect('localhost','root','root');
+$conn = mysql_connect('localhost','php1','dsjfjoejhksA#^%@^#(*#dsf');
 mysql_select_db('php');
 mysql_query("set names utf8"); //**设置字符集***
 
 
 
 
-$sql2 = "SELECT COUNT(`ip`) FROM `tp5_0416_atfckform` WHERE ip='$ip' AND shijian < '$time' AND shijian > '$timeprev'";
+$sql2 = "SELECT COUNT(`ip`) FROM `tp5_0416_atfck` WHERE ip='$ip' AND shijian < '$time' AND shijian > '$timeprev'";
 $result2 = mysql_query($sql2)  or die(mysql_error());
 $result2=mysql_fetch_row($result2);//函数1
 if($result2[0]>=3){

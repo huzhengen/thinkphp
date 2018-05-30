@@ -1,5 +1,7 @@
 <?php
-header("Access-Control-Allow-Origin:*"); //跨域权限设置，允许所有
+$origin = 'http://m.atfck.com,https://4g.atfck.com';
+header('Access-Control-Allow-Origin:' . $origin);
+//header("Access-Control-Allow-Origin:*"); //跨域权限设置，允许所有
 header('Content-type:text/html; charset=utf-8');
 date_default_timezone_set('PRC');
 set_time_limit(0);
