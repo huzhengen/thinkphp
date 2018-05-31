@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>安太宝提交电话</title>
+<meta name="keywords" content=""/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no"/><!-- 自动识别电话号样式取消 -->
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="HandheldFriendly" content="true"><!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="renderer" content="webkit">
+<link rel="stylesheet" href="https://cdn.bootcss.com/Swiper/4.2.2/css/swiper.min.css">
+<style>
+	.submiting{
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(255, 255, 255, 0.7);
+		text-align: center;
+		display: none;
+	}
+	ul,li{
+		padding: 0;
+		margin: 0;
+	}
+	.submiting .con{
+		width: 100%;
+		position: absolute;
+		left: 0;
+		top: 20%;
+	}
+	.submiting .con ul li{
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		background-color: #000;
+		animation: bounce 1.4s infinite ease-in-out;
+		list-style: none;
+		display: inline-block;
+	}
+	.submiting .con ul li:nth-of-type(1){
+		animation-delay: -.32s;
+	}
+	.submiting .con ul li:nth-of-type(2){
+		animation-delay: -.16s;
+	}
+	@keyframes bounce {
+		0%, 80%, 100% {transform:scale(0)}
+		40% {transform:scale(1)}
+	}
+
+</style>
+</head>
+<body>
+
+<div class="guahao" id="skipguahao" style="width: 400px; margin: 0 auto;position: relative">
+	<div class="submiting">
+		<div class="con">
+			<ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<p>正在提交......</p>
+			</ul>
+		</div>
+	</div>
+	<h3>在线自助挂号</h3>
+	<h4>(网络预约 免排队当日就诊<span>*信息已加密*</span>)</h4>
+		<input type="hidden" name="device" id="device" />
+		<input type="hidden" name="url" id="url" />
+		<p><input type="text" class="tel" name="tel" placeholder="手机请直接输入，座机前加区号：如0105992xxxx" datatype="n7-18" nullmsg="请输入您的电话" errormsg="电话格式不对"></p>
+
+		<p>
+			<button name="submit" id="tijiao">提交信息</button>
+		</p>
+</div>
+<script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/Swiper/4.2.2/js/swiper.min.js"></script>
+<script type="text/javascript" src="http://apps.bdimg.com/libs/validform/5.3.2/validform.min.js"></script>
+
+<script>
+	$('.tel').blur(function(){
+        var tel = $('.tel').val();
+        check(tel);
+	})
+    $('#tijiao').click(function(){
+
+        var tel = $('.tel').val();
+        if(!check(tel)){
+            console.log('检查是错误的号码');
+			return;
+        }
+        var system = {
+            win : false,
+            mac : false,
+            xll : false
+        };
+        var device = null;
+        var zd = null;
+        var p = navigator.platform;
+        system.win = p.indexOf("Win") == 0;
+        system.mac = p.indexOf("Mac") == 0;
+        system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
+        if(system.win){//转向后台登陆页面
+            device = 'windows';
+            zd = 'c';
+        }else if(system.mac){
+            device = 'mac';
+        }else if(system.xll){
+            device = 'linux或其他';
+        }else{
+            if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {  	//判断iPhone|iPad|iPod|iOS
+                zd = 'i';
+                device = '苹果'
+            } else if (/(Android)/i.test(navigator.userAgent)) {  	 	//判断Android
+                zd = 'a';
+                device='安卓';
+            } else {
+                zd = 'x';
+                device = '其它手机'
+            };
+            // device = 'p';
+        }
+        var url = window.location.href;
+
+        $('#tijiao').html('正在提交...');
+        $('.submiting').show()
+        $.ajax({
+            // async:false,
+            type: 'post',
+            url: 'http://data.atfck.com/testantaibao.php',
+	        data: {'tel':tel,'device':device,'url':url,'device':device},
+            success:function(data){
+                console.log(data)
+                // console.log(JSON.parse(data));
+                // console.log(JSON.parse(data).name)
+                alert(data);
+                $('#tijiao').html('提交信息');
+                $('.submiting').hide()
+            },
+            error:function(XHR, textStatus, errorThrown){
+                console.log('error: ' + textStatus);
+                console.log('error: ' + errorThrown);
+            }
+        });
+    });
+    
+    function check(inputVal) {
+        var subStr = inputVal.substr(0,1);
+        if(subStr == '0'){
+            var tel = /^0\d{2,3}(\d{8,9})$/;			//固话
+            if(!tel.test(inputVal)){
+                alert('固话格式错误,请重新填写!');
+                console.log(123)
+                $('#error-msg').html('<span>固话格式错误,请重新填写!</span>');
+                return false;
+                console.log('固话出错了，还跳')
+            }else{
+                return true;
+            }
+        }else{
+            var phone = /^1[345678]\d{9}$/;				//手机
+            if(!phone.test(inputVal)){
+                alert('手机号码格式错误,请重新填写!');
+                console.log(1234)
+                $('#error-msg').html('<span>手机号码格式错误,请重新填写!</span>');
+                return false;
+                console.log('手机出错了，还跳')
+            }else{
+                return true;
+            }
+        }
+    }
+
+</script>
+</body>
+</html>

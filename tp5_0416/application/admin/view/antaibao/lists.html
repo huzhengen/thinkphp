@@ -31,7 +31,7 @@
 				<td>{$vo.id}</td>
 				<td>{$vo.tjtime}</td>
 				<td>{if condition="$vo.shtime"}{$vo.shtime} - {$vo.kefuname}{/if}</td>
-				<td>{$vo.ip}</td>
+				<td>{$vo.ipadd}</td>
 				<td>{if condition="$vo.queren eq 1"}*******{$vo.dianhua|substr=7,10}{else}{$vo.dianhua}{/if}<span class="colorred">({volist name="tel" id="telvo"}{if condition="$vo.dianhua eq $telvo.dianhua"}{$telvo['count(dianhua)']}{/if}{/volist})</span></td>
 				<td>{$vo.padd}</td>
 				<td>{$vo.shebei}</td>

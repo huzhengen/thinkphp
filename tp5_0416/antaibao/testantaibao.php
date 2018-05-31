@@ -1,23 +1,20 @@
 <?php
-$origin = isset($_SERVER['HTTP_ORIGIN'])? $_SERVER['HTTP_ORIGIN'] : '';  
-$allow_origin = array(
-	'http://m.atfck.com',
-	'http://4g.atfck.com',
-	'http://wap.atfck.com',
-	'http://wap.bjatfc.com',
-);  
-if(in_array($origin, $allow_origin)){  
-    header('Access-Control-Allow-Origin:'.$origin);       
-} 
-//header("Access-Control-Allow-Origin:*"); //跨域权限设置，允许所有
+//$origin = isset($_SERVER['HTTP_ORIGIN'])? $_SERVER['HTTP_ORIGIN'] : '';
+//$allow_origin = array(
+//    'http://m.atfck.com',
+//    'http://4g.atfck.com',
+//	'http://wap.atfck.com',
+//	'http://wap.bjatfc.com',
+//);
+//if(in_array($origin, $allow_origin)){
+//    header('Access-Control-Allow-Origin:'.$origin);
+//}
+header("Access-Control-Allow-Origin:*"); //跨域权限设置，允许所有
 header('Content-type:text/html; charset=utf-8');
 date_default_timezone_set('PRC');
 set_time_limit(0);
 
-$name      = check_input($_POST['name']);
 $phone 		= 	check_input($_POST['tel']);
-$jztime = check_input($_POST['jztime']);
-$desc = check_input($_POST['desc']);
 $url = check_input($_POST['url']);
 $device = check_input($_POST['device']);
 $ip 		= 	$_SERVER['REMOTE_ADDR'];
@@ -37,47 +34,45 @@ if(array_key_exists('province', $iadd)){
 }else{
 	$ipadd = $ip;
 }
-
-
+echo $ipadd;
 
 
 //关于手机归属地
+echo $phone;
 $s = file_get_contents('https://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=' . $phone);
-$s = iconv("gb2312", "utf-8//IGNORE",$s); 
+$s = iconv("gb2312", "utf-8//IGNORE",$s);
 preg_match_all("/(\w+):'([^']+)/", $s, $m);
 $a = array_combine($m[1], $m[2]);
 //$padd = $a['carrier'];
+
 if(array_key_exists('carrier', $a)){
 	$padd = $a['carrier'];
 }else{
 	$padd = '检测号码失败';
 }
+echo $padd;
+$conn = mysql_connect('localhost','root','root');
+mysql_select_db('php');
+mysql_query("set names utf8"); //**设置字符集***
 
-if($phone){
-	$conn = mysql_connect('localhost','root','dsjfjoejhksA#^%@^#(*#dsf');
-	mysql_select_db('php1');
-	mysql_query("set names utf8"); //**设置字符集***
 
-	$sql2 = "SELECT COUNT(`ip`) FROM tp5_0416_atfck WHERE ip='$ip' AND tjtime < '$time' AND tjtime > '$timeprev'";
-	$result2 = mysql_query($sql2)  or die(mysql_error());
-	$result2=mysql_fetch_row($result2);//函数1
-	if($result2[0]>=3){
-		echo "您今天已经提交了".$result2[0]."次，请稍后再试";
-	}else{
-//	echo "您今天已经提交了".$result2[0]."次 - " . $time . ' - ' . $timeprev;
-		$sql1 = "INSERT INTO tp5_0416_atfck (name,dianhua,shijian,miaoshu,padd,ip,tjtime,url,shebei,ipadd) VALUES ('".$name."', '".$phone."', '".$jztime."', '".$desc."', '".$padd."', '".$ip."', '".$time."', '".$url."', '".$device."', '".$ipadd."')";
-		$status1 = mysql_query($sql1);
-		if($status1){
-			echo '信息提交成功！';
-		}else{
-			echo '信息提交失败！';
-			// echo mysql_error();
-		}
-	}
-}else{
-	echo 'error';
-}
 
+
+//$sql2 = "SELECT COUNT(`ip`) FROM tp5_0416_antaibao WHERE ip='$ip' AND tjtime < '$time' AND tjtime > '$timeprev'";
+//$result2 = mysql_query($sql2)  or die(mysql_error());
+//$result2=mysql_fetch_row($result2);//函数1
+//if($result2[0]>=3){
+//	echo "您今天已经提交了".$result2[0]."次，请稍后再试";
+//}else{
+////	echo "您今天已经提交了".$result2[0]."次 - " . $time . ' - ' . $timeprev;
+//	$sql1 = "INSERT INTO tp5_0416_antaibao (dianhua,padd,ip,tjtime,url,shebei) VALUES ('".$phone."', '".$padd."', '".$ipadd."', '".$time."', '".$url."', '".$device."')";
+//	$status1 = mysql_query($sql1);
+//	if($status1){
+//		echo '信息提交成功！';
+//	}else{
+//		echo '信息提交失败！';
+//	}
+//}
 
 
 
