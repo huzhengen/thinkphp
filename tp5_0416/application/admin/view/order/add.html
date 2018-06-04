@@ -9,56 +9,74 @@
 {include file="public/header" /}
 <div class="container-fluid">
 	{include file="public/left" /}
-	<div class="col-lg-10 col-md-10 col-sm-10">
+	<div class="col-lg-11 col-md-11 col-sm-11">
 		<h3>咨询预约患者登记</h3>
 		<hr>
 		<form action="" method="post" id="myform" name="myform" enctype="multipart/form-data">
 			<input type="hidden" class="form-control" id="del" name="del" value="0">
-			<div class="col-lg-3">
+			<div class="col-lg-2">
 				<div class="form-group">
-					<label for="name" class="colorred">姓名</label>
+					<label for="name" class="colorred">患者姓名</label>
 					<input type="text" class="form-control" id="name" name="name" placeholder="姓名">
 				</div>
+			</div>
+			<div class="col-lg-2">
 				<div class="form-group">
-					<label for="qudao" class="colorred">渠道</label>
-					<select class="form-control" name="qudao" id="qudao">
-						<option value="请选择">请选择</option>
-						<option value="商务通">商务通</option>
-						<option value="微信">微信</option>
-						<option value="QQ">QQ</option>
-						<option value="电话">电话</option>
-						<option value="大众&美团">大众&美团</option>
-						<option value="百度糯米">百度糯米</option>
-						<option value="安太宝">安太宝</option>
-						<option value="其它">其它</option>
+					<label for="">性别</label>
+					<select class="form-control" name="sex">
+						<option value="女">女</option>
+						<option value="男">男</option>
 					</select>
 				</div>
+			</div>
+			<div class="col-lg-2">
+				<div class="form-group">
+					<label for="age">年龄</label>
+					<input type="text" class="form-control" id="age" name="age" placeholder="年龄">
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<div class="form-group">
+					<label for="">联系方式</label><br>
+					<select class="form-control" id="lxfs">
+						<option value="选择">选择</option>
+						<option value="电话">电话</option>
+						<option value="微信">微信</option>
+						<option value="QQ">QQ</option>
+						<option value="多项">多项</option>
+					</select>
+					<input type="text" class="form-control" id="tel" name="tel" placeholder="电话" style="display: none;">
+					<input type="text" class="form-control" id="weixin" name="weixin" placeholder="微信" style="display: none;">
+					<input type="text" class="form-control" id="qq" name="qq" placeholder="QQ" style="display: none;">
+				</div>
+
+			</div>
+			<div class="col-lg-2">
+				<div class="form-group">
+					<label for="address">地域</label>
+					<input type="text" class="form-control" id="address" name="address" placeholder="地域">
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<div class="form-group">
+					<label for="">婚否</label>
+					<select class="form-control" name="jiehun">
+						<option value="已婚">已婚</option>
+						<option value="未婚">未婚</option>
+						<option value="保密">保密</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-12"></div>
+			<div class="col-lg-2">
 				<div class="form-group">
 					<label for="disease" class="colorred">病种</label>
 					<input type="text" class="form-control" id="disease" name="disease" placeholder="病种">
 				</div>
-				<div class="form-group">
-					<label for="yuanqu" class="colorred">就诊院区</label>
-					<select class="form-control" name="yuanqu">
-						<option value="安太">安太</option>
-						<option value="海婴">海婴</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<label for="type">类别</label>
-					<select class="form-control" name="type">
-						<option value="个人">个人</option>
-						<option value="科室">科室</option>
-					</select>
-				</div>
 			</div>
-			<div class="col-lg-3">
-				<div class="form-group telerror">
-					<label for="tel">电话</label>
-					<input type="text" class="form-control" id="tel" name="tel" placeholder="电话">
-				</div>
+			<div class="col-lg-2">
 				<div class="form-group">
-					<label for="keshi">预约科室</label>
+					<label for="" class="colorred">预约科室</label>
 					<select class="form-control" name="keshi">
 						<option value="妇科">妇科</option>
 						<option value="产科">产科</option>
@@ -71,8 +89,25 @@
 						<option value="妇产科">妇产科</option>
 					</select>
 				</div>
+			</div>
+			<div class="col-lg-2">
 				<div class="form-group">
-					<label for="doctor">预约医生</label>
+					<label for="">初诊/复诊</label>
+					<select class="form-control" name="czfz">
+						<option value="1">初诊</option>
+						<option value="2">复诊</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<div class="form-group">
+					<label for="">预约时间</label>
+					<input type="text" value="" class="form-control Wdate" maxlength="10" name="yytime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd'})">
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<div class="form-group">
+					<label for="">预约医生</label>
 					<select class="form-control" name="doctor">
 						<option value="暂不确定">暂不确定</option>
 						<option value="杨淑华">杨淑华</option>
@@ -88,78 +123,75 @@
 						<option value="陈凤林">陈凤林</option>
 					</select>
 				</div>
+			</div>
+			<div class="col-lg-2">
 				<div class="form-group">
-					<label for="age">年龄</label>
-					<input type="text" class="form-control" id="age" name="age" placeholder="年龄">
-				</div>
-				<div class="form-group">
-					<label for="sex">性别</label>
-					<select class="form-control" name="sex">
-						<option value="女">女</option>
-						<option value="男">男</option>
+					<label for="">就诊院区</label>
+					<select class="form-control" name="yuanqu">
+						<option value="安太">安太</option>
+						<option value="海婴">海婴</option>
 					</select>
 				</div>
 			</div>
-			<div class="col-lg-3">
+			<div class="col-lg-2">
 				<div class="form-group">
-					<label for="weixin">微信</label>
-					<input type="text" class="form-control" id="weixin" name="weixin" placeholder="微信">
-				</div>
-				<div class="form-group">
-					<label for="qq">QQ</label>
-					<input type="text" class="form-control" id="qq" name="qq" placeholder="QQ">
-				</div>
-				<div class="form-group">
-					<label for="address">地址</label>
-					<input type="text" class="form-control" id="address" name="address" placeholder="地址">
-				</div>
-
-				<div class="form-group">
-					<label for="jiehun">婚否</label>
-					<select class="form-control" name="jiehun">
-						<option value="已婚">已婚</option>
-						<option value="未婚">未婚</option>
-						<option value="保密">保密</option>
+					<label for="">客服姓名</label>
+					<select class="form-control" name="kefu">
+						<option value="<?php echo session('name'); ?>"><?php echo session('name'); ?></option>
+						{volist name="kefuList" id="vo"}
+						{if condition="$vo.name != session('name')"}
+						<option value="{$vo.name}">{$vo.name}</option>
+						{/if}
+						{/volist}
 					</select>
-				</div>
-			</div>
-			<div class="col-lg-3">
-				<div class="form-group">
-					<label>客服姓名</label>
-					<input type="text" class="form-control" name="kefu" value="<?php echo session('name'); ?>">
 					<input type="hidden" name="kefuid" value="<?php echo session('id'); ?>">
 				</div>
+			</div>
+			<div class="col-lg-2">
 				<div class="form-group">
-					<label for="yytime">预约时间</label>
-					<input type="text" value="" class="form-control Wdate" id="" name="yytime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})">
-				</div>
-				<div class="form-group">
-					<label for="dztime">到诊时间</label>
-					<input type="text" value="" class="form-control Wdate" id="" name="dztime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})">
-				</div>
-				<div class="form-group">
-					<label for="czfz">初诊/复诊</label>
-					<select class="form-control" name="czfz">
-						<option value="1">初诊</option>
-						<option value="2">复诊</option>
+					<label for="qudao" class="colorred">渠道</label>
+					<select class="form-control" name="qudao" id="qudao">
+						<option value="请选择">请选择</option>
+						<option value="商务通">商务通</option>
+						<option value="微信">微信</option>
+						<option value="QQ">QQ</option>
+						<option value="电话">电话</option>
+						<option value="大众&美团">大众&美团</option>
+						<option value="百度糯米">百度糯米</option>
+						<option value="安太宝">安太宝</option>
+						<option value="其它">其它</option>
 					</select>
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<div class="form-group">
+					<label for="">类别</label>
+					<select class="form-control" name="type">
+						<option value="个人">个人</option>
+						<option value="科室">科室</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<div class="form-group">
+					<label for="">到诊时间</label>
+					<input type="text" value="" class="form-control Wdate" maxlength="10" name="dztime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd'})">
 				</div>
 			</div>
 			<div class="col-lg-12"></div>
-			<div class="col-lg-3">
+			<div class="col-lg-2">
 				<div class="form-group">
 					<label>病情描述</label>
 					<textarea class="form-control" rows="3" name="desc"></textarea>
 				</div>
 			</div>
-			<div class="col-lg-3">
+			<div class="col-lg-2">
 				<div class="form-group">
 					<label>备注</label>
 					<textarea class="form-control" rows="3" name="beizhu"></textarea>
 				</div>
 			</div>
-			<div class="col-lg-3"></div>
-			<div class="col-lg-3"></div>
+			<div class="col-lg-12"></div>
 			<div class="col-lg-12">
 				<div class="form-group" id="sctp">
 					<label for="liaotian" style="cursor:pointer;">如果要上传图片，可以点击这里打开“聊天记录”框，直接上传</label>
@@ -207,6 +239,42 @@
             }
         });
     })
+    $('#lxfs').change(function () {
+        var obj = {
+            'width': '65%',
+            'float': 'right',
+        }
+	    var lxvalue = $(this).val();
+	    $(this).css({
+            'width': '34%',
+		    'float': 'left',
+	    })
+	    if(lxvalue == '电话'){
+			$('#tel').css(obj).show();
+			$('#weixin').hide();
+			$('#qq').hide();
+	    }else if(lxvalue == '微信'){
+            $('#tel').hide();
+            $('#weixin').css(obj).show();
+            $('#qq').hide();
+	    }else if(lxvalue == 'QQ'){
+            $('#tel').hide();
+            $('#weixin').hide();
+            $('#qq').css(obj).show();
+        }else if(lxvalue == '多项'){
+            $('#tel').css(obj).show();
+            $('#weixin').css(obj).show();
+            $('#qq').css(obj).show();
+        }else{
+            $(this).css({
+                'width': '100%',
+                'float': 'left',
+            })
+            $('#tel').hide();
+            $('#weixin').hide();
+            $('#qq').hide();
+	    }
+    })
     function qudao(){
         var qudaoVal = $('#qudao').val();
         if(qudaoVal == '商务通' || qudaoVal == '微信' || qudaoVal == 'QQ'){
@@ -218,6 +286,7 @@
     $('#sctp').click(function(){
         $('#ltjl').toggle();
     })
+
 </script>
 </body>
 </html>

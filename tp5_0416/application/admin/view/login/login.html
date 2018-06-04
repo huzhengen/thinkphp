@@ -9,20 +9,22 @@
 	<div class="logo"></div>
 	<div class="login-container">
 		<h1>登陆</h1>
-		<form action="" method="post">
+		<form action="" method="post" class="form-horizontal">
 			<div class="form-group">
-				<label for="username">用户名：</label>
-				<input type="text" class="form-control" name="username" id="username" placeholder="">
+				<label for="username" class="col-lg-3 control-label">用户名：</label>
+				<div class="col-lg-9"><input type="text" class="form-control" name="username" id="username" placeholder=""></div>
 			</div>
 			<div class="form-group">
-				<label for="password">密码：</label>
-				<input type="password" class="form-control" name="password" id="password" placeholder="">
+				<label for="password" class="col-lg-3 control-label">密码：</label>
+				<div class="col-lg-9"><input type="password" class="form-control" name="password" id="password" placeholder=""></div>
 			</div>
-			<div class="form-group" id="captcha" style="display: none;">
-				<label>验证码</label>
-				<div id="embed-captcha"></div>
-				<!--<p id="wait" class="show">正在加载验证码......</p>-->
-				<p id="notice" class="hide colorred text-center">请先完成验证</p>
+			<div class="form-group">
+				<label class="col-lg-3 control-label">验证码：</label>
+				<div class="col-lg-9"><input type="text" class="form-control" name="captcha" placeholder=""></div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-3"></div>
+				<div class="col-lg-9 text-center"><img src="{:captcha_src()}" onclick="this.src='{:captcha_src()}'" title="点击刷新" /></div>
 			</div>
 			<div class="form-group text-center">
 				<button type="submit" class="btn btn-default" id="embed-submit">登陆</button>
@@ -31,55 +33,10 @@
 	</div>
 </div>
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-<script src="/gt3-php-sdk/static/gt.js"></script>
 <script>
-	$('#username').blur(function(){
-        $('#captcha').show();
-	})
-    $('#password').blur(function(){
-        $('#captcha').show();
-    });
 	var randomNum = Math.floor(Math.random()*10);
 	var backimgurl = 'url("/public/static/admin/lib/images/backimg'+randomNum+'.jpg")'
 	$('body').css('background-image',backimgurl);
-    var handlerEmbed = function (captchaObj) {
-        $("#embed-submit").click(function (e) {
-            var validate = captchaObj.getValidate();
-            if (!validate) {
-                $("#notice")[0].className = "show colorred text-center";
-                setTimeout(function () {
-                    $("#notice")[0].className = "hide";
-                }, 2000);
-                e.preventDefault();
-            }
-        });
-        // 将验证码加到id为captcha的元素里，同时会有三个input的值：geetest_challenge, geetest_validate, geetest_seccode
-        captchaObj.appendTo("#embed-captcha");
-        // captchaObj.onReady(function () {
-        //     $("#wait")[0].className = "hide";
-        // });
-        // 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
-    };
-    $.ajax({
-        // 获取id，challenge，success（是否启用failback）
-        url: "/gt3-php-sdk/web/StartCaptchaServlet.php?t=" + (new Date()).getTime(), // 加随机数防止缓存
-        type: "get",
-        dataType: "json",
-        success: function (data) {
-            console.log(data);
-            // 使用initGeetest接口
-            // 参数1：配置参数
-            // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
-            initGeetest({
-                gt: data.gt,
-                challenge: data.challenge,
-                new_captcha: data.new_captcha,
-                product: "embed", // 产品形式，包括：float，embed，popup。注意只对PC版验证码有效
-                offline: !data.success // 表示用户后台检测极验服务器是否宕机，一般不需要关注
-                // 更多配置参数请参见：http://www.geetest.com/install/sections/idx-client-sdk.html#config
-            }, handlerEmbed);
-        }
-    });
 </script>
 </body>
 </html>

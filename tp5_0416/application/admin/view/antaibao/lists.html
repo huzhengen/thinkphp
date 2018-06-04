@@ -8,20 +8,21 @@
 {include file="public/header" /}
 <div class="container-fluid">
 	{include file="public/left" /}
-	<div class="col-lg-10 col-md-10 col-sm-10">
+	<div class="col-lg-11 col-md-11 col-sm-11">
 		<h3>安太宝</h3>
-		<hr>
+		{include file="public/searchantaibao" /}
 		<table class="table table-bordered table-hover">
 			<thead>
 			<tr>
 				<th>ID</th>
 				<th>提交时间</th>
-				<th>审核时间 - 客服</th>
+				<th>处理时间 - 客服</th>
 				<th>IP</th>
 				<th>电话</th>
 				<th>归属地</th>
 				<th>设备</th>
 				<th width="1%">网址</th>
+				<th>备注</th>
 				<th>操作</th>
 			</tr>
 			</thead>
@@ -29,22 +30,20 @@
 			{volist name="patientLists" id="vo"}
 			<tr>
 				<td>{$vo.id}</td>
-				<td>{$vo.tjtime}</td>
-				<td>{if condition="$vo.shtime"}{$vo.shtime} - {$vo.kefuname}{/if}</td>
-				<td>{$vo.ipadd}</td>
-				<td>{if condition="$vo.queren eq 1"}*******{$vo.dianhua|substr=7,10}{else}{$vo.dianhua}{/if}<span class="colorred">({volist name="tel" id="telvo"}{if condition="$vo.dianhua eq $telvo.dianhua"}{$telvo['count(dianhua)']}{/if}{/volist})</span></td>
+				<td class="tjtime">{$vo.tjtime}</td>
+				<td>{if condition="$vo.shtime"}{$vo.shtime}<br>{$vo.kefuname}{/if}</td>
+				<td class="ipaddress">{$vo.ipadd}</td>
+				<td>{if condition="session('type') eq 1 || session('type') eq 3 || session('id') eq $vo.kefuid || $vo.queren eq 0"}{$vo.dianhua}{elseif condition="$vo.queren eq 1"}*******{$vo.dianhua|substr=-4}{/if}<span class="colorred">{volist name="tel" id="telvo"}{if condition="$vo.dianhua eq $telvo.dianhua && $telvo['count(dianhua)'] gt 1"}({$telvo['count(dianhua)']}){/if}{/volist}</span></td>
 				<td>{$vo.padd}</td>
 				<td>{$vo.shebei}</td>
 				<td>{$vo.url}</td>
+				<td>{$vo.beizhu}</td>
 				<td>
-					{if condition="$vo.queren eq 0" }<span style="color: red;">未审核</span>
-					{else }<span style="color: green;">已审核</span>
+					{if condition="$vo.queren eq 0" }<span class="colorred">未处理</span>
+					{elseif condition="$vo.queren eq 1"}<span class="colorgreen">已处理</span>
+					{else}<span>无效</span>
 					{/if}
-					{if condition="$vo.queren eq 0"}
-					<a href="{:url('edit', array('id'=>$vo.id))}">修改</a>
-					{elseif condition="session('type') eq 1"}
-					<a href="{:url('edit', array('id'=>$vo.id))}">修改</a>
-					{elseif condition="$vo.kefuid eq session('id')"}
+					{if condition="$vo.queren eq 0 || session('type') eq 1 || session('type') eq 3 || $vo.kefuid eq session('id')"}
 					<a href="{:url('edit', array('id'=>$vo.id))}">修改</a>
 					{else}
 					{/if}
@@ -61,6 +60,25 @@
 <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
 
 <script>
+    ;(function(){
+        var nowDate = new Date();
+        var timeStr = nowDate.getFullYear()+"-"+(addzero(nowDate.getMonth() + 1))+"-"+addzero(nowDate.getDate());
+        console.log(timeStr)
+        $('tbody tr').each(function(){
+            var tjdate = $(this).find('.tjtime').html().substr(0, 10)
+            if(tjdate == timeStr){
+                $(this).addClass('backcolor58AFD8')
+            }
+        })
+    })()
+    ;(function () {
+        $('.ipaddress').each(function(){
+            var ipaddressval = $(this).html();
+            ipaddressarr = ipaddressval.split('-');
+            console.log(ipaddressval.split('-'));
+            $(this).html(ipaddressarr[0] + "<br>" + ipaddressarr[1] + " - " + ipaddressarr[2])
+        })
+    })()
     setInterval(function () {
         $.get('/index.php/admin/antaibao/listsAjax',function(data1){
             var len = data1.total;
@@ -135,6 +153,9 @@
             alert('浏览器不支持Notification');
         }
 	}
+    function addzero(dateVal) {
+        return dateVal < 10 ? '0' + dateVal: dateVal;
+    }
 </script>
 </body>
 </html>

@@ -10,21 +10,21 @@
 	{include file="public/left" /}
 	{if condition="$patientLists.id"}
 		{if condition="$patientLists.kefuid eq session('id') || session('type') eq 1 || $patientLists.queren eq 0"}
-		<div class="col-lg-10 col-md-10 col-sm-10">
+	<div class="col-lg-11 col-md-11 col-sm-11">
 			<h3>审核</h3>
 			<hr>
 			<form action="" method="post" id="myform" name="myform" enctype="multipart/form-data">
 				<input type="hidden" name="id" value="{$patientLists.id}">
 				<div class="form-group">
-					<label for="">确认审核通过？</label><br>
+					<label for="">确认处理？</label><br>
 					<div class="radio">
 						<label>
-							<input type="radio" name="queren" value="1" checked>确认审核通过
+							<input type="radio" name="queren" value="1" checked>确认处理
 						</label>
 					</div>
 					<div class="radio">
 						<label>
-							<input type="radio" name="queren" value="0">不审核通过
+							<input type="radio" name="queren" value="2">无效
 						</label>
 					</div>
 				</div>

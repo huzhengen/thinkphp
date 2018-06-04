@@ -8,9 +8,9 @@
 {include file="public/header" /}
 <div class="container-fluid">
 	{include file="public/left" /}
-	<div class="col-lg-10 col-md-10 col-sm-10">
+	<div class="col-lg-11 col-md-11 col-sm-11">
 		<h3>今日预约</h3>
-		<hr>
+		{include file="public/search" /}
 		<table class="table table-bordered table-hover">
 			<thead>
 			<tr>
@@ -41,7 +41,7 @@
 				<td><span class="colorred">未到诊</span></td>
 				{/if}
 				{else}
-				<td><span style="color: green;">已到诊</span></td>
+				<td><span class="colorgreen">已到诊</span></td>
 				{/if}
 				<td>AT{$vo.id}</td>
 				<td>{$vo.name} | {$vo.sex}{if condition="$vo.age" } | {$vo.age}岁{else}{/if}{if condition="$vo.czfz eq 1"} | 初诊{else}复诊{/if}{if condition="$vo.kefuid eq session('id')"} | {$vo.tel}{/if}</td>

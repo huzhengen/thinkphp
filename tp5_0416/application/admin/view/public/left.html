@@ -1,26 +1,26 @@
-<div class="col-lg-2 col-md-2 col-sm-2">
+<div class="col-lg-1 col-md-1 col-sm-1 col-lg-left">
 	<div class="list-group">
 		<a href="{:url('order/add')}" class="list-group-item backcolorEDBF31 text-center" style="font-size: 18px;">添加信息</a>
 	</div>
 	<div class="list-group lefuserinfo">
 		<li class="list-group-item active">用户信息</li>
-		<a href="{:url('order/listsmyself')}" class="list-group-item">自己信息</a>
-		<a href="{:url('order/lists')}" class="list-group-item">全部信息</a>
-		<!--<a href="{:url('order/listsquery')}" class="list-group-item">查询信息</a>-->
-		<a href="{:url('order/listsaddtoday')}" class="list-group-item">今日登记</a>
-		<a href="{:url('order/listsordertoday')}" class="list-group-item">今日预约</a>
-		<a href="{:url('order/listsdztoday')}" class="list-group-item">今日到诊</a>
-		<a href="{:url('Antaibao/lists')}" class="list-group-item">安太宝</a>
-		<a href="{:url('patient/lists')}" class="list-group-item">网站预约挂号</a>
-		<a href="{:url('order/listsdel')}" class="list-group-item">回收站</a>
+		<a data-href="{:url('order/listsmyself')}" href="{:url('order/listsmyself')}" class="list-group-item">自己信息</a>
+		<a data-href="{:url('order/lists')}" href="{:url('order/lists')}" class="list-group-item">全部信息</a>
+		<a data-href="{:url('order/listsaddtoday')}" href="{:url('order/listsaddtoday')}" class="list-group-item">今日登记</a>
+		<a data-href="{:url('order/listsordertoday')}" href="{:url('order/listsordertoday')}" class="list-group-item">今日预约</a>
+		<a data-href="{:url('order/listsdztoday')}" href="{:url('order/listsdztoday')}" class="list-group-item">今日到诊</a>
+		<a data-href="{:url('Antaibao/lists')}" href="javascript:;" class="list-group-item wzyyghantaibao">安太宝</a>
+		<a data-href="{:url('patient/lists')}" href="javascript:;" class="list-group-item wzyygh">自助预约挂号</a>
+		<a data-href="{:url('order/listsdel')}" href="{:url('order/listsdel')}" class="list-group-item">回收站</a>
 	</div>
 	{if condition="session('type') eq 1"}
 	<div class="list-group">
 		<li class="list-group-item active">系统管理</li>
-		<a href="{:url('admin/lists')}" class="list-group-item">查看用户</a>
-		<a href="{:url('admin/add')}" class="list-group-item">新增用户</a>
-		<a href="{:url('admin/listslock')}" class="list-group-item">锁定账户</a>
-		{if condition="session('id') eq 1"}<a href="{:url('excel/out')}" class="list-group-item">导出数据</a>{/if}
+		<a data-href="{:url('admin/lists')}" href="{:url('admin/lists')}" class="list-group-item">查看所有用户</a>
+		<a data-href="{:url('admin/add')}" href="{:url('admin/add')}" class="list-group-item">新增用户</a>
+		<a data-href="{:url('admin/listslock')}" href="{:url('admin/listslock')}" class="list-group-item">查看锁定用户</a>
+		<a data-href="{:url('excel/out')}" href="{:url('excel/out')}" class="list-group-item">导出登记信息</a>
+		<a data-href="{:url('excel/in')}" href="{:url('excel/in')}" class="list-group-item">导入登记信息</a>
 	</div>
 	{else}{/if}
 </div>

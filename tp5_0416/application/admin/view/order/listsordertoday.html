@@ -8,20 +8,9 @@
 {include file="public/header" /}
 <div class="container-fluid">
 	{include file="public/left" /}
-	<div class="col-lg-10 col-md-10 col-sm-10">
+	<div class="col-lg-11 col-md-11 col-sm-11">
 		<h3>今日预约</h3>
-		<div class="row">
-			<form action="" method="post" id="myform" name="myform" enctype="multipart/form-data" class="form-inline">
-				<div class="col-lg-4">
-					<div class="form-group">
-						<label for="time">时间：</label>
-						<input type="text" value="" class="form-control Wdate" id="time" name="time" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd'})">
-						<button type="submit" class="btn btn-default">查询</button>
-					</div>
-				</div>
-			</form>
-		</div>
-		<hr>
+		{include file="public/search" /}
 		<table class="table table-bordered table-hover">
 			<thead>
 			<tr>
@@ -32,7 +21,7 @@
 				<th>预约时间</th>
 				<th>到诊时间</th>
 				<th>客服</th>
-				<th>病情描述</th>
+				<th width="15%">病情描述</th>
 				<th>操作</th>
 			</tr>
 			</thead>
@@ -40,7 +29,7 @@
 			{volist name="orderList" id="vo"}
 			<tr>
 				{if condition="$vo.daozhen eq 0" }
-				{if condition="session('type') eq 1 || $vo.kefuid eq session('id')"}
+				{if condition="session('type') eq 1 || session('type') eq 3 || $vo.kefuid eq session('id')"}
 				<td class="daozhen">
 					<input type="hidden" name="id" value="{$vo.id}" class="trid">
 					<select class="form-control">
@@ -52,17 +41,22 @@
 				<td><span class="colorred">未到诊</span></td>
 				{/if}
 				{else}
-				<td><span style="color: green;">已到诊</span></td>
+				<td><span class="colorgreen">已到诊</span></td>
 				{/if}
 				<td>AT{$vo.id}</td>
-				<td>{$vo.name} | {$vo.sex}{if condition="$vo.age" } | {$vo.age}岁{else}{/if}{if condition="$vo.czfz eq 1"} | 初诊{else}复诊{/if}{if condition="$vo.kefuid eq session('id')"} | {$vo.tel}{/if}</td>
+				<td class="relative"><span class="displaylt">{$vo.name} | {$vo.sex}{if condition="$vo.age" } | {$vo.age}岁{else}{/if}{if condition="$vo.czfz eq 1"} | 初诊{else}复诊{/if}{if condition="session('type') eq 1"} | {$vo.tel}{/if}</span><div class="jumbotron"><div>{$vo.liaotian}</div></div></td>
 				<td>{$vo.djtime}</td>
 				<td>{if condition="!$vo.yytime" }-{else}{$vo.yytime}{/if}</td>
 				<td class="dztime">{if condition="!$vo.dztime" }-{else}<span class="colorred">{$vo.dztime}</span>{/if}</td>
 				<td>{$vo.kefu}</td>
-				<td>{$vo.disease}</td>
+				<td style="text-align: left!important;">
+					渠道：{$vo.qudao}<br>
+					病种：{$vo.disease}<br>
+					描述：{$vo.desc}<br>
+					备注：{$vo.beizhu}
+				</td>
 				<td>
-					{if condition="session('type') eq 1 || $vo.kefuid eq session('id')"}
+					{if condition="session('type') eq 1 || session('type') eq 3 || $vo.kefuid eq session('id')"}
 					<a href="{:url('edit', array('id'=>$vo.id))}">修改</a>
 					{else}
 					{/if}

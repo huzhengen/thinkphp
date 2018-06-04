@@ -8,39 +8,60 @@
 {include file="public/header" /}
 <div class="container-fluid">
 	{include file="public/left" /}
-	<div class="col-lg-10 col-md-10 col-sm-10">
+	<div class="col-lg-11 col-md-11 col-sm-11">
 		<h3>回收站列表</h3>
-		<hr>
+		{include file="public/search" /}
 		<table class="table table-bordered table-hover">
 			<thead>
 			<tr>
 				<th>点诊</th>
 				<th>预约号</th>
-				<th>患者</th>
+				<th>患者信息</th>
+				<th>登记时间</th>
 				<th>预约时间</th>
 				<th>到诊时间</th>
 				<th>客服</th>
-				<th>病情描述</th>
+				<th width="15%">病情描述</th>
 				<th>操作</th>
 			</tr>
 			</thead>
 			<tbody>
 			{volist name="orderList" id="vo"}
 			<tr>
-				{if condition="!$vo.dztime" }
-				<td><span style="color: red;">未到诊</span></td>
-				{else }
-				<td><span style="color: green;">到诊</span></td>
+				{if condition="$vo.daozhen eq 0" }
+				{if condition="session('type') eq 1 || session('type') eq 3 || $vo.kefuid eq session('id')"}
+				<td class="daozhen">
+					<input type="hidden" name="id" value="{$vo.id}" class="trid">
+					<select class="form-control">
+						<option value="0">未到诊</option>
+						<option value="1">已到诊</option>
+					</select>
+				</td>
+				{else}
+				<td><span class="colorred">未到诊</span></td>
+				{/if}
+				{else}
+				<td><span style="color: green;">已到诊</span></td>
 				{/if}
 				<td>AT{$vo.id}</td>
-				<td>{$vo.name} | {$vo.sex} | {if condition="$vo.dztime" }{$vo.age}岁 |{else}{/if} {$vo.tel}</td>
-				<td>{$vo.yytime}</td>
-				<td>{if condition="$vo.dztime" }{$vo.dztime}{else}未确定{/if}</td>
+				<td class="relative"><span class="displaylt">{$vo.name} | {$vo.sex}{if condition="$vo.age" } | {$vo.age}岁{else}{/if}{if condition="$vo.czfz eq 1"} | 初诊{else} | 复诊{/if}{if condition="session('type') eq 1"} | {$vo.tel}{/if}</span><div class="jumbotron"><div>{$vo.liaotian}</div></div></td>
+				<td class="djtime">{$vo.djtime}</td>
+				<td>{if condition="!$vo.yytime" }-{else}{$vo.yytime}{/if}</td>
+				<td class="dztime">{if condition="!$vo.dztime" }-{else}<span class="colorred">{$vo.dztime}</span>{/if}</td>
 				<td>{$vo.kefu}</td>
-				<td>{$vo.desc}</td>
+				<td style="text-align: left!important;">
+					渠道：{$vo.qudao}<br>
+					病种：{$vo.disease}<br>
+					描述：{$vo.desc}<br>
+					备注：{$vo.beizhu}
+				</td>
 				<td>
-					<a href="{:url('recover', array('id'=>$vo.id))}" onclick="return confirm('确认恢复该信息？')">恢复</a>
-					<a href="{:url('del', array('id'=>$vo.id))}" onclick="return confirm('彻底删除该信息？无法恢复')">删除</a>
+					{if condition="session('type') eq 1 || session('type') eq 3 || $vo.kefuid eq session('id')"}
+					<a href="{:url('edit', array('id'=>$vo.id))}">修改</a>
+					{else}
+					{/if}
+					<!--<a href="{:url('delfalse', array('id'=>$vo.id))}" onclick="return confirm('确认删除该信息到回收站？')">删除</a>-->
+					<!--<a href="{:url('preview', array('id'=>$vo.id))}">预览</a>-->
 				</td>
 			</tr>
 			{/volist}
@@ -50,5 +71,22 @@
 	</div>
 </div>
 {include file="public/footer" /}
+<script language="javascript" type="text/javascript" src="/public/static/admin/lib/My97DatePicker/WdatePicker.js"></script>
+<script>
+    ;(function(){
+        var nowDate = new Date();
+        var timeStr = nowDate.getFullYear()+"-"+(addzero(nowDate.getMonth() + 1))+"-"+addzero(nowDate.getDate());
+        console.log(timeStr)
+        $('tbody tr').each(function(){
+            var tjdate = $(this).find('.djtime').html().substr(0, 10)
+            if(tjdate == timeStr){
+                $(this).addClass('backcolor58AFD8')
+            }
+        })
+    })();
+    function addzero(dateVal) {
+        return dateVal < 10 ? '0' + dateVal: dateVal;
+    }
+</script>
 </body>
 </html>
