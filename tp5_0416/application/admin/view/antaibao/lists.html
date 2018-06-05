@@ -8,7 +8,7 @@
 {include file="public/header" /}
 <div class="container-fluid">
 	{include file="public/left" /}
-	<div class="col-lg-11 col-md-11 col-sm-11">
+	{include file="public/collgright" /}
 		<h3>安太宝</h3>
 		{include file="public/searchantaibao" /}
 		<table class="table table-bordered table-hover">
@@ -36,7 +36,7 @@
 				<td>{if condition="session('type') eq 1 || session('type') eq 3 || session('id') eq $vo.kefuid || $vo.queren eq 0"}{$vo.dianhua}{elseif condition="$vo.queren eq 1"}*******{$vo.dianhua|substr=-4}{/if}<span class="colorred">{volist name="tel" id="telvo"}{if condition="$vo.dianhua eq $telvo.dianhua && $telvo['count(dianhua)'] gt 1"}({$telvo['count(dianhua)']}){/if}{/volist}</span></td>
 				<td>{$vo.padd}</td>
 				<td>{$vo.shebei}</td>
-				<td>{$vo.url}</td>
+				<td><a href="{$vo.url}" target="_blank">{$vo.url}</a></td>
 				<td>{$vo.beizhu}</td>
 				<td>
 					{if condition="$vo.queren eq 0" }<span class="colorred">未处理</span>

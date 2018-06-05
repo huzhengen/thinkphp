@@ -8,9 +8,9 @@
 {include file="public/header" /}
 <div class="container-fluid">
 	{include file="public/left" /}
-	<div class="col-lg-11 col-md-11 col-sm-11">
+	{include file="public/collgright" /}
 		<h3><?php echo session('name'); ?>登记的信息</h3>
-		{include file="public/search" /}
+		{include file="public/searchmyself" /}
 		<table class="table table-bordered table-hover">
 			<thead>
 			<tr>
@@ -20,6 +20,7 @@
 				<th>登记时间</th>
 				<th>预约时间</th>
 				<th>到诊时间</th>
+				<th>回访时间</th>
 				<th>客服</th>
 				<th>病种</th>
 				<th>操作</th>
@@ -41,13 +42,14 @@
 				<td><span class="colorred">未到诊</span></td>
 				{/if}
 				{else}
-				<td><span style="color: green;">已到诊</span></td>
+				<td><span class="colorgreen">已到诊</span></td>
 				{/if}
 				<td>AT{$vo.id}</td>
 				<td class="relative"><span class="displaylt">{$vo.name} | {$vo.sex}{if condition="$vo.age" } | {$vo.age}岁{else}{/if}{if condition="$vo.czfz eq 1"} | 初诊{else} | 复诊{/if}{if condition="session('type') eq 1 || session('type') eq 3 || $vo.kefuid eq session('id')"} | {$vo.tel}{/if}</span><div class="jumbotron"><div>{$vo.liaotian}</div></div></td>
 				<td class="djtime">{$vo.djtime}</td>
 				<td>{if condition="!$vo.yytime" }-{else}{$vo.yytime}{/if}</td>
 				<td class="dztime">{if condition="!$vo.dztime" }-{else}<span class="colorred">{$vo.dztime}</span>{/if}</td>
+				<td>{if condition="!$vo.hftime" }未回访{elseif condition="$vo.hftime && $vo.huifang eq 4"}{$vo.hftime} - 待回访{elseif condition="$vo.hftime && $vo.huifang eq 1"}{$vo.hftime} - 回访中{elseif condition="$vo.hftime && $vo.huifang eq 2"}{$vo.hftime} - 结束回访{/if}</td>
 				<td>{$vo.kefu}</td>
 				<td>{$vo.disease}</td>
 				<td>
