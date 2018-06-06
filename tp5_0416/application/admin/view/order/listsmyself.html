@@ -45,13 +45,18 @@
 				<td><span class="colorgreen">已到诊</span></td>
 				{/if}
 				<td>AT{$vo.id}</td>
-				<td class="relative"><span class="displaylt">{$vo.name} | {$vo.sex}{if condition="$vo.age" } | {$vo.age}岁{else}{/if}{if condition="$vo.czfz eq 1"} | 初诊{else} | 复诊{/if}{if condition="session('type') eq 1 || session('type') eq 3 || $vo.kefuid eq session('id')"} | {$vo.tel}{/if}</span><div class="jumbotron"><div>{$vo.liaotian}</div></div></td>
+				<td class="relative"><span class="displaylt">{$vo.name} | {$vo.sex}{if condition="$vo.age" } | {$vo.age}岁{else}{/if}{if condition="$vo.czfz eq 1"} | 初诊{else} | 复诊{/if}{if condition="session('type') eq 1 || session('type') eq 3 || $vo.kefuid eq session('id')"} | {$vo.tel}{/if}</span><div class="jumbotron"><div><?php echo htmlspecialchars_decode($vo['liaotian']);?>"</div></div></td>
 				<td class="djtime">{$vo.djtime}</td>
 				<td>{if condition="!$vo.yytime" }-{else}{$vo.yytime}{/if}</td>
 				<td class="dztime">{if condition="!$vo.dztime" }-{else}<span class="colorred">{$vo.dztime}</span>{/if}</td>
-				<td>{if condition="!$vo.hftime" }未回访{elseif condition="$vo.hftime && $vo.huifang eq 4"}{$vo.hftime} - 待回访{elseif condition="$vo.hftime && $vo.huifang eq 1"}{$vo.hftime} - 回访中{elseif condition="$vo.hftime && $vo.huifang eq 2"}{$vo.hftime} - 结束回访{/if}</td>
+				<td class="hftime">{if condition="!$vo.hftime" }未回访{elseif condition="$vo.hftime && $vo.huifang eq 4"}{$vo.hftime} - 待回访{elseif condition="$vo.hftime && $vo.huifang eq 1"}{$vo.hftime} - 回访中{elseif condition="$vo.hftime && $vo.huifang eq 2"}{$vo.hftime} - 结束回访{/if}</td>
 				<td>{$vo.kefu}</td>
-				<td>{$vo.disease}</td>
+				<td style="text-align: left!important;">
+					渠道：{$vo.qudao}<br>
+					病种：{$vo.disease}<br>
+					描述：{$vo.desc}<br>
+					备注：{$vo.beizhu}
+				</td>
 				<td>
 					{if condition="session('type') eq 1 || $vo.kefuid eq session('id')"}
 					<a href="{:url('edit', array('id'=>$vo.id))}">修改</a>
@@ -71,7 +76,6 @@
     ;(function(){
         var nowDate = new Date();
         var timeStr = nowDate.getFullYear()+"-"+(addzero(nowDate.getMonth() + 1))+"-"+addzero(nowDate.getDate());
-        console.log(timeStr)
         $('tbody tr').each(function(){
             var tjdate = $(this).find('.djtime').html().substr(0, 10)
             if(tjdate == timeStr){
@@ -97,7 +101,31 @@
                 }
             })
         })
-    })
+    });
+    (function(){
+        var time1 = setInterval(function(){
+            $.get('/index.php/admin/order/listsmyselfajax',function(data){
+	            $.each(data, function(index, value){
+                    var shouldhftime = value.hftime;
+                    var nowDate = new Date();
+                    var nowtimestr = nowDate.getFullYear()+"-"+(addzero(nowDate.getMonth()+1))+"-"+addzero(nowDate.getDate())+" "+addzero(nowDate.getHours())+":"+addzero(nowDate.getMinutes())+":"+addzero(nowDate.getSeconds());
+		            if( shouldhftime.substr(0,10) == nowtimestr.substr(0,10) ){
+                       // var text='有患者需要回访了~' + '姓名：' + value.name + '~';
+                        var text='今天还有患者需要回访~今天还有患者需要回访~';
+                        var timerID;
+                       newtext();
+                       function newtext() {
+                           clearTimeout(timerID)
+                           document.title=text.substring(1,text.length)+text.substring(0,1)
+                           text=document.title.substring(0,text.length)
+                           // timerID = setTimeout("newtext()", 100)
+                           timerID = setTimeout(function(){newtext()}, 250)
+                       }
+                    }
+                })
+            })
+        }, 3000)
+    })();
     function addzero(dateVal) {
         return dateVal < 10 ? '0' + dateVal: dateVal;
     }

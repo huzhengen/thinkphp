@@ -9,7 +9,7 @@
 <div class="container-fluid">
 	{include file="public/left" /}
 	{include file="public/collgright" /}
-		<h3>网站预约挂号</h3>
+		<h3>网站预约挂号 <span class="colorgreen fs15">当前在线：{if condition="$online"}{$online[0]['name']}{else}目前没人在线{/if}</span></h3>
 		{include file="public/searchantaibao" /}
 		<table class="table table-bordered table-hover">
 			<thead>
@@ -25,6 +25,7 @@
 				<th>归属地</th>
 				<th>设备</th>
 				<th width="1%">网址</th>
+				<th>备注</th>
 				<th width="6%">操作</th>
 			</tr>
 			</thead>
@@ -41,7 +42,8 @@
 				<td>{$vo.miaoshu}</td>
 				<td>{$vo.padd}</td>
 				<td>{$vo.shebei}</td>
-				<td>{$vo.url}</td>
+				<td><a href="{$vo.url}" target="_blank">{$vo.url}</a></td>
+				<td>{$vo.beizhu}</td>
 				<td>
 					{if condition="$vo.queren eq 0" }<span class="colorred">未处理</span>
 					{elseif condition="$vo.queren eq 1"}<span class="colorgreen">已处理</span>

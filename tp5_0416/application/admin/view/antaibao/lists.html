@@ -9,7 +9,7 @@
 <div class="container-fluid">
 	{include file="public/left" /}
 	{include file="public/collgright" /}
-		<h3>安太宝</h3>
+		<h3>安太宝 <span class="colorgreen fs15">当前在线：{if condition="$online"}{$online[0]['name']}{else}目前没人在线{/if}</span></h3>
 		{include file="public/searchantaibao" /}
 		<table class="table table-bordered table-hover">
 			<thead>

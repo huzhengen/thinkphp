@@ -122,4 +122,41 @@
 			})
 	    }
     })
+    $('.pagination a').each(function(){
+        var href = window.location.href;//当前的链接
+	    var hreflen = href.length;//当前链接的长度
+	    if(href.indexOf('&') != -1){
+	        //如果链接里面包含符号&
+	        var hrefarr = href.split('&');//用&分割成数组
+	        var hrefarrlen = hrefarr.length;//数组的长度
+		    var hrefarrlast = hrefarr[hrefarrlen-1];//数组最后一个里的字符串
+            //如果数组最后一个字符串里面包含page
+            if(hrefarrlast.indexOf('page') != -1){
+                var urllen = hreflen - hrefarrlast.length - 1;
+                console.log(urllen);
+                href = href.substr(0,urllen);//截取href字符串，去掉后面的page，只截取前面的部分
+                console.log('123page', href);
+                var page = $(this).attr('href').split('?')[1];
+                $(this).attr('href', href + '&' + page);
+            }else{
+                console.log('no page', urllen, href);
+                var page = $(this).attr('href').split('?')[1];
+                $(this).attr('href', href + '&' + page);
+            }
+	    }else{
+            // var hreflen = href.length - href.split('?')[href.split('?').length-1].length - 1;
+            // if(href.split('?')[href.split('?').length-1].indexOf('page') != -1){
+            //     href = href.substr(0,hreflen);
+            //     $(this).attr('href', href + '?' + page)
+            // }
+        }
+
+
+
+
+
+
+
+
+    });
 </script>
