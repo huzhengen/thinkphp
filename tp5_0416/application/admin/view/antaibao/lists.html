@@ -22,7 +22,7 @@
 				<th>归属地</th>
 				<th>设备</th>
 				<th width="1%">网址</th>
-				<th>备注</th>
+				<th width="12%">备注</th>
 				<th>操作</th>
 			</tr>
 			</thead>
@@ -32,16 +32,16 @@
 				<td>{$vo.id}</td>
 				<td class="tjtime">{$vo.tjtime}</td>
 				<td>{if condition="$vo.shtime"}{$vo.shtime}<br>{$vo.kefuname}{/if}</td>
-				<td class="ipaddress">{$vo.ipadd}</td>
-				<td>{if condition="session('type') eq 1 || session('type') eq 3 || session('id') eq $vo.kefuid || $vo.queren eq 0"}{$vo.dianhua}{elseif condition="$vo.queren eq 1"}*******{$vo.dianhua|substr=-4}{/if}<span class="colorred">{volist name="tel" id="telvo"}{if condition="$vo.dianhua eq $telvo.dianhua && $telvo['count(dianhua)'] gt 1"}({$telvo['count(dianhua)']}){/if}{/volist}</span></td>
+				<td><span class="ipaddress">{$vo.ipadd}</span>{if condition="session('type') eq 1"}<br><a data-id="{$vo.id}" data-ip="{$vo.ip}" class="black" href="javascript:;" data-type="ip">加入黑名单</a>{/if}</td>
+				<td>{if condition="session('type') eq 1 || session('type') eq 3 || session('id') eq $vo.kefuid || $vo.queren eq 0"}{$vo.dianhua}{elseif condition="$vo.queren eq 1"}*******{$vo.dianhua|substr=-4}{/if}<span class="colorred">{volist name="tel" id="telvo"}{if condition="$vo.dianhua eq $telvo.dianhua && $telvo['count(dianhua)'] gt 1"}({$telvo['count(dianhua)']}){/if}{/volist}</span>{if condition="session('type') eq 1"}<br><a data-id="{$vo.id}" data-tel="{$vo.dianhua}" class="black" href="javascript:;" data-type="tel">加入黑名单</a>{/if}</td>
 				<td>{$vo.padd}</td>
 				<td>{$vo.shebei}</td>
-				<td><a href="{$vo.url}" target="_blank">{$vo.url}</a></td>
+				<td><a href="{$vo.url}" target="_blank">{$vo.url}</a>{if condition="session('type') eq 1"}<br><a data-id="{$vo.id}" data-url="{$vo.url}" class="black" href="javascript:;" data-type="url">加入黑名单</a>{/if}</td>
 				<td>{$vo.beizhu}</td>
 				<td>
 					{if condition="$vo.queren eq 0" }<span class="colorred">未处理</span>
 					{elseif condition="$vo.queren eq 1"}<span class="colorgreen">已处理</span>
-					{else}<span>无效</span>
+					{else}无效
 					{/if}
 					{if condition="$vo.queren eq 0 || session('type') eq 1 || session('type') eq 3 || $vo.kefuid eq session('id')"}
 					<a href="{:url('edit', array('id'=>$vo.id))}">修改</a>
@@ -60,7 +60,7 @@
 <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
 
 <script>
-    ;(function(){
+    (function(){
         var nowDate = new Date();
         var timeStr = nowDate.getFullYear()+"-"+(addzero(nowDate.getMonth() + 1))+"-"+addzero(nowDate.getDate());
         console.log(timeStr)
@@ -70,15 +70,51 @@
                 $(this).addClass('backcolor58AFD8')
             }
         })
-    })()
-    ;(function () {
+    })();
+    (function () {
         $('.ipaddress').each(function(){
             var ipaddressval = $(this).html();
             ipaddressarr = ipaddressval.split('-');
             console.log(ipaddressval.split('-'));
             $(this).html(ipaddressarr[0] + "<br>" + ipaddressarr[1] + " - " + ipaddressarr[2])
         })
-    })()
+    })();
+    (function(){
+        $('.black').each(function () {
+	        $(this).click(function(){
+	            var dataid = $(this).attr('data-id');
+                var ip = $(this).attr('data-ip');
+                var tel = $(this).attr('data-tel');
+                var url = $(this).attr('data-url');
+                if($(this).attr('data-type') == 'ip'){
+                    var posturl = '/index.php/admin/antaibao/blackip';
+                }else if($(this).attr('data-type') == 'tel'){
+                    var posturl = '/index.php/admin/antaibao/blacktel';
+                }else if($(this).attr('data-type') == 'url'){
+                    var posturl = '/index.php/admin/antaibao/blackurl';
+                }
+	            if(confirm('确定加入黑名单？')){
+		            $.ajax({
+			            type: 'post',
+			            url: posturl,
+			            data: {
+			                'id': dataid,
+				            'ip': ip,
+                            'tel': tel,
+                            'url': url,
+			            },
+			            success: function(data){
+							alert(data);
+                            location.reload();
+			            },
+			            error: function (error) {
+				            console.log(error)
+                        }
+		            })
+	            }
+	        })
+        })
+    })();
     setInterval(function () {
         $.get('/index.php/admin/antaibao/listsAjax',function(data1){
             var len = data1.total;
@@ -92,7 +128,17 @@
 	            console.log(data1.total, parseInt(storage));
 				if(data1.total != parseInt(storage)){
 				    console.log('数据增加了')
-                    tixing();
+                    // tixing();
+                    var text='有新消息~有新消息~有新消息~';
+                    var timerID;
+                    newtext();
+                    function newtext() {
+                        clearTimeout(timerID)
+                        document.title=text.substring(1,text.length)+text.substring(0,1)
+                        text=document.title.substring(0,text.length)
+                        // timerID = setTimeout("newtext()", 100)
+                        timerID = setTimeout(function(){newtext()}, 250)
+                    }
                     desktop()
                     var len = data1.total;
                     localStorage.setItem("antaibaoResult", len);

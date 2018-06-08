@@ -98,8 +98,18 @@
 	            console.log(data1.total, parseInt(storage));
 				if(data1.total != parseInt(storage)){
 				    console.log('数据增加了')
-                    tixing();
-                    desktop()
+                    // tixing();
+                    var text='有新消息~有新消息~有新消息~';
+                    var timerID;
+                    newtext();
+                    function newtext() {
+                        clearTimeout(timerID)
+                        document.title=text.substring(1,text.length)+text.substring(0,1)
+                        text=document.title.substring(0,text.length)
+                        // timerID = setTimeout("newtext()", 100)
+                        timerID = setTimeout(function(){newtext()}, 250)
+                    }
+                    desktop();
                     var len = data1.total;
                     localStorage.setItem("patientResult", len);
 				}else{

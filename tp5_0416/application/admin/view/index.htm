@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>{dede:global.cfg_webname/}</title>
+<meta name="keywords" content="{dede:field.keywords/}"/>
+<meta name="description" content="{dede:field.description/}"/>
+{dede:include filename="metacssrem.htm"/}
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<div class="banner">
+	<div class="swiper-container swiper_banner">
+		<div class="swiper-wrapper">
+		  <div class="swiper-slide"><a href="javascript:;" class="openZixun" data-zx="首页第一张banner"><img src="/extend/images/banner1.jpg" alt=""></a></div>
+		  <div class="swiper-slide"><a href="javascript:;" class="openZixun" data-zx="首页第二张banner"><img src="/extend/images/banner2.jpg" alt=""></a></div>
+		  <div class="swiper-slide"><a href="javascript:;" class="openZixun" data-zx="首页第三张banner"><img src="/extend/images/banner3.jpg" alt=""></a></div>
+		</div>
+	</div>
+	{dede:include filename="nav.htm"/}
+</div>
+
+<div class="xiangmu">
+	<div class="title clearfix">
+		<h3></h3>
+		<div class="tel clearfix"><h4>产科常见项目</h4><h5>咨询热线: 010-67537758</h5></div>
+	</div>
+	<div class="xm clearfix">
+		<ul>
+			<li>{dede:type typeid="86"}<a href="[field:typeurl/]">{/dede:type}<h3></h3><h4>备孕建档</h4></a></li>
+			<li>{dede:type typeid="83"}<a href="[field:typeurl/]">{/dede:type}<h3></h3><h4>孕期产检</h4></a></li>
+			<li>{dede:type typeid="107"}<a href="[field:typeurl/]">{/dede:type}<h3></h3><h4>温柔分娩</h4></a></li>
+			<li>{dede:type typeid="96"}<a href="[field:typeurl/]">{/dede:type}<h3></h3><h4>妊娠剧吐</h4></a></li>
+			<li>{dede:type typeid="87"}<a href="[field:typeurl/]">{/dede:type}<h3></h3><h4>孕期保胎</h4></a></li>
+			<li>{dede:type typeid="115"}<a href="[field:typeurl/]">{/dede:type}<h3></h3><h4>产后康复</h4></a></li>
+			<li>{dede:type typeid="14"}<a href="[field:typeurl/]">{/dede:type}<h3></h3><h4>月子中心</h4></a></li>
+			<li>{dede:type typeid="112"}<a href="[field:typeurl/]">{/dede:type}<h3></h3><h4>剖后顺产</h4></a></li>
+		</ul>
+	</div>
+	<a href="javascript:;" class="more openZixun" data-zx="首页-没有找到您想了解的内容?-了解更多-1">
+		<h3>没有找到您想了解的内容?</h3>
+		<h4>了解更多</h4>
+	</a>
+</div>
+<div class="xiangmu">
+	<div class="title clearfix">
+		<h3></h3>
+		<div class="tel clearfix"><h4>生殖健康与不孕不育</h4><h5>咨询热线: 010-67537758</h5></div>
+	</div>
+	<div class="xm xm_sz clearfix">
+		<ul>
+			<li>{dede:type typeid="61"}<a href="[field:typeurl/]">{/dede:type}<h3></h3><h4>习惯性流产</h4></a></li>
+			<li>{dede:type typeid="51"}<a href="[field:typeurl/]">{/dede:type}<h3></h3><h4>输卵管不孕</h4></a></li>
+			<li>{dede:type typeid="72"}<a href="[field:typeurl/]">{/dede:type}<h3></h3><h4>多囊卵巢</h4></a></li>
+			<li>{dede:type typeid="25"}<a href="[field:typeurl/]">{/dede:type}<h3></h3><h4>宫颈疾病</h4></a></li>
+			<li>{dede:type typeid="11"}<a href="[field:typeurl/]">{/dede:type}<h3></h3><h4>子宫性不孕</h4></a></li>
+			<li>{dede:type typeid="69"}<a href="[field:typeurl/]">{/dede:type}<h3></h3><h4>内分泌不孕</h4></a></li>
+			<li>{dede:type typeid="76"}<a href="[field:typeurl/]">{/dede:type}<h3></h3><h4>计划生育</h4></a></li>
+			<li>{dede:type typeid="42"}<a href="[field:typeurl/]">{/dede:type}<h3></h3><h4>阴道外阴</h4></a></li>
+		</ul>
+	</div>
+	<a href="javascript:;" class="more openZixun" data-zx="首页-没有找到您想了解的内容?-了解更多-2">
+		<h3>没有找到您想了解的内容?</h3>
+		<h4>了解更多</h4>
+	</a>
+</div>
+<div class="news">
+	<div class="new">
+		{dede:type typeid="7"}<a class="ne" href="[field:typeurl/]"></a>{/dede:type}
+	</div>
+	<div class="swiper-container hdxb">
+		<div class="swiper-wrapper">
+		  <div class="swiper-slide">
+		  	<ul class="clearfix">
+		  		{dede:arclist row='2' typeid='7' titlelen='50'}
+		  		<li class="clearfix">
+		  			<a href="[field:arcurl/]" title="[field:fulltitle/]">
+		  				<h3>活动</h3>
+		  				<h4>[field:title/]</h4>
+		  			</a>
+		  		</li>
+		  		{/dede:arclist}
+		  	</ul>
+		  </div>
+		  <div class="swiper-slide">
+		  	<ul class="clearfix">
+		  		{dede:arclist row='2' typeid='7' titlelen='50'}
+		  		<li class="clearfix">
+		  			<a href="[field:arcurl/]" title="[field:fulltitle/]">
+		  				<h3>活动</h3>
+		  				<h4>[field:title/]</h4>
+		  			</a>
+		  		</li>
+		  		{/dede:arclist}
+		  	</ul>
+		  </div>
+		</div>
+	</div>
+</div>
+{dede:include filename="index_zj.htm"/}
+{dede:include filename="guahaofoot.htm"/}
+{dede:include filename="js.htm"/}
+<script src="/extend/js/index.js"></script>
+</body>
+</html>
