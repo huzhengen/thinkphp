@@ -180,7 +180,7 @@
 			<div class="col-lg-2">
 				<div class="form-group">
 					<label for="hftimeid">预计回访时间</label>
-					<input type="text" value="" class="form-control Wdate" maxlength="10" id="hftimeid" name="hftime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+					<input type="text" value="" class="form-control Wdate" maxlength="10" id="hftimeid" name="hftime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm'})">
 				</div>
 			</div>
 			<div class="col-lg-2">
@@ -236,8 +236,9 @@
     ue.ready(function(){
         ue.setHeight(200);
     })
+    console.log(ue);
     var nowDate = new Date();
-    var timeStr = nowDate.getFullYear()+"-"+(addzero(nowDate.getMonth() + 1))+"-"+addzero(nowDate.getDate())+" "+addzero(nowDate.getHours())+":"+addzero(nowDate.getMinutes())+":"+addzero(nowDate.getSeconds());
+    var timeStr = nowDate.getFullYear()+"-"+(addzero(nowDate.getMonth() + 1))+"-"+addzero(nowDate.getDate())+" "+addzero(nowDate.getHours())+":"+addzero(nowDate.getMinutes());
     $('.inittime').val(timeStr);
     function addzero(dateVal) {
         return dateVal < 10 ? '0' + dateVal: dateVal;

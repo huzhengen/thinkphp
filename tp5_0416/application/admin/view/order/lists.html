@@ -44,7 +44,7 @@
 				<td><span class="colorgreen">已到诊</span></td>
 				{/if}
 				<td>AT{$vo.id}</td>
-				<td class="relative"><span class="displaylt">{$vo.name} | {$vo.sex}{if condition="$vo.age" } | {$vo.age}岁{else}{/if}{if condition="$vo.czfz eq 1"} | 初诊{else} | 复诊{/if}{if condition="session('type') eq 1 || session('type') eq 3 || $vo.kefuid eq session('id')"} | {$vo.tel}{/if}</span><div class="jumbotron"><div><?php echo htmlspecialchars_decode($vo['liaotian']);?>"</div></div></td>
+				<td class="relative"><span class="displaylt" data-id="{$vo.id}">{$vo.name} | {$vo.sex}{if condition="$vo.age" } | {$vo.age}岁{else}{/if}{if condition="$vo.czfz eq 1"} | 初诊{else} | 复诊{/if}{if condition="session('type') eq 1 || session('type') eq 3 || $vo.kefuid eq session('id')"} | {$vo.tel}{/if}</span><div class="jumbotron"><div class="liaotian" id="editor{$vo.id}"><?php echo htmlspecialchars_decode($vo['liaotian']);?>"</div></div></td>
 				<td class="djtime">{$vo.djtime}</td>
 				<td>{if condition="!$vo.yytime" }-{else}{$vo.yytime}{/if}</td>
 				<td class="dztime">{if condition="!$vo.dztime" }-{else}<span class="colorred">{$vo.dztime}</span>{/if}</td>
@@ -76,7 +76,6 @@
     ;(function(){
         var nowDate = new Date();
         var timeStr = nowDate.getFullYear()+"-"+(addzero(nowDate.getMonth() + 1))+"-"+addzero(nowDate.getDate());
-        console.log(timeStr)
         $('tbody tr').each(function(){
             var tjdate;
             var djtimehtml = $(this).find('.djtime').html();

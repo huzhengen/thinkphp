@@ -109,7 +109,7 @@
                     var shouldhftime = value.hftime;
                     var nowDate = new Date();
                     var nowtimestr = nowDate.getFullYear()+"-"+(addzero(nowDate.getMonth()+1))+"-"+addzero(nowDate.getDate())+" "+addzero(nowDate.getHours())+":"+addzero(nowDate.getMinutes())+":"+addzero(nowDate.getSeconds());
-		            if( shouldhftime.substr(0,10) == nowtimestr.substr(0,10) ){
+		            if( shouldhftime.substr(0,13) == nowtimestr.substr(0,13) ){
                        // var text='有患者需要回访了~' + '姓名：' + value.name + '~';
                         var text='今天还有患者需要回访~今天还有患者需要回访~';
                         var timerID;

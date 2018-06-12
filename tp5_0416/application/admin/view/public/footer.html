@@ -2,15 +2,24 @@
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script language="javascript" type="text/javascript" src="/public/static/admin/lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/public/static/admin/lib/wangEditor-3.1.1/release/wangEditor.min.js"></script>
 <script>
-    $('.jumbotron').click(function (e) {
-        e.stopPropagation();
+    $('.displaylt').each(function(){
+        var id = '#editor' + $(this).attr('data-id');
+        var E = window.wangEditor
+        var editor = new E(id)
+        // 或者 var editor = new E( document.getElementById('editor') )
+        editor.create();
     })
     $('body').click(function () {
         $('.jumbotron').hide();
     })
+    $('.jumbotron').click(function (e) {
+        e.stopPropagation();
+    })
     $('.displaylt').click(function(e){
         e.stopPropagation();
+
         $('.jumbotron').hide();
         $(this).next().show();
         // console.log(parseInt($(this).next().css('bottom')));
@@ -21,6 +30,7 @@
 	     //    })
         // }
     })
+
     ;(function () {
         var origin = window.location.origin;
         var len = origin.length;
