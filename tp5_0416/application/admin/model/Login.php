@@ -9,19 +9,26 @@ class Login extends Model{
 	public function login($username, $password){
 		$admin = \think\Db::name('admin')->where('username' , '=', $username)->find();
 		if($admin){
-			if($admin['password'] === md5($password) && $admin['lock'] != 1){
-				//将登陆id和名词存入sesion
-				\think\Session::set('id', $admin['id']);
-				\think\Session::set('username', $admin['username']);
-				\think\Session::set('name', $admin['name']);
-				\think\Session::set('type', $admin['type']);
-				\think\Session::set('logintime', $admin['logintime']);
-				\think\Session::set('loginip', $admin['loginip']);
-				return 1;
-			}else if($admin['lock'] = 1){
-				return 4;
-			}else{
-				return 2;
+			$captcha = input('captcha');
+			if(!captcha_check($captcha)){
+				return 5;
+			}else {
+				if($admin['lock'] == 1){
+					return 4;
+				}else{
+					if($admin['password'] === md5($password)){
+						//将登陆id和名词存入sesion
+						\think\Session::set('id', $admin['id']);
+						\think\Session::set('username', $admin['username']);
+						\think\Session::set('name', $admin['name']);
+						\think\Session::set('type', $admin['type']);
+						\think\Session::set('logintime', $admin['logintime']);
+						\think\Session::set('loginip', $admin['loginip']);
+						return 1;
+					}else{
+						return 2;
+					}
+				}
 			}
 		}else {
 			return 3;
