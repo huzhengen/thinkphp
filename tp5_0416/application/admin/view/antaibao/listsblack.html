@@ -75,8 +75,12 @@
         $('.ipaddress').each(function(){
             var ipaddressval = $(this).html();
             ipaddressarr = ipaddressval.split('-');
-            console.log(ipaddressval.split('-'));
-            $(this).html(ipaddressarr[0] + "<br>" + ipaddressarr[1] + " - " + ipaddressarr[2])
+            if(ipaddressarr[1]){
+                // $(this).html(ipaddressarr[0] + "<br>" + ipaddressarr[1] + " - " + ipaddressarr[2])
+                $(this).html(ipaddressarr[0] + "<br>" + ipaddressarr[1])
+            }else{
+                $(this).html(ipaddressarr[0] + "<br>" + '未知')
+            }
         })
     })();
     (function(){

@@ -76,7 +76,8 @@
             var ipaddressval = $(this).html();
             ipaddressarr = ipaddressval.split('-');
             if(ipaddressarr[1]){
-                $(this).html(ipaddressarr[0] + "<br>" + ipaddressarr[1] + " - " + ipaddressarr[2])
+                // $(this).html(ipaddressarr[0] + "<br>" + ipaddressarr[1] + " - " + ipaddressarr[2])
+                $(this).html(ipaddressarr[0] + "<br>" + ipaddressarr[1])
             }else{
                 $(this).html(ipaddressarr[0] + "<br>" + '未知')
             }
@@ -130,7 +131,7 @@
 				// console.log(storage);
 	            console.log(data1.total, parseInt(storage));
 				if(data1.total != parseInt(storage)){
-				    console.log('数据增加了')
+				    console.log('数据变化了')
                     // tixing();
                     var text='有新消息~有新消息~有新消息~';
                     var timerID;
