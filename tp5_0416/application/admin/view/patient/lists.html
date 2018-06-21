@@ -21,7 +21,7 @@
 				<th>IP</th>
 				<th>姓名</th>
 				<th>电话</th>
-				<th>描述</th>
+				<th width="10%">描述</th>
 				<th>归属地</th>
 				<th>设备</th>
 				<th width="1%">网址</th>
@@ -66,23 +66,22 @@
 <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
 
 <script>
-	;(function(){
+	(function(){
         var nowDate = new Date();
         var timeStr = nowDate.getFullYear()+"-"+(addzero(nowDate.getMonth() + 1))+"-"+addzero(nowDate.getDate());
-        console.log(timeStr)
 		$('tbody tr').each(function(){
 		    var tjdate = $(this).find('.tjtime').html().substr(0, 10)
 			if(tjdate == timeStr){
 		        $(this).addClass('backcolor58AFD8')
 			}
 		})
-	})()
+	})();
     (function () {
         $('.ipaddress').each(function(){
             var ipaddressval = $(this).html();
-            ipaddressarr = ipaddressval.split('-');
+            var ipaddressarr = ipaddressval.split('-');
+            console.log(ipaddressarr);
             if(ipaddressarr[1]){
-                // $(this).html(ipaddressarr[0] + "<br>" + ipaddressarr[1] + " - " + ipaddressarr[2])
                 $(this).html(ipaddressarr[0] + "<br>" + ipaddressarr[1])
             }else{
                 $(this).html(ipaddressarr[0] + "<br>" + '未知')
