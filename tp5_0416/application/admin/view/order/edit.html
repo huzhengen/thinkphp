@@ -227,7 +227,20 @@
 						<textarea class="form-control" rows="3" name="beizhu">{$orderList.beizhu}</textarea>
 					</div>
 				</div>
-				<div class="col-lg-12"></div>
+				<div class="col-lg-2">
+					<div class="form-group">
+						<label>关键词（旧信息带的）</label>
+						<textarea class="form-control" rows="3" name="beizhu">{$orderList.keywords}</textarea>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					{if condition="$orderList.pic"}
+					<div class="form-group">
+						<label for="">图片：</label>
+						<img src="http://yuyue.bjatfc.com/{$orderList.pic}" alt="">
+					</div>
+					{/if}
+				</div>
 				<div class="col-lg-12">
 					<div class="form-group">
 						<label for="">聊天记录</label>
