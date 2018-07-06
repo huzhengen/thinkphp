@@ -44,9 +44,9 @@
 				<td><span class="colorgreen">已到诊</span></td>
 				{/if}
 				<td>AT{$vo.id}</td>
-				<td class="relative"><span class="displaylt">{$vo.name} | {$vo.sex}{if condition="$vo.age" } | {$vo.age}岁{else}{/if}{if condition="$vo.czfz eq 1"} | 初诊{else} | 复诊{/if}{if condition="session('type') eq 1"} | {$vo.tel}{/if}</span><div class="jumbotron"><div>{$vo.liaotian}</div></div></td>
+				<td class="relative"><span class="displaylt" data-id="{$vo.id}">{$vo.name} | {$vo.sex}{if condition="$vo.age" } | {$vo.age}岁{else}{/if}{if condition="$vo.czfz eq 1"} | 初诊{else} | 复诊{/if}{if condition="(session('type') eq 1 || session('type') eq 3 || $vo.kefuid eq session('id')) && $vo.tel"} | {$vo.tel}{/if}</span><div class="jumbotron">和{$vo.name}的聊天记录：<div class="liaotian" id="editor{$vo.id}">"<div><?php echo htmlspecialchars_decode($vo['liaotian']);?></div>"</div></div></td>
 				<td class="djtime">{$vo.djtime}</td>
-				<td>{if condition="!$vo.yytime" }-{else}{$vo.yytime}{/if}</td>
+				<td class="yytime">{if condition="!$vo.yytime" }-{else}{$vo.yytime|substr=0,10}{/if}</td>
 				<td class="dztime">{if condition="!$vo.dztime" }-{else}<span class="colorred">{$vo.dztime}</span>{/if}</td>
 				<td>{$vo.kefu}</td>
 				<td style="text-align: left!important;">

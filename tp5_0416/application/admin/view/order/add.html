@@ -126,8 +126,8 @@
 			</div>
 			<div class="col-lg-2">
 				<div class="form-group">
-					<label for="">就诊院区</label>
-					<select class="form-control" name="yuanqu">
+					<label for="yuanqu">就诊院区</label>
+					<select class="form-control" name="yuanqu" id="yuanqu">
 						<option value="安太">安太</option>
 						<option value="海婴">海婴</option>
 					</select>
@@ -135,8 +135,8 @@
 			</div>
 			<div class="col-lg-2">
 				<div class="form-group">
-					<label for="">客服姓名</label>
-					<select class="form-control" name="kefu">
+					<label for="kefu">客服姓名</label>
+					<select class="form-control" name="kefu" id="kefu">
 						<option value="<?php echo session('name'); ?>"><?php echo session('name'); ?></option>
 						{volist name="kefuList" id="vo"}
 						{if condition="$vo.name != session('name')"}
@@ -164,8 +164,8 @@
 			</div>
 			<div class="col-lg-2">
 				<div class="form-group">
-					<label for="">类别</label>
-					<select class="form-control" name="type">
+					<label for="type">类别</label>
+					<select class="form-control" name="type" id="type">
 						<option value="个人">个人</option>
 						<option value="科室">科室</option>
 					</select>
@@ -173,8 +173,8 @@
 			</div>
 			<div class="col-lg-2">
 				<div class="form-group">
-					<label for="">到诊时间</label>
-					<input type="text" value="" class="form-control Wdate" maxlength="10" name="dztime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd'})">
+					<label for="dztime">到诊时间</label>
+					<input type="text" value="" class="form-control Wdate" maxlength="10" name="dztime" id="dztime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd'})">
 				</div>
 			</div>
 			<div class="col-lg-2">
@@ -185,8 +185,8 @@
 			</div>
 			<div class="col-lg-2">
 				<div class="form-group">
-					<label for="">是否已经回访</label>
-					<select class="form-control" name="huifang">
+					<label for="huifang">是否已经回访</label>
+					<select class="form-control" name="huifang" id="huifang">
 						<option value="0">未回访</option>
 						<option value="4">待回访</option>
 						<option value="1">回访中</option>
