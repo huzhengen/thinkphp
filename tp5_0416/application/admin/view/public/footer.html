@@ -122,16 +122,16 @@
         var collgrightvalue = $('body').width() - 240;
         $('.col-lg-right').css('width',collgrightvalue);
     }
-    $('.form-horizontal label').each(function(){
-	    var labelhtml = $(this).html();
-	    if(labelhtml.length >= 4){
-	        console.log(labelhtml);
-			$(this).css({
-				'padding-left': '0',
-                'padding-right': '0'
-			})
-	    }
-    })
+    // $('.form-horizontal label').each(function(){
+	 //    var labelhtml = $(this).html();
+	 //    if(labelhtml.length >= 4){
+	 //        console.log(labelhtml);
+		// 	$(this).css({
+		// 		'padding-left': '0',
+    //             'padding-right': '0'
+		// 	})
+	 //    }
+    // })
     $('.pagination a').each(function(){
         var href = window.location.href;//当前的链接
 	    var hreflen = href.length;//当前链接的长度
