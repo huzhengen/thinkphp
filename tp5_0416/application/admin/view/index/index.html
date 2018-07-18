@@ -12,7 +12,7 @@
 	{include file="public/collgright" /}
 		<div class="row">
 			<div class="col-lg-12 text-center"><h2>欢迎使用北京安太妇产医院客服预约管理系统</h2><h5 class="colorgreen"></h5></div>
-			<div class="col-lg-12"><h4>数据统计时段：2018-05-17 ~ {$nowtime}</h4></div>
+			<div class="col-lg-12"><h4>数据统计时段：{$startTime|substr=0,10} ~ {$nowtime}</h4></div>
 			<div class="col-lg-6">
 				<ul class="list-group">
 					<li class="list-group-item active"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 个人数据预览</li>
@@ -59,8 +59,9 @@
 							<th>姓名</th>
 							<th class="colorred">初诊/月</th>
 							<th>复诊/月</th>
-							<th>总到诊</th>
 							<th>总预约</th>
+							<th>总到诊</th>
+							<th>总登记</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -68,43 +69,49 @@
 								<th scope="row">{$kefu7name['name']}</th>
 								<td class="colorred">{$kefu7czmonth}</td>
 								<td>{$kefu7fzmonth}</td>
-								<td>{$kefu7dz}</td>
 								<td>{$kefu7yy}</td>
+								<td>{$kefu7dz}</td>
+								<td>{$kefu7dj}</td>
 							</tr>
 							<tr>
 								<th scope="row">{$kefu8name['name']}</th>
 								<td class="colorred">{$kefu8czmonth}</td>
 								<td>{$kefu8fzmonth}</td>
-								<td>{$kefu8dz}</td>
 								<td>{$kefu8yy}</td>
+								<td>{$kefu8dz}</td>
+								<td>{$kefu8dj}</td>
 							</tr>
 							<tr>
 								<th scope="row">{$kefu10name['name']}</th>
 								<td class="colorred">{$kefu10czmonth}</td>
 								<td>{$kefu10fzmonth}</td>
-								<td>{$kefu10dz}</td>
 								<td>{$kefu10yy}</td>
+								<td>{$kefu10dz}</td>
+								<td>{$kefu10dj}</td>
 							</tr>
 							<tr>
 								<th scope="row">{$kefu11name['name']}</th>
 								<td class="colorred">{$kefu11czmonth}</td>
 								<td>{$kefu11fzmonth}</td>
-								<td>{$kefu11dz}</td>
 								<td>{$kefu11yy}</td>
+								<td>{$kefu11dz}</td>
+								<td>{$kefu11dj}</td>
 							</tr>
 							<tr>
 								<th scope="row">{$kefu12name['name']}</th>
 								<td class="colorred">{$kefu12czmonth}</td>
 								<td>{$kefu12fzmonth}</td>
-								<td>{$kefu12dz}</td>
 								<td>{$kefu12yy}</td>
+								<td>{$kefu12dz}</td>
+								<td>{$kefu12dj}</td>
 							</tr>
 							<tr>
 								<th scope="row">{$kefu13name['name']}</th>
 								<td class="colorred">{$kefu13czmonth}</td>
 								<td>{$kefu13fzmonth}</td>
-								<td>{$kefu13dz}</td>
 								<td>{$kefu13yy}</td>
+								<td>{$kefu13dz}</td>
+								<td>{$kefu13dj}</td>
 							</tr>
 						</tbody>
 					</table>
