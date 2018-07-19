@@ -126,35 +126,42 @@
     })();
     setInterval(function () {
         $.get('/index.php/admin/patient/listsAjax',function(data1){
-            var len = data1.total;
-            // console.log(len);
-            var storage = localStorage.getItem("patientResult");
-            if (storage == null) {
-                console.log('localstorage目前是空的');
-                localStorage.setItem("patientResult", len);
-            }else{
-				// console.log(storage);
-	            console.log(data1.total, parseInt(storage));
-				if(data1.total != parseInt(storage)){
-				    console.log('数据变化了')
-                    // tixing();
-                    var text='有新消息~有新消息~有新消息~';
-                    var timerID;
-                    newtext();
-                    function newtext() {
-                        clearTimeout(timerID)
-                        document.title=text.substring(1,text.length)+text.substring(0,1)
-                        text=document.title.substring(0,text.length)
-                        // timerID = setTimeout("newtext()", 100)
-                        timerID = setTimeout(function(){newtext()}, 250)
-                    }
-                    desktop();
-                    var len = data1.total;
-                    localStorage.setItem("patientResult", len);
-				}else{
-				    console.log('数据没有变化，不提醒')
-				}
+            if(data1.data.length){
+                var text='有未处理信息~有未处理信息~';
+                var timerID;
+                newtext();
+                function newtext() {
+                    clearTimeout(timerID)
+                    document.title=text.substring(1,text.length)+text.substring(0,1)
+                    text=document.title.substring(0,text.length)
+                    timerID = setTimeout(function(){newtext()}, 250)
+                }
             }
+            // var len = data1.total;
+            // var storage = localStorage.getItem("patientResult");
+            // if (storage == null) {
+            //     console.log('localstorage目前是空的');
+            //     localStorage.setItem("patientResult", len);
+            // }else{
+	         //    console.log(data1.total, parseInt(storage));
+				// if(data1.total != parseInt(storage)){
+				//     console.log('数据变化了')
+            //         var text='有新消息~有新消息~有新消息~';
+            //         var timerID;
+            //         newtext();
+            //         function newtext() {
+            //             clearTimeout(timerID)
+            //             document.title=text.substring(1,text.length)+text.substring(0,1)
+            //             text=document.title.substring(0,text.length)
+            //             timerID = setTimeout(function(){newtext()}, 250)
+            //         }
+            //         desktop();
+            //         var len = data1.total;
+            //         localStorage.setItem("patientResult", len);
+				// }else{
+				//     console.log('数据没有变化，不提醒')
+				// }
+            // }
             // localStorage.setItem("patientResult" + len + "", len); //存储的时候 使用JSON.stringify()将对象解析出字符串
 
             // console.log(data1.total)
