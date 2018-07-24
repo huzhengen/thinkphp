@@ -37,21 +37,21 @@
 						<input type="text" class="form-control" id="age" name="age" value="{$orderList.age}">
 					</div>
 				</div>
-				<div class="col-lg-2">
+				<div class="col-lg-2 editlxfs">
 					<div class="form-group">
 						<label for="">联系方式</label><br>
 						<select class="form-control lxfs">
 							<option value="电话">电话</option>
 						</select>
-						<input type="text" class="form-control" id="tel" name="tel" value="{$orderList.tel}">
+						<input type="text" class="form-control" id="tel" name="tel" value="{$orderList.tel}" readonly>
 						<select class="form-control lxfs">
 							<option value="微信">微信</option>
 						</select>
-						<input type="text" class="form-control" id="weixin" name="weixin" value="{$orderList.weixin}">
+						<input type="text" class="form-control" id="weixin" name="weixin" value="{$orderList.weixin}" readonly>
 						<select class="form-control lxfs">
 							<option value="QQ">QQ</option>
 						</select>
-						<input type="text" class="form-control" id="qq" name="qq" value="{$orderList.qq}">
+						<input type="text" class="form-control" id="qq" name="qq" value="{$orderList.qq}" readonly>
 					</div>
 
 				</div>
@@ -107,8 +107,8 @@
 					<div class="form-group">
 						<label for="">初诊/复诊</label>
 						<select class="form-control" name="czfz">
-							<option value="{if condition='$orderList.czfz eq 0'}0{else}1{/if}">{if condition='$orderList.czfz eq 0'}初诊{else}复诊{/if}</option>
-							<option value="{if condition='$orderList.czfz eq 0'}1{else}0{/if}">{if condition='$orderList.czfz eq 0'}复诊{else}初诊{/if}</option>
+							<option value="{if condition='$orderList.czfz eq 1'}1{else}2{/if}">{if condition='$orderList.czfz eq 1'}初诊{else}复诊{/if}</option>
+							<option value="{if condition='$orderList.czfz eq 1'}2{else}1{/if}">{if condition='$orderList.czfz eq 1'}复诊{else}初诊{/if}</option>
 						</select>
 					</div>
 				</div>
@@ -227,17 +227,11 @@
 						<textarea class="form-control" rows="3" name="beizhu">{$orderList.beizhu}</textarea>
 					</div>
 				</div>
-				<div class="col-lg-2">
-					<div class="form-group">
-						<label>关键词（旧信息带的）</label>
-						<textarea class="form-control" rows="3" name="beizhu">{$orderList.keywords}</textarea>
-					</div>
-				</div>
 				<div class="col-lg-12">
 					{if condition="$orderList.pic"}
 					<div class="form-group">
 						<label for="">图片：</label>
-						<img src="http://yuyue.bjatfc.com/{$orderList.pic}" alt="">
+						<img src="/{$orderList.pic}" alt="">
 					</div>
 					{/if}
 				</div>
