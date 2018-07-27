@@ -6,7 +6,7 @@
 <script>
     $('.displaylt').each(function(){
         var id = '#editor' + $(this).attr('data-id');
-        console.log(id);
+        // console.log(id);
         var E = window.wangEditor;
         var editor = new E(id)
         editor.create();
@@ -161,4 +161,16 @@
             // }
         }
     });
+    $(function(){
+        // console.log(document.location.search.substr(1).split('&'))
+        var searchArr = document.location.search.substr(1).split('&');
+        for(var i=0; i<searchArr.length; i++){
+            console.log(searchArr[i].split('='))
+            var queryArr = searchArr[i].split('=');
+            if(queryArr[1]){
+                console.log('有参数')
+                $('#'+queryArr[0]).val(decodeURI(queryArr[1]));
+            }
+        }
+    })
 </script>
