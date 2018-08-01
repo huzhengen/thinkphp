@@ -12,63 +12,43 @@
 		<h3><?php echo session('name'); ?>登记的信息</h3>
 		{include file="public/searchmyself" /}
 		<table class="table table-bordered table-hover">
-			<thead>
-			<tr>
-				<th>点诊</th>
-				<th>预约号</th>
-				<th>患者信息</th>
-				<th>登记时间</th>
-				<th>预约时间</th>
-				<th>到诊时间</th>
-				<th>回访时间</th>
-				<th>客服</th>
-				<th width="15%">病情描述</th>
-				<th>操作</th>
-			</tr>
-			</thead>
+			{include file="public/listsmyselfthead" /}
 			<tbody>
 			{volist name="orderList" id="vo"}
 			<tr>
 				{if condition="$vo.daozhen eq 0" }
-				{if condition="session('type') eq 1 || $vo.kefuid eq session('id')"}
 				<td class="daozhen">
 					<input type="hidden" name="id" value="{$vo.id}" class="trid">
-					<select class="form-control">
+					<select class="form-control dianzhen">
 						<option value="0">未到诊</option>
 						<option value="1">已到诊</option>
 					</select>
 				</td>
 				{else}
-				<td><span class="colorred">未到诊</span></td>
-				{/if}
-				{else}
-				<td><span class="colorgreen">已到诊</span></td>
+				<td><span class="colorgreen"><b>已到诊</b></span></td>
 				{/if}
 				<td>AT{$vo.yynum}</td>
-				<td class="relative"><span class="displaylt" data-id="{$vo.id}">{$vo.name} | {$vo.sex}{if condition="$vo.age" } | {$vo.age}岁{else}{/if}{if condition="$vo.czfz eq 1"} | 初诊{else} | 复诊{/if}{if condition="(session('type') eq 1 || session('type') eq 3 || $vo.kefuid eq session('id')) && $vo.tel"} | {$vo.tel}{/if}</span><div class="jumbotron">和{$vo.name}的聊天记录：<div class="liaotian" id="editor{$vo.id}">"<div><?php echo htmlspecialchars_decode($vo['liaotian']);?></div>"</div></div></td>
-				<td class="djtime">{$vo.djtime}</td>
+				<td class="relative"><span class="displaylt" data-id="{$vo.id}"><b>{$vo.name}</b> | {$vo.sex}<br>{if condition="$vo.age" }{$vo.age}岁 | {else}{/if}{if condition="$vo.czfz eq 1"}初诊{else}复诊{/if}<br>{if condition="(session('type') eq 1 || session('type') eq 3 || $vo.kefuid eq session('id')) && $vo.tel"}{$vo.tel}{/if}</span><div class="jumbotron">和{$vo.name}的聊天记录：<div class="liaotian" id="editor{$vo.id}">"<div><?php echo htmlspecialchars_decode($vo['liaotian']);?></div>"</div></div></td>
+				<td class="djtime">{$vo.djtime}<br><span class="colorred">{$vo.keshi} | {$vo.doctor}</span></td>
 				<td class="yytime">{if condition="!$vo.yytime" }-{else}{$vo.yytime|substr=0,10}{/if}</td>
-				<td class="dztime">{if condition="!$vo.dztime" }-{else}<span class="colorred">{$vo.dztime}</span>{/if}</td>
-				<td class="hftime">{if condition="!$vo.hftime" }未回访{elseif condition="$vo.hftime && $vo.huifang eq 4"}{$vo.hftime} - 待回访{elseif condition="$vo.hftime && $vo.huifang eq 1"}{$vo.hftime} - 回访中{elseif condition="$vo.hftime && $vo.huifang eq 2"}{$vo.hftime} - 结束回访{/if}</td>
+				<td class="dztime">{if condition="!$vo.dztime" }-{else}<span class="colorred"><b>{$vo.dztime}</b></span>{/if}</td>
+				<td class="hftime">{if condition="!$vo.hftime" }未回访{elseif condition="$vo.hftime && $vo.huifang eq 4"}{$vo.hftime}<br>待回访{elseif condition="$vo.hftime && $vo.huifang eq 1"}{$vo.hftime}<br>回访中{elseif condition="$vo.hftime && $vo.huifang eq 2"}{$vo.hftime}<br>结束回访{/if}</td>
 				<td>{$vo.kefu}</td>
 				<td style="text-align: left!important;">
 					渠道：{$vo.qudao}<br>
-					病种：{$vo.disease}<br>
-					描述：{$vo.desc}<br>
-					备注：{$vo.beizhu}
+					<span class="colorgreen">病种：{$vo.disease}</span><br>
+					<span class="colorpurple">描述：{$vo.desc}<br>
+						备注：{$vo.beizhu}</span>
 				</td>
 				<td>
-					{if condition="session('type') eq 1 || $vo.kefuid eq session('id')"}
 					<a href="{:url('edit', array('id'=>$vo.id))}">修改</a>
-					{else}
-					{/if}
-					<!--<a href="{:url('delfalse', array('id'=>$vo.id))}" onclick="return confirm('确认删除该信息到回收站？')">删除</a>-->
-					<!--<a href="{:url('preview', array('id'=>$vo.id))}">预览</a>-->
+					<a href="{:url('delfalse', array('id'=>$vo.id))}" class="colorlightgray" onclick="return confirm('确认删除该信息到回收站？')">删除</a>
 				</td>
 			</tr>
 			{/volist}
 			</tbody>
 		</table>
+		总{$myselfdengji}条登记
 		{$orderList->render()}
 	</div>
 </div>
