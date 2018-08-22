@@ -4,6 +4,21 @@ use think\Controller;
 
 class Article extends Basic {
 	public function lists(){
+		if(request()->isPost()){
+			//导入数据里面有回收站的，但是没有在回收站里，现在把那些统一到回收站里面。
+			$dels = \think\Db::name('order')->where('xx', 0)->order('id', 'desc')->count();
+			dump($dels);
+			$data = [
+				'del' => 1,
+			];
+			$res = \think\Db::name('order')->where('xx', 0)->update($data);
+			dump($res);
+			if($res){
+				$this->success('修改成功');
+			}else{
+				$this->error('修改失败');
+			}
+		}
 		$articleres = \think\Db::name('article')->paginate('11');
 		$this->assign('articleres', $articleres);
 		return $this->fetch();

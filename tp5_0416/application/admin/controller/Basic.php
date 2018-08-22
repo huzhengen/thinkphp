@@ -1,6 +1,7 @@
 <?php
 namespace app\admin\controller;
 use think\Controller;
+use think\Cookie;
 
 class Basic extends Controller{
 	//定义控制器初始化方法_initialize，在该控制器的方法调用之前首先执行

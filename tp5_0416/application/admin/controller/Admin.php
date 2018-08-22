@@ -7,7 +7,7 @@ class Admin extends Basic{
 		if(session('type') != 1){
 			echo "<script>alert('需要管理员权限');history.go(-1)</script>";
 		}else{
-			$adminres = \think\Db::name('admin')->where('lock', '0')->paginate(11);
+			$adminres = \think\Db::name('admin')->where('lock', '0')->order('id','asc')->paginate(11);
 			$this->assign('adminres', $adminres);
 			return $this->fetch();
 		}
@@ -25,6 +25,8 @@ class Admin extends Basic{
 
 	public function add(){
 		if(request()->isPost()){
+			$password = input('password');
+			$repassword = input('repassword');
 			$data = [
 				'username'=>input('username'),
 				'name'=>input('name'),
@@ -32,7 +34,7 @@ class Admin extends Basic{
 				'password'=>input('password'),
 			];
 			$validate = \think\Loader::validate('Admin');
-			if($validate->check($data)){
+			if($validate->check($data) && ($password === $repassword)){
 				$data['password'] = md5($data['password']);
 				$res = \think\Db::name('admin')->insert($data);
 				if($res){
@@ -41,6 +43,7 @@ class Admin extends Basic{
 					return $this->error('添加用户失败');
 				}
 			}else{
+				return $this->error('验证失败了/两次密码不一样');
 				return $this->error($validate->getError());
 			}
 			return;
@@ -62,6 +65,8 @@ class Admin extends Basic{
 				$admins = db('admin')->find($id);
 				$this->assign('admins', $admins);
 				if (request()->isPost()) {
+					$password = input('password');
+					$repassword = input('repassword');
 					$data = [
 						'id' => input('id'),
 						'username' => input('username'),
@@ -70,7 +75,7 @@ class Admin extends Basic{
 						'password' => input('password'),
 					];
 					$validate = \think\Loader::validate('Admin');
-					if ($validate->check($data)) {
+					if ($validate->check($data) && ($password === $repassword)) {
 						$data['password'] = md5($data['password']);
 						$res = \think\Db::name('admin')->update($data);
 //				var_dump($res);
@@ -79,6 +84,9 @@ class Admin extends Basic{
 						} else {
 							return $this->error('修改用户失败');
 						}
+					}else{
+						return $this->error('验证失败了/两次密码不一样');
+						return $this->error($validate->getError());
 					}
 				}
 			}
@@ -87,6 +95,8 @@ class Admin extends Basic{
 			$admins = db('admin')->find($id);
 			$this->assign('admins', $admins);
 			if (request()->isPost()) {
+				$password = input('password');
+				$repassword = input('repassword');
 				$data = [
 					'id' => input('id'),
 					'username' => input('username'),
@@ -95,7 +105,7 @@ class Admin extends Basic{
 					'password' => input('password'),
 				];
 				$validate = \think\Loader::validate('Admin');
-				if ($validate->check($data)) {
+				if ($validate->check($data) && ($password === $repassword)) {
 					$data['password'] = md5($data['password']);
 					$res = \think\Db::name('admin')->update($data);
 //				var_dump($res);
@@ -104,6 +114,9 @@ class Admin extends Basic{
 					} else {
 						return $this->error('修改用户失败');
 					}
+				}else{
+					return $this->error('验证失败了/两次密码不一样');
+					return $this->error($validate->getError());
 				}
 			}
 		}
