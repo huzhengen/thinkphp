@@ -7,7 +7,7 @@ class Admin extends Basic{
 		if(session('type') != 1){
 			echo "<script>alert('需要管理员权限');history.go(-1)</script>";
 		}else{
-			$adminres = \think\Db::name('admin')->where('lock', '0')->order('id','asc')->paginate(11);
+			$adminres = \think\Db::name('admin')->where('lock', '0')->order('id','asc')->select();
 			$this->assign('adminres', $adminres);
 			return $this->fetch();
 		}
@@ -17,7 +17,7 @@ class Admin extends Basic{
 		if(session('type') != 1){
 			echo "<script>alert('木有权限');history.go(-1)</script>";
 		}else {
-			$adminres = \think\Db::name('admin')->where('lock', '1')->paginate(11);
+			$adminres = \think\Db::name('admin')->where('lock', '1')->select();
 			$this->assign('adminres', $adminres);
 			return $this->fetch();
 		}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	{include file="public/head" /}
+	<title>孕校课堂报名_{$Think.BASETITLE}</title>
+	<link href="/public/static/admin/lib/css/datetimepicker.css" rel="stylesheet">
+</head>
+<body>
+{include file="public/header" /}
+<div class="container-fluid">
+	{include file="public/left" /}
+	{include file="public/collgright" /}
+	<h3>孕校课堂报名</h3>
+	<hr>
+	<form action="" method="post" id="myform" name="myform" enctype="multipart/form-data">
+		<input type="hidden" class="form-control" id="type" name="type" value="后台添加">
+		<div class="col-lg-3">
+			<div class="form-group">
+				<label for="name" class="colorred">姓名</label>
+				<input type="text" class="form-control" id="name" name="name" placeholder="姓名">
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<div class="form-group">
+				<label for="tel">电话</label><br>
+				<input type="text" class="form-control" id="tel" name="tel" placeholder="电话">
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<div class="form-group">
+				<label for="ketangid">报名哪个课堂</label>
+				<select class="form-control" name="ketangid" id="ketangid">
+					{volist name="ketangid" id="vo"}
+					<option value="{$vo.id}">{$vo.title}</option>
+					{/volist}
+				</select>
+			</div>
+		</div>
+		<div class="col-lg-12"></div>
+		<div class="col-lg-3">
+			<div class="form-group">
+				<label>备注</label>
+				<textarea class="form-control" rows="4" name="beizhu"></textarea>
+			</div>
+		</div>
+		<div class="col-lg-12"><button type="submit" class="btn btn-primary" id="addbtn">提交</button></div>
+	</form>
+</div>
+</div>
+{include file="public/footer" /}
+</body>
+</html>

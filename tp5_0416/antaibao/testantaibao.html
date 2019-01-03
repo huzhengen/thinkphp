@@ -42,18 +42,91 @@
 		border-radius: 50%;
 		background-color: #000;
 		animation: bounce 1.4s infinite ease-in-out;
+		-webkit-animation: bounce 1.4s infinite ease-in-out;
+		-moz-animation: bounce 1.4s infinite ease-in-out;
+		-ms-animation: bounce 1.4s infinite ease-in-out;
+		-o-animation: bounce 1.4s infinite ease-in-out;
 		list-style: none;
 		display: inline-block;
 	}
 	.submiting .con ul li:nth-of-type(1){
-		animation-delay: -.32s;
+		animation-delay: -0.32s;
+		-webkit-animation-delay: -0.32s;
+		-moz-animation-delay: -0.32s;
+		-ms-animation-delay: -0.32s;
+		-o-animation-delay: -0.32s;
 	}
 	.submiting .con ul li:nth-of-type(2){
-		animation-delay: -.16s;
+		animation-delay: -0.16s;
+		-webkit-animation-delay: -0.16s;
+		-moz-animation-delay: -0.16s;
+		-ms-animation-delay: -0.16s;
+		-o-animation-delay: -0.16s;
 	}
 	@keyframes bounce {
-		0%, 80%, 100% {transform:scale(0)}
-		40% {transform:scale(1)}
+		0%,
+		80%,
+		100% {
+			transform: scale(0);
+			-moz-transform: scale(0);
+			-ms-transform: scale(0);
+			-o-transform: scale(0);
+		}
+		40% {
+			transform: scale(1);
+			-moz-transform: scale(1);
+			-ms-transform: scale(1);
+			-o-transform: scale(1);
+		}
+	}
+	@-webkit-keyframes bounce {
+		0%,
+		80%,
+		100% {
+			transform: scale(0);
+			-webkit-transform: scale(0);
+			-moz-transform: scale(0);
+			-ms-transform: scale(0);
+			-o-transform: scale(0);
+		}
+		40% {
+			transform: scale(1);
+			-moz-transform: scale(1);
+			-ms-transform: scale(1);
+			-o-transform: scale(1);
+		}
+	}
+	@-moz-keyframes bounce {
+		0%,
+		80%,
+		100% {
+			transform: scale(0);
+			-moz-transform: scale(0);
+			-ms-transform: scale(0);
+			-o-transform: scale(0);
+		}
+		40% {
+			transform: scale(1);
+			-moz-transform: scale(1);
+			-ms-transform: scale(1);
+			-o-transform: scale(1);
+		}
+	}
+	@-o-keyframes bounce {
+		0%,
+		80%,
+		100% {
+			transform: scale(0);
+			-moz-transform: scale(0);
+			-ms-transform: scale(0);
+			-o-transform: scale(0);
+		}
+		40% {
+			transform: scale(1);
+			-moz-transform: scale(1);
+			-ms-transform: scale(1);
+			-o-transform: scale(1);
+		}
 	}
 
 </style>
@@ -135,7 +208,7 @@
         $.ajax({
             // async:false,
             type: 'post',
-            url: 'http://data.atfck.com/testantaibao.php',
+            url: 'http://localhost/thinkphp/tp5_0416/antaibao/antaibao1.php',
 	        data: {'tel':tel,'device':device,'url':url,'device':device},
             success:function(data){
                 console.log(data)

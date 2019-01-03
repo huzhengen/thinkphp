@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	{include file="public/head" /}
+	<title>全部信息_{$Think.BASETITLE}</title>
+</head>
+<body>
+{include file="public/header" /}
+<div class="container-fluid">
+	{include file="public/left" /}
+	{include file="public/collgright" /}
+		<h3>全部信息（目前只支持单选项查询，开始结束时间可双选）</h3>
+		{include file="public/searchtest" /}
+		<table class="table table-bordered table-hover">
+			{include file="public/liststhead" /}
+			<tbody>
+			{volist name="orderList" id="vo"}
+			<tr>
+				{if condition="$vo.daozhen eq 0" }
+					<td class="daozhen">
+						<input type="hidden" name="id" value="{$vo.id}" class="trid">
+						<select class="form-control dianzhen">
+							<option value="0">未到店</option>
+							<option value="1">已到店</option>
+						</select>
+					</td>
+				{else}
+				<td><span class="colorgreen"><b>已到店</b></span></td>
+				{/if}
+				<td>AT{$vo.yynum}</td>
+				<td class="relative"><span class="displaylt" data-id="{$vo.id}"><b>{$vo.name}</b>{if condition="$vo.sex"} | {$vo.sex}{else}{/if}{if condition="$vo.age" } | {$vo.age}岁{else}{/if}<br>{if condition="$vo.czfz eq 1"}初诊{else}复诊{/if}<br>{if condition="(session('type') eq 1 || session('type') eq 3 || $vo.kefuid eq session('id')) && $vo.tel"}{$vo.tel}{/if}</span><div class="jumbotron">和{$vo.name}的聊天记录：<div class="liaotian" id="editor{$vo.id}">"<div><?php echo htmlspecialchars_decode($vo['liaotian']);?></div>"</div></div></td>
+				<td class="djtime">{$vo.djtime}<br><span class="colorred">{$vo.keshi} | {$vo.doctor}</span></td>
+				<td class="yytime">{if condition="!$vo.yytime" }-{else}{$vo.yytime|substr=0,10}{/if}</td>
+				<td class="dztime">{if condition="!$vo.dztime" }-{else}<span class="colorred"><b>{$vo.dztime}</b></span>{/if}</td>
+				<td>{$vo.kefu}</td>
+				<td style="text-align: left!important;">
+					渠道：{$vo.qudao}<br>
+					<span class="colorgreen">病种：{$vo.disease}</span><br>
+					<span class="colorpurple">描述：{$vo.desc}<br>
+						备注：{$vo.beizhu}</span>
+				</td>
+				<td>
+					<a href="{:url('edit', array('id'=>$vo.id))}">修改</a>
+				</td>
+			</tr>
+			{/volist}
+			</tbody>
+		</table>
+		{$orderList->render()}
+	</div>
+</div>
+{include file="public/footer" /}
+<script language="javascript" type="text/javascript" src="/public/static/admin/lib/My97DatePicker/WdatePicker.js"></script>
+<script>
+    ;(function(){
+        var nowDate = new Date();
+        var timeStr = nowDate.getFullYear()+"-"+(addzero(nowDate.getMonth() + 1))+"-"+addzero(nowDate.getDate());
+        $('tbody tr').each(function(){
+            var tjdate;
+            var djtimehtml = $(this).find('.djtime').html();
+            if(djtimehtml){
+                tjdate = $(this).find('.djtime').html().substr(0, 10);
+            }
+            if(tjdate == timeStr){
+                $(this).addClass('backcolor58AFD8')
+            }
+        })
+    })();
+	$('.daozhen').find('select').each(function(){
+        $(this).change(function(){
+            var daozhen = $(this).val();
+            var id = $(this).parent().find('.trid').val();
+            var _this = $(this);
+            $.ajax({
+                type: 'post',
+                data: {'daozhen':daozhen,'id':id},
+                success: function(data){
+                    alert('成功修改为已到诊');
+                    _this.parent().parent().find('.dztime').html('<span class="colorred">'+ data[0].dztime +'</span>');
+                    _this.parent().html('<span class="colorgreen">已到诊</span>');
+                },
+                error:function(error){
+                    console.log(error);
+                }
+            })
+        })
+	})
+    function addzero(dateVal) {
+        return dateVal < 10 ? '0' + dateVal: dateVal;
+    }
+</script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 	{include file="public/head" /}
 	<title>咨询预约患者登记_{$Think.BASETITLE}</title>
-	<link href="http://www.bootcss.com/p/bootstrap-datetimepicker/bootstrap-datetimepicker/css/datetimepicker.css" rel="stylesheet">
+	<link href="/public/static/admin/lib/css/datetimepicker.css" rel="stylesheet">
 </head>
 <body>
 {include file="public/header" /}
@@ -14,10 +14,15 @@
 		<hr>
 		<form action="" method="post" id="myform" name="myform" enctype="multipart/form-data">
 			<input type="hidden" class="form-control" id="del" name="del" value="0">
-			<div class="col-lg-2">
+			<div class="col-lg-2" style="position: relative;">
 				<div class="form-group">
 					<label for="name" class="colorred">患者姓名</label><label class="colorred warn namewarn"></label>
 					<input type="text" class="form-control" id="name" name="name" placeholder="姓名">
+				</div>
+				<div class="popover fade top in popovername" role="tooltip">
+					<div class="arrow" style="left: 50%;"></div>
+					<h3 class="popover-title" style="display: none;"></h3>
+					<div class="popover-content"></div>
 				</div>
 			</div>
 			<div class="col-lg-2">
@@ -49,7 +54,11 @@
 					<input type="text" class="form-control" id="weixin" name="weixin" placeholder="微信" style="display: none;">
 					<input type="text" class="form-control" id="qq" name="qq" placeholder="QQ" style="display: none;">
 				</div>
-
+				<div class="popover fade top in popovertel" role="tooltip">
+					<div class="arrow" style="left: 50%;"></div>
+					<h3 class="popover-title" style="display: none;"></h3>
+					<div class="popover-content"></div>
+				</div>
 			</div>
 			<div class="col-lg-2">
 				<div class="form-group">
@@ -250,24 +259,33 @@
     $('#qudao').change(function () {
         qudao();
     })
-    $('#tel').blur(function(){
-        var telVal = $('#tel').val();
-        $.post('/index.php/admin/order/tel', { tel: telVal}, function(data) {
-            console.log(data);
-            if(data.tel == telVal && telVal!=''){
-                var warnStr = '有重复的' + '(' + data.kefu + '-' + data.name + ')';
-                $('.telwarn').html(warnStr);
-                // $('.telerror').addClass('has-error');
-            }
-        });
-    })
     $('#name').blur(function(){
         var nameVal = $('#name').val();
         $.post('/index.php/admin/order/name', { name: nameVal}, function(data) {
-            console.log(data);
             if(data.name == nameVal && nameVal!=''){
                 var warnStr = '有重复的' + '(' + data.kefu + '-' + data.name + ')';
                 $('.namewarn').html(warnStr);
+	            $('.popovername').show();
+                $('.popovername .popover-content').html(warnStr);
+            }else{
+                $('.namewarn').html('');
+                $('.popovername').hide();
+                $('.popovername .popover-content').html('');
+            }
+        });
+    })
+    $('#tel').blur(function(){
+        var telVal = $('#tel').val();
+        $.post('/index.php/admin/order/tel', { tel: telVal}, function(data) {
+            if(data.tel == telVal && telVal!=''){
+                var warnStr = '有重复的' + '(' + data.kefu + '-' + data.name + ')';
+                $('.telwarn').html(warnStr);
+                $('.popovertel').show();
+                $('.popovertel .popover-content').html(warnStr);
+            }else{
+                $('.telwarn').html('');
+                $('.popovertel').hide();
+                $('.popovertel .popover-content').html('');
             }
         });
     })
@@ -318,7 +336,6 @@
     $('#sctp').click(function(){
         $('#ltjl').toggle();
     })
-
 </script>
 </body>
 </html>

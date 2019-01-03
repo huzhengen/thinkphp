@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	{include file="public/head" /}
+	<title>修改用户</title>
+</head>
+<body>
+{include file="public/header" /}
+<div class="container-fluid">
+	{include file="public/left" /}
+	{include file="public/collgright" /}
+		<h3>修改用户</h3>
+		<form action="" method="post" id="myform" name="myform" enctype="multipart/form-data">
+			<input type="hidden" name="id" value="{$admins.id}">
+			<div class="form-group">
+				<label for="username">用户名</label>
+				<input type="text" class="form-control" id="username" name="username" {if condition="session('type') eq 1"}{else}readonly{/if} value="{$admins.username}">
+			</div>
+			<div class="form-group">
+				<label for="name">姓名</label>
+				<input type="text" class="form-control" id="name" name="name" value="{$admins.name}">
+			</div>
+			{if condition="session('type') eq 2"}
+			<div class="form-group">
+				<label data-type="kefu">类型：{if condition='$admins.type eq 1'}管理员{elseif condition='$admins.type eq 2'}客服{elseif condition='$admins.type eq 3'}客服主管{/if}</label>
+				<input type="hidden" class="form-control" name="type" readonly value="{$admins.type}">
+			</div>
+			{elseif condition="session('type') eq 1 || session('type') eq 2"}
+			<div class="form-group">
+				<label data-type="{$admins.type}">类型</label>
+				<select class="form-control" name="type">
+					<option value="{$admins.type}">{if condition="$admins.type eq 1"}管理员{elseif condition="$admins.type eq 2"}客服{elseif condition="$admins.type eq 3"}客服主管{/if}</option>
+					{if condition="session('type') eq 1"}
+					<option value="1">管理员</option>
+					<option value="3">客服主管</option>
+					<option value="2">客服</option>
+					{elseif condition="session('type') eq 3"}
+					<option value="3">客服主管</option>
+					<option value="2">客服</option>
+					{/if}
+				</select>
+			</div>
+			{/if}
+			<div class="form-group">
+				<label for="password">密码</label>
+				<input type="password" class="form-control" id="password" name="password" placeholder="密码">
+			</div>
+			<div class="form-group">
+				<label for="repassword">重复密码</label>
+				<input type="password" class="form-control" id="repassword" name="repassword" placeholder="重复密码">
+			</div>
+			<button type="submit" class="btn btn-primary">提交</button>
+			<!--<button type="button" class="btn btn-default" onclick="history.go(-1)" value="返回">返回</button>-->
+		</form>
+	</div>
+</div>
+{include file="public/footer" /}
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	{include file="public/head" /}
+	<title>报名信息_{$Think.BASETITLE}</title>
+</head>
+<body>
+{include file="public/header" /}
+<div class="container-fluid">
+	{include file="public/left" /}
+	{include file="public/collgright" /}
+	<h3>报名信息</h3>
+	<div class="list-group">
+		<a href="/index.php/admin/baoming/add.html" class="list-group-item text-center" style="width: 123px;">新报名</a>
+	</div>
+	<table class="table table-bordered table-hover">
+		{include file="public/baominghead" /}
+		<tbody>
+		{volist name="orderList" id="vo"}
+		<tr>
+			<td>{$vo.id}</td>
+			<td>{$vo.name}</td>
+			<td>
+				{volist name="ketang" id="vo1"}
+					{if condition='$vo.ketangid eq $vo1.id'}{$vo1.title}{/if}
+				{/volist}
+			</td>
+			<td>{$vo.tel}</td>
+			<td>{$vo.type}</td>
+			<td>{$vo.beizhu}</td>
+			<td>
+				<a href="{:url('edit', array('id'=>$vo.id))}">修改</a>
+			</td>
+		</tr>
+		{/volist}
+		</tbody>
+	</table>
+	{$orderList->render()}
+</div>
+</div>
+{include file="public/footer" /}
+</body>
+</html>

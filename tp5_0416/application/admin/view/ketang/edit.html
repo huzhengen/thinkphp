@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	{include file="public/head" /}
+	<title>课堂修改_{$Think.BASETITLE}</title>
+	<link href="/public/static/admin/lib/css/datetimepicker.css" rel="stylesheet">
+</head>
+<body>
+{include file="public/header" /}
+<div class="container-fluid">
+	{include file="public/left" /}
+	{include file="public/collgright" /}
+	<h3>课堂修改</h3>
+	<hr>
+	<form action="" method="post" id="myform" name="myform" enctype="multipart/form-data">
+		<input type="hidden" name="id" value="{$orderList.id}">
+		<div class="col-lg-3">
+			<div class="form-group">
+				<label for="title" class="colorred">标题</label>
+				<input type="text" class="form-control" id="title" name="title" value="{$orderList.title}">
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<div class="form-group">
+				<label for="ketangtime">课堂时间</label>
+				<input type="text" value="{$orderList.ketangtime}" class="form-control Wdate" maxlength="10" id="ketangtime" name="ketangtime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm'})">
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<div class="form-group">
+				<label for="over">活动是否结束</label>
+				<select class="form-control" name="over" id="over">
+					{if condition='$orderList.over eq 0'}
+					<option value="0">未结束</option>
+					<option value="1">结束</option>
+					{else}
+					<option value="1">结束</option>
+					<option value="0">未结束</option>
+					{/if}
+				</select>
+			</div>
+		</div>
+		<div class="col-lg-12"></div>
+		<div class="col-lg-3">
+			<div class="form-group">
+				<label for="online">线上/线下</label>
+				<select class="form-control" name="online" id="online">
+					{if condition='$orderList.online eq 1'}
+					<option value="1">线下活动</option>
+					<option value="0">线上活动</option>
+					{else}
+					<option value="0">线上活动</option>
+					<option value="1">线下活动</option>
+					{/if}
+				</select>
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<div class="form-group">
+				<label for="free">是否免费</label>
+				<select class="form-control" name="free" id="free">
+					{if condition='$orderList.online eq 1'}
+					<option value="1">免费</option>
+					<option value="0">收费</option>
+					{else}
+					<option value="0">收费</option>
+					<option value="1">免费</option>
+					{/if}
+				</select>
+			</div>
+		</div>
+		<div class="col-lg-12"></div>
+		<div class="col-lg-3">
+			<div class="form-group">
+				<label for="imgurl">缩略图链接</label>
+				<input type="text" class="form-control" id="imgurl" name="imgurl" value="{$orderList.imgurl}">
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<div class="form-group">
+				<label for="detailimgurl">详细内容图片链接</label>
+				<input type="text" class="form-control" id="detailimgurl" name="detailimgurl" value="{$orderList.detailimgurl}">
+			</div>
+		</div>
+		<div class="col-lg-12"></div>
+		<div class="col-lg-3 imgurl"><div class="form-group"><img src="{$orderList.imgurl}" alt="" width="100%"></div></div>
+		<div class="col-lg-3 detailimgurl"><div class="form-group"><img src="{$orderList.detailimgurl}" alt="" width="100%"></div></div>
+		<input type="hidden" name="referrer" value="" class="referrer">
+		<div class="col-lg-12"><button type="submit" class="btn btn-primary" id="addbtn">提交</button></div>
+	</form>
+</div>
+</div>
+{include file="public/footer" /}
+<script type="text/javascript">
+    $("#addbtn").on('click',function(){
+        setTimeout(function(){
+            $("#addbtn").attr('disabled',true);
+        }, 10)
+    });
+    $('.referrer').val(document.referrer);
+    $('#imgurl').blur(function(){
+        $('.imgurl img').attr('src', $('#imgurl').val())
+    })
+    $('#detailimgurl').blur(function(){
+        $('.detailimgurl img').attr('src', $('#detailimgurl').val())
+    })
+</script>
+</body>
+</html>

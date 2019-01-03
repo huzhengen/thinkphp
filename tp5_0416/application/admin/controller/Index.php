@@ -2,7 +2,6 @@
 namespace app\admin\controller;
 use think\Controller;
 use think\Request;
-use think\Cookie;
 
 class Index extends Basic
 {
@@ -18,12 +17,18 @@ class Index extends Basic
 	    $kefu11id = '11';
 	    $kefu12id = '12';
 	    $kefu13id = '13';
+	    $kefu15id = '15';
+	    $kefu16id = '16';
+	    $kefu17id = '17';
 	    $kefu7name = \think\Db::name('admin')->where('id', $kefu7id)->field('name')->cache($cachetime)->find();
 	    $kefu8name = \think\Db::name('admin')->where('id', $kefu8id)->field('name')->cache($cachetime)->find();
 	    $kefu10name = \think\Db::name('admin')->where('id', $kefu10id)->field('name')->cache($cachetime)->find();
 	    $kefu11name = \think\Db::name('admin')->where('id', $kefu11id)->field('name')->cache($cachetime)->find();
 	    $kefu12name = \think\Db::name('admin')->where('id', $kefu12id)->field('name')->cache($cachetime)->find();
 	    $kefu13name = \think\Db::name('admin')->where('id', $kefu13id)->field('name')->cache($cachetime)->find();
+	    $kefu15name = \think\Db::name('admin')->where('id', $kefu15id)->field('name')->cache($cachetime)->find();
+	    $kefu16name = \think\Db::name('admin')->where('id', $kefu16id)->field('name')->cache($cachetime)->find();
+	    $kefu17name = \think\Db::name('admin')->where('id', $kefu17id)->field('name')->cache($cachetime)->find();
 	    $monthtime = date('Y-m-01 00:00:00');//本月月初时间
     	$yesterdaytime = date('Y-m-d 00:00:00', time()-24*3600);//昨天
     	$todaytime = date('Y-m-d 00:00:00', time());//今天
@@ -41,6 +46,9 @@ class Index extends Basic
 		    'kefu11name' => $kefu11name,
 		    'kefu12name' => $kefu12name,
 		    'kefu13name' => $kefu13name,
+		    'kefu15name' => $kefu15name,
+		    'kefu16name' => $kefu16name,
+		    'kefu17name' => $kefu17name,
 		    'startTime' => $startTime,
 	    ]);
 
@@ -110,6 +118,9 @@ class Index extends Basic
 	    $kefu11czmonth = $allusers->where('kefuid', $kefu11id)->where('czfz', '1')->where('dztime', 'between', [$monthtime, $tomorrowtime])->cache($cachetime)->count();
 	    $kefu12czmonth = $allusers->where('kefuid', $kefu12id)->where('czfz', '1')->where('dztime', 'between', [$monthtime, $tomorrowtime])->cache($cachetime)->count();
 	    $kefu13czmonth = $allusers->where('kefuid', $kefu13id)->where('czfz', '1')->where('dztime', 'between', [$monthtime, $tomorrowtime])->cache($cachetime)->count();
+	    $kefu15czmonth = $allusers->where('kefuid', $kefu15id)->where('czfz', '1')->where('dztime', 'between', [$monthtime, $tomorrowtime])->cache($cachetime)->count();
+	    $kefu16czmonth = $allusers->where('kefuid', $kefu16id)->where('czfz', '1')->where('dztime', 'between', [$monthtime, $tomorrowtime])->cache($cachetime)->count();
+	    $kefu17czmonth = $allusers->where('kefuid', $kefu17id)->where('czfz', '1')->where('dztime', 'between', [$monthtime, $tomorrowtime])->cache($cachetime)->count();
 	    //复诊/月
 	    $kefu7fzmonth = $allusers->where('kefuid', $kefu7id)->where('czfz', '2')->where('dztime', 'between', [$monthtime, $tomorrowtime])->cache($cachetime)->count();
 	    $kefu8fzmonth = $allusers->where('kefuid', $kefu8id)->where('czfz', '2')->where('dztime', 'between', [$monthtime, $tomorrowtime])->cache($cachetime)->count();
@@ -117,6 +128,9 @@ class Index extends Basic
 	    $kefu11fzmonth = $allusers->where('kefuid', $kefu11id)->where('czfz', '2')->where('dztime', 'between', [$monthtime, $tomorrowtime])->cache($cachetime)->count();
 	    $kefu12fzmonth = $allusers->where('kefuid', $kefu12id)->where('czfz', '2')->where('dztime', 'between', [$monthtime, $tomorrowtime])->cache($cachetime)->count();
 	    $kefu13fzmonth = $allusers->where('kefuid', $kefu13id)->where('czfz', '2')->where('dztime', 'between', [$monthtime, $tomorrowtime])->cache($cachetime)->count();
+	    $kefu15fzmonth = $allusers->where('kefuid', $kefu15id)->where('czfz', '2')->where('dztime', 'between', [$monthtime, $tomorrowtime])->cache($cachetime)->count();
+	    $kefu16fzmonth = $allusers->where('kefuid', $kefu16id)->where('czfz', '2')->where('dztime', 'between', [$monthtime, $tomorrowtime])->cache($cachetime)->count();
+	    $kefu17fzmonth = $allusers->where('kefuid', $kefu17id)->where('czfz', '2')->where('dztime', 'between', [$monthtime, $tomorrowtime])->cache($cachetime)->count();
 	    //总到诊
 	    $kefu7dz = $allusers->where('kefuid', $kefu7id)->where('daozhen', '1')->cache($cachetime)->count();
 	    $kefu8dz = $allusers->where('kefuid', $kefu8id)->where('daozhen', '1')->cache($cachetime)->count();
@@ -124,6 +138,9 @@ class Index extends Basic
 	    $kefu11dz = $allusers->where('kefuid', $kefu11id)->where('daozhen', '1')->cache($cachetime)->count();
 	    $kefu12dz = $allusers->where('kefuid', $kefu12id)->where('daozhen', '1')->cache($cachetime)->count();
 	    $kefu13dz = $allusers->where('kefuid', $kefu13id)->where('daozhen', '1')->cache($cachetime)->count();
+	    $kefu15dz = $allusers->where('kefuid', $kefu15id)->where('daozhen', '1')->cache($cachetime)->count();
+	    $kefu16dz = $allusers->where('kefuid', $kefu16id)->where('daozhen', '1')->cache($cachetime)->count();
+	    $kefu17dz = $allusers->where('kefuid', $kefu17id)->where('daozhen', '1')->cache($cachetime)->count();
 	    //总预约
 	    $kefu7yy = $allusers->where('kefuid', $kefu7id)->where('yuyue', '1')->cache($cachetime)->count();
 	    $kefu8yy = $allusers->where('kefuid', $kefu8id)->where('yuyue', '1')->cache($cachetime)->count();
@@ -131,6 +148,9 @@ class Index extends Basic
 	    $kefu11yy = $allusers->where('kefuid', $kefu11id)->where('yuyue', '1')->cache($cachetime)->count();
 	    $kefu12yy = $allusers->where('kefuid', $kefu12id)->where('yuyue', '1')->cache($cachetime)->count();
 	    $kefu13yy = $allusers->where('kefuid', $kefu13id)->where('yuyue', '1')->cache($cachetime)->count();
+	    $kefu15yy = $allusers->where('kefuid', $kefu15id)->where('yuyue', '1')->cache($cachetime)->count();
+	    $kefu16yy = $allusers->where('kefuid', $kefu16id)->where('yuyue', '1')->cache($cachetime)->count();
+	    $kefu17yy = $allusers->where('kefuid', $kefu17id)->where('yuyue', '1')->cache($cachetime)->count();
 	    //总预约
 	    $kefu7dj = $allusers->where('kefuid', $kefu7id)->cache($cachetime)->count();
 	    $kefu8dj = $allusers->where('kefuid', $kefu8id)->cache($cachetime)->count();
@@ -138,6 +158,9 @@ class Index extends Basic
 	    $kefu11dj = $allusers->where('kefuid', $kefu11id)->cache($cachetime)->count();
 	    $kefu12dj = $allusers->where('kefuid', $kefu12id)->cache($cachetime)->count();
 	    $kefu13dj = $allusers->where('kefuid', $kefu13id)->cache($cachetime)->count();
+	    $kefu15dj = $allusers->where('kefuid', $kefu15id)->cache($cachetime)->count();
+	    $kefu16dj = $allusers->where('kefuid', $kefu16id)->cache($cachetime)->count();
+	    $kefu17dj = $allusers->where('kefuid', $kefu17id)->cache($cachetime)->count();
 	    $this->assign([
 		    'kefu7czmonth' => $kefu7czmonth,
 		    'kefu8czmonth' => $kefu8czmonth,
@@ -145,30 +168,45 @@ class Index extends Basic
 		    'kefu11czmonth' => $kefu11czmonth,
 		    'kefu12czmonth' => $kefu12czmonth,
 		    'kefu13czmonth' => $kefu13czmonth,
+		    'kefu15czmonth' => $kefu15czmonth,
+		    'kefu16czmonth' => $kefu16czmonth,
+		    'kefu17czmonth' => $kefu17czmonth,
 		    'kefu7fzmonth' => $kefu7fzmonth,
 		    'kefu8fzmonth' => $kefu8fzmonth,
 		    'kefu10fzmonth' => $kefu10fzmonth,
 		    'kefu11fzmonth' => $kefu11fzmonth,
 		    'kefu12fzmonth' => $kefu12fzmonth,
 		    'kefu13fzmonth' => $kefu13fzmonth,
+		    'kefu15fzmonth' => $kefu15fzmonth,
+		    'kefu16fzmonth' => $kefu16fzmonth,
+		    'kefu17fzmonth' => $kefu17fzmonth,
 		    'kefu7dz' => $kefu7dz,
 		    'kefu8dz' => $kefu8dz,
 		    'kefu10dz' => $kefu10dz,
 		    'kefu11dz' => $kefu11dz,
 		    'kefu12dz' => $kefu12dz,
 		    'kefu13dz' => $kefu13dz,
+		    'kefu15dz' => $kefu15dz,
+		    'kefu16dz' => $kefu16dz,
+		    'kefu17dz' => $kefu17dz,
 		    'kefu7yy' => $kefu7yy,
 		    'kefu8yy' => $kefu8yy,
 		    'kefu10yy' => $kefu10yy,
 		    'kefu11yy' => $kefu11yy,
 		    'kefu12yy' => $kefu12yy,
 		    'kefu13yy' => $kefu13yy,
+		    'kefu15yy' => $kefu15yy,
+		    'kefu16yy' => $kefu16yy,
+		    'kefu17yy' => $kefu17yy,
 		    'kefu7dj' => $kefu7dj,
 		    'kefu8dj' => $kefu8dj,
 		    'kefu10dj' => $kefu10dj,
 		    'kefu11dj' => $kefu11dj,
 		    'kefu12dj' => $kefu12dj,
 		    'kefu13dj' => $kefu13dj,
+		    'kefu15dj' => $kefu15dj,
+		    'kefu16dj' => $kefu16dj,
+		    'kefu17dj' => $kefu17dj,
 	    ]);
 
 	    //安太宝留电

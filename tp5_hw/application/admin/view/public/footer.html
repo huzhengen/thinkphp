@@ -1,0 +1,210 @@
+<hr>
+<script src="/public/static/admin/lib/js/jquery.min.js"></script>
+<script src="/public/static/admin/lib/js/bootstrap.min.js"></script>
+<script language="javascript" type="text/javascript" src="/public/static/admin/lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/public/static/admin/lib/wangEditor-3.1.1/release/wangEditor.min.js"></script>
+<script>
+    $('.displaylt').each(function(){
+        var id = '#editor' + $(this).attr('data-id');
+        // console.log(id);
+        var E = window.wangEditor;
+        var editor = new E(id)
+        editor.create();
+    })
+    $('body').click(function () {
+        $('.jumbotron').hide();
+    })
+    $('.jumbotron').click(function (e) {
+        e.stopPropagation();
+    })
+    $('.displaylt').click(function(e){
+        e.stopPropagation();
+
+        $('.jumbotron').hide();
+        $(this).next().show();
+        // console.log(parseInt($(this).next().css('bottom')));
+        // if(parseInt($(this).next().css('bottom')) < 0){
+	     //    $(this).next().css({
+	     //        'top': 'auto',
+	     //        'bottom': '0'
+	     //    })
+        // }
+    })
+
+    ;(function () {
+        var origin = window.location.origin;
+        var len = origin.length;
+        var str1 = window.location.href.substring(len);
+        $('.col-lg-left .list-group a').each(function () {
+            if ($(this).attr('data-href') == str1) {
+                if(str1 != '/index.php/admin/order/add.html'){
+                    $(this).addClass('backcolorEDBF31');
+	            }
+            }
+        })
+	    if(str1 == '/index.php/admin/index/index.html'){
+            $('.lefuserinfo').css('margin-top', '50px');
+	    }
+    })()
+
+    //wzyygh click
+	$('.wzyygh').click(function(){
+        $.ajax({
+            type: 'post',
+            url:'/index.php/admin/online/online',
+            data: {'onlinestr': 'onlinestr'},
+            success: function(data){
+                console.log(data);
+                if(data == 'ok'){
+                    window.location.href = "/index.php/admin/patient/lists.html";
+                }else if(data == 'admin'){
+                    window.location.href = "/index.php/admin/patient/lists.html";
+                }else{
+                    if(confirm(data)) {
+                        // localStorage.setItem("online", 1);
+	                    $.ajax({
+		                    type: 'post',
+		                    url: '/index.php/admin/online/onlineleft',
+		                    success:function(data){
+								console.log(data);
+		                    },
+		                    error:function(error){
+		                        console.log(error);
+		                    }
+	                    })
+                        window.location.href = "/index.php/admin/patient/lists.html";
+                    }
+                }
+            },
+            error:function(error){
+                console.log(error);
+            }
+        })
+	})
+
+    //wzyygh click
+    $('.wzyyghantaibao').click(function(){
+        $.ajax({
+            type: 'post',
+            url:'/index.php/admin/online/online',
+            data: {'onlinestr': 'onlinestr'},
+            success: function(data){
+                console.log(data);
+                if(data == 'ok'){
+                    window.location.href = "/index.php/admin/antaibao/lists.html";
+                }else if(data == 'admin'){
+                    window.location.href = "/index.php/admin/antaibao/lists.html";
+                }else{
+                    if(confirm(data)) {
+                        // localStorage.setItem("online", 1);
+                        $.ajax({
+                            type: 'post',
+                            url: '/index.php/admin/online/onlineleft',
+                            success:function(data){
+                                console.log(data);
+                            },
+                            error:function(error){
+                                console.log(error);
+                            }
+                        })
+                        window.location.href = "/index.php/admin/antaibao/lists.html";
+                    }
+                }
+            },
+            error:function(error){
+                console.log(error);
+            }
+        })
+    })
+    var collgrightvalue = $('body').width() - 240;
+    $('.col-lg-right').css('width',collgrightvalue);
+    window.onresize = function () {
+        var collgrightvalue = $('body').width() - 240;
+        $('.col-lg-right').css('width',collgrightvalue);
+    }
+    // $('.form-horizontal label').each(function(){
+	 //    var labelhtml = $(this).html();
+	 //    if(labelhtml.length >= 4){
+	 //        console.log(labelhtml);
+		// 	$(this).css({
+		// 		'padding-left': '0',
+    //             'padding-right': '0'
+		// 	})
+	 //    }
+    // })
+    $('.pagination a').each(function(){
+        var href = window.location.href;//当前的链接
+	    var hreflen = href.length;//当前链接的长度
+	    if(href.indexOf('&') != -1){
+	        //如果链接里面包含符号&
+	        var hrefarr = href.split('&');//用&分割成数组
+	        var hrefarrlen = hrefarr.length;//数组的长度
+		    var hrefarrlast = hrefarr[hrefarrlen-1];//数组最后一个里的字符串
+            //如果数组最后一个字符串里面包含page
+            if(hrefarrlast.indexOf('page') != -1){
+                var urllen = hreflen - hrefarrlast.length - 1;
+                console.log(urllen);
+                href = href.substr(0,urllen);//截取href字符串，去掉后面的page，只截取前面的部分
+                console.log('123page', href);
+                var page = $(this).attr('href').split('?')[1];
+                $(this).attr('href', href + '&' + page);
+            }else{
+                console.log('no page', urllen, href);
+                var page = $(this).attr('href').split('?')[1];
+                $(this).attr('href', href + '&' + page);
+            }
+	    }else{
+            // var hreflen = href.length - href.split('?')[href.split('?').length-1].length - 1;
+            // if(href.split('?')[href.split('?').length-1].indexOf('page') != -1){
+            //     href = href.substr(0,hreflen);
+            //     $(this).attr('href', href + '?' + page)
+            // }
+        }
+    });
+    $(function(){
+        // console.log(document.location.search.substr(1).split('&'))
+        var searchArr = document.location.search.substr(1).split('&');
+        for(var i=0; i<searchArr.length; i++){
+            console.log(searchArr[i].split('='))
+            var queryArr = searchArr[i].split('=');
+            if(queryArr[1]){
+                console.log('有参数')
+                $('#'+queryArr[0]).val(decodeURI(queryArr[1]));
+            }
+        }
+    })
+    $('.reset').click(function(){
+        document.getElementById("myform").reset();
+    })
+    //是否到店
+    $('.daozhen').find('select').each(function(){
+        $(this).change(function(){
+            var daozhen = $(this).val();
+            var id = $(this).parent().find('.trid').val();
+            var _this = $(this);
+            $.ajax({
+                type: 'post',
+                data: {'daozhen':daozhen,'id':id},
+                success: function(data){
+                    console.log(data);
+                    if(data[0].daozhen == 1){
+                        alert('成功修改为到店已维修');
+                        _this.parent().parent().find('.dztime').html('<span class="colorred"><b>'+ data[0].dztime +'</b></span>');
+                        _this.parent().html('<span class="colorgreen"><b>到店已维修</b></span>');
+                    }else if(data[0].daozhen == 2){
+                        alert('成功修改为到店未维修');
+                        _this.parent().parent().find('.dztime').html('<span class="colorred"><b>'+ data[0].dztime +'</b></span>');
+                        _this.parent().html('<span class="colorpurple"><b>到店未维修</b></span>');
+                    }else if(data[0].daozhen == 3){
+                        alert('成功修改为到店检测');
+                        _this.parent().parent().find('.dztime').html('<span class="colorred"><b>'+ data[0].dztime +'</b></span>');
+                        _this.parent().html('<span class="colorpurple"><b>到店检测</b></span>');
+                    }
+                },
+                error:function(error){
+                    console.log(error);
+                }
+            })
+        })
+    })
+</script>

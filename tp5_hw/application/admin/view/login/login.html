@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="w100">
+<head>
+	{include file="public/head" /}
+	<title>预约管理系统</title>
+</head>
+<body class="login w100">
+<div class="container-fluid">
+	<div class="login-container">
+		<h1>登陆</h1>
+		<form action="" method="post" class="form-horizontal">
+			<div class="form-group">
+				<label for="username" class="col-lg-3 control-label">用户名：</label>
+				<div class="col-lg-9"><input type="text" class="form-control" name="username" id="username" placeholder=""></div>
+			</div>
+			<div class="form-group">
+				<label for="password" class="col-lg-3 control-label">密码：</label>
+				<div class="col-lg-9 has-feedback">
+					<input type="password" class="form-control" name="password" id="password" placeholder="">
+					<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-3 control-label">验证码：</label>
+				<div class="col-lg-9 has-feedback">
+					<input type="text" class="form-control" name="captcha" id="captcha" placeholder="">
+					<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-3"></div>
+				<div class="col-lg-9 text-center"><img src="{:captcha_src()}" onclick="this.src='{:captcha_src()}'" title="点击刷新" /></div>
+			</div>
+			<div class="form-group text-center">
+				<button type="submit" class="btn btn-default" id="embed-submit">登陆</button>
+			</div>
+		</form>
+	</div>
+</div>
+<script src="/public/static/admin/lib/js/jquery.min.js"></script>
+<script>
+	var randomNum = Math.floor(Math.random()*10);
+	var backimgurl = 'url("/public/static/admin/lib/images/backimg'+randomNum+'.jpg")'
+	$('body').css('background-image',backimgurl);
+	$('#captcha').bind('input propertychange', function(){
+        var captchaVal = $('#captcha').val();
+        $.post('/index.php/admin/login/captcha', { captcha: captchaVal}, function(data) {
+			if(data == 5){
+                $('#captcha').parent().removeClass('has-success').addClass('has-error');
+                $('#captcha').next().removeClass('glyphicon-ok').addClass('glyphicon-remove')
+			}else{
+                $('#captcha').parent().removeClass('has-error').addClass('has-success');
+                $('#captcha').next().removeClass('glyphicon-remove').addClass('glyphicon-ok')
+			}
+        });
+	})
+    $('#password').blur(function(){
+        var username = $('#username').val();
+        var password = $('#password').val();
+        $.post('/index.php/admin/login/password', { username: username, password: password}, function(data) {
+            if(data == 0){
+                $('#password').parent().removeClass('has-success').addClass('has-error');
+                $('#password').next().removeClass('glyphicon-ok').addClass('glyphicon-remove')
+            }else{
+                $('#password').parent().removeClass('has-error').addClass('has-success');
+                $('#password').next().removeClass('glyphicon-remove').addClass('glyphicon-ok')
+            }
+        });
+    })
+</script>
+</body>
+</html>

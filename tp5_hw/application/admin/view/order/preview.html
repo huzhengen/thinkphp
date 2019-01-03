@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	{include file="public/head" /}
+	<title>{$orderList.name}信息预览</title>
+	<link href="http://www.bootcss.com/p/bootstrap-datetimepicker/bootstrap-datetimepicker/css/datetimepicker.css" rel="stylesheet">
+</head>
+<body>
+{include file="public/header" /}
+<div class="container-fluid">
+	{include file="public/left" /}
+	<div class="col-lg-10 col-md-10 col-sm-10">
+		<h3>{$orderList.name}信息预览</h3>
+		<hr>
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="form-group">
+					<label for="keshi">预约科室：{$orderList.keshi}</label>
+				</div>
+				<div class="form-group">
+					<label for="name" class="colorred">姓名：{$orderList.name}</label>
+				</div>
+				<div class="form-group">
+					<label for="qudao" class="colorred">渠道：{$orderList.qudao}</label>
+				</div>
+				<div class="form-group">
+					<label for="disease" class="colorred">病种：{$orderList.disease}</label>
+				</div>
+				<div class="form-group">
+					<label for="age">年龄：{$orderList.age}</label>
+				</div>
+				<div class="form-group">
+					<label for="sex">性别：{$orderList.sex}</label>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="form-group">
+					<label for="doctor">预约医生：{$orderList.doctor}</label>
+				</div>
+				<div class="form-group">
+					<label for="tel">电话：{$orderList.tel}</label>
+				</div>
+				<div class="form-group">
+					<label for="weixin">微信：{$orderList.weixin}</label>
+				</div>
+				<div class="form-group">
+					<label for="qq">QQ：{$orderList.qq}</label>
+				</div>
+				<div class="form-group">
+					<label for="address">地址：{$orderList.address}</label>
+				</div>
+				<div class="form-group">
+					<label for="jiehun">婚否：{$orderList.jiehun}</label>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="form-group">
+					<label>客服：{$orderList.kefu}</label>
+				</div>
+				<div class="form-group">
+					<label for="djtime">登记时间：{$orderList.djtime}</label>
+				</div>
+				<div class="form-group">
+					<label for="yytime">预约时间：{$orderList.yytime}</label>
+				</div>
+				<div class="form-group">
+					<label for="dztime">到诊时间：{$orderList.dztime}</label>
+				</div>
+				<div class="form-group">
+					<label for="daozhen">是否到诊：{if condition="$orderList.daozhen eq 0"}未到诊{elseif condition="$orderList.daozhen eq 1"}初诊{else condition="$orderList.daozhen eq 2"}复诊{/if}</label>
+				</div>
+			</div>
+			<div class="col-lg-3">
+			</div>
+			<div class="col-lg-12"></div>
+			<div class="col-lg-3">
+				<div class="form-group">
+					<label>病情描述：{$orderList.desc}</label>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="form-group">
+					<label>备注：{$orderList.beizhu}</label>
+				</div>
+			</div>
+			<div class="col-lg-3"></div>
+			<div class="col-lg-3"></div>
+			<div class="col-lg-12"></div>
+			<div class="col-lg-3">
+				<div class="form-group">
+					<label for="yuanqu" class="colorred">就诊院区：{$orderList.yuanqu}</label>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="form-group">
+					<label for="type">类别：{$orderList.type}</label>
+				</div>
+			</div>
+			<div class="col-lg-3">
+			</div>
+			<div class="col-lg-3">
+			</div>
+			<div class="col-lg-12">
+				<div class="form-group">
+					<label for="pic">图片：{$orderList.pic}</label>
+				</div>
+			</div>
+			<div class="col-lg-9">
+				<div class="form-group">
+					<label for="liaotian" class="colorred">聊天记录：</label>
+					<div>{$orderList.liaotian}</div>
+				</div>
+			</div>
+			<div class="col-lg-3"></div>
+		</div>
+	</div>
+</div>
+</div>
+{include file="public/footer" /}
+</body>
+</html>

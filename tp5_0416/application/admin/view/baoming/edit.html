@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	{include file="public/head" /}
+	<title>报名修改_{$Think.BASETITLE}</title>
+	<link href="/public/static/admin/lib/css/datetimepicker.css" rel="stylesheet">
+</head>
+<body>
+{include file="public/header" /}
+<div class="container-fluid">
+	{include file="public/left" /}
+	{include file="public/collgright" /}
+	<h3>报名修改</h3>
+	<hr>
+	<form action="" method="post" id="myform" name="myform" enctype="multipart/form-data">
+		<input type="hidden" name="id" value="{$orderList.id}">
+		<div class="col-lg-3">
+			<div class="form-group">
+				<label for="name" class="colorred">姓名</label>
+				<input type="text" class="form-control" id="name" name="name" value="{$orderList.name}">
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<div class="form-group">
+				<label for="tel">电话</label><br>
+				<input type="text" class="form-control" id="tel" name="tel" value="{$orderList.tel}">
+			</div>
+		</div>
+		<div class="col-lg-12"></div>
+		<div class="col-lg-3">
+			<div class="form-group">
+				<label>备注</label>
+				<textarea class="form-control" rows="4" name="beizhu">{$orderList.beizhu}</textarea>
+			</div>
+		</div>
+		<input type="hidden" name="referrer" value="" class="referrer">
+		<div class="col-lg-12"><button type="submit" class="btn btn-primary" id="addbtn">提交</button></div>
+	</form>
+</div>
+</div>
+{include file="public/footer" /}
+<script language="javascript" type="text/javascript" src="/public/static/admin/lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/public/static/admin/lib/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="/public/static/admin/lib/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" src="/public/static/admin/lib/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+    $("#addbtn").on('click',function(){
+        setTimeout(function(){
+            $("#addbtn").attr('disabled',true);
+        }, 10)
+    });
+    var ue = UE.getEditor(
+        'content',
+        {
+            initialFramWidth: '100%',
+            initialFramHeight: 1000
+        }
+    );
+    ue.ready(function(){
+        ue.setHeight(200);
+    })
+    $('.referrer').val(document.referrer);
+</script>
+</body>
+</html>

@@ -284,6 +284,8 @@ class Order extends Basic {
 			$qq = input('qq');
 			$huifang = input('huifang');
 			$czfz = input('czfz');
+			$halfyear = input('halfyear');
+			$halfyeartime = date('Y-m-d H:i:s', time()-3600*24*150);
 
 			if($huifang == 3 || $huifang == null){
 				if($btime && !$etime){
@@ -293,6 +295,7 @@ class Order extends Basic {
 						->where('djtime','>', $begintime)
 						->where('djtime','<', $begintimeend)
 						->order('djtime', 'desc')->paginate(15);
+					$myselfdengji = $orderList->count();
 				}
 				if(!$btime && $etime){
 					$orderList = \think\Db::name('order')
@@ -301,6 +304,7 @@ class Order extends Basic {
 						->where('djtime','>', $endtimebegin)
 						->where('djtime','<', $endtime)
 						->order('djtime', 'desc')->paginate(15);
+					$myselfdengji = $orderList->count();
 				}
 				if($btime && $etime){
 					$orderList = \think\Db::name('order')
@@ -309,6 +313,7 @@ class Order extends Basic {
 						->where('djtime','>', $begintime)
 						->where('djtime','<', $endtime)
 						->order('djtime', 'desc')->paginate(15);
+					$myselfdengji = $orderList->count();
 				}
 				if($kefu){
 					$kefu = '%' . $kefu . '%';
@@ -317,6 +322,7 @@ class Order extends Basic {
 						->where('kefuid', $kefuid)
 						->where('kefu', 'like', $kefu)
 						->order('djtime', 'desc')->paginate(15);
+					$myselfdengji = $orderList->count();
 				}
 				if($id){
 					$id = '%' . $id . '%';
@@ -325,6 +331,7 @@ class Order extends Basic {
 						->where('kefuid', $kefuid)
 						->where('id', 'like', $id)
 						->order('djtime', 'desc')->paginate(15);
+					$myselfdengji = $orderList->count();
 				}
 				if($disease){
 					$disease = '%' . $disease . '%';
@@ -333,6 +340,7 @@ class Order extends Basic {
 						->where('kefuid', $kefuid)
 						->where('disease', 'like', $disease)
 						->order('djtime', 'desc')->paginate(15);
+					$myselfdengji = $orderList->count();
 				}
 				if($name){
 					$name = '%' . $name . '%';
@@ -341,6 +349,7 @@ class Order extends Basic {
 						->where('kefuid', $kefuid)
 						->where('name', 'like', $name)
 						->order('djtime', 'desc')->paginate(15);
+					$myselfdengji = $orderList->count();
 				}
 				if($beizhu){
 					$beizhu = '%' . $beizhu . '%';
@@ -349,6 +358,7 @@ class Order extends Basic {
 						->where('kefuid', $kefuid)
 						->where('beizhu',  'like', $beizhu)
 						->order('djtime', 'desc')->paginate(15);
+					$myselfdengji = $orderList->count();
 				}
 				if($tel){
 					$tel = '%' . $tel . '%';
@@ -357,6 +367,7 @@ class Order extends Basic {
 						->where('kefuid', $kefuid)
 						->where('tel', 'like', $tel)
 						->order('djtime', 'desc')->paginate(15);
+					$myselfdengji = $orderList->count();
 				}
 				if($weixin){
 					$weixin = '%' . $weixin . '%';
@@ -365,6 +376,7 @@ class Order extends Basic {
 						->where('kefuid', $kefuid)
 						->where('weixin', 'like', $weixin)
 						->order('djtime', 'desc')->paginate(15);
+					$myselfdengji = $orderList->count();
 				}
 				if($qq){
 					$qq = '%' . $qq . '%';
@@ -373,6 +385,7 @@ class Order extends Basic {
 						->where('kefuid', $kefuid)
 						->where('qq', 'like', $qq)
 						->order('djtime', 'desc')->paginate(15);
+					$myselfdengji = $orderList->count();
 				}
 				if($czfz){
 					$orderList = \think\Db::name('order')
@@ -380,6 +393,93 @@ class Order extends Basic {
 						->where('kefuid', $kefuid)
 						->where('czfz', $czfz)
 						->order('djtime', 'desc')->paginate(15);
+					$myselfdengji = $orderList->count();
+				}
+				if($halfyear && !$btime && !$etime){
+					$orderList1 = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('djtime','<', $halfyeartime)
+						->order('djtime', 'desc')->paginate();
+					$orderList2 = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('djtime','>=', $halfyeartime)
+						->order('djtime', 'desc')->paginate();
+					$orderList = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('djtime','<', $halfyeartime)
+						->order('djtime', 'desc');
+					foreach ($orderList1 as $v1){
+						foreach ($orderList2 as $v2){
+							if($v1['name'] === $v2['name']){
+								$orderList = $orderList->where('name', '<>', $v1['name']);
+							}
+							if(($v1['tel'] && $v2['tel'] && $v1['tel'] === $v2['tel'])){
+								$orderList = $orderList->where('tel', '<>', $v1['tel']);
+							}
+						}
+					}
+					$orderList = $orderList->paginate(15);
+					$myselfdengji = $orderList->count();
+				}
+				if($halfyear){
+					if($btime && $etime){
+						$orderList = \think\Db::name('order')
+							->where('del', 0)
+							->where('kefuid', $kefuid)
+							->where('djtime','<', $halfyeartime)
+							->where('djtime','>', $btime)
+							->where('djtime','<', $etime)
+							->order('djtime', 'desc');
+					}
+					if(!$btime && !$etime){
+						$orderList = \think\Db::name('order')
+							->where('del', 0)
+							->where('kefuid', $kefuid)
+							->where('djtime','<', $halfyeartime)
+							->order('djtime', 'desc');
+					}
+					if($btime && !$etime){
+						$orderList = \think\Db::name('order')
+							->where('del', 0)
+							->where('kefuid', $kefuid)
+							->where('djtime','<', $halfyeartime)
+							->where('djtime','>', $btime)
+							->order('djtime', 'desc');
+					}
+					if(!$btime && $etime){
+						$orderList = \think\Db::name('order')
+							->where('del', 0)
+							->where('kefuid', $kefuid)
+							->where('djtime','<', $halfyeartime)
+							->where('djtime','<', $etime)
+							->order('djtime', 'desc');
+					}
+					$orderList1 = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('djtime','<', $halfyeartime)
+						->order('djtime', 'desc')->paginate();
+					$orderList2 = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('djtime','>=', $halfyeartime)
+						->order('djtime', 'desc')->paginate();
+
+					foreach ($orderList1 as $v1){
+						foreach ($orderList2 as $v2){
+							if($v1['name'] === $v2['name']){
+								$orderList = $orderList->where('name', '<>', $v1['name']);
+							}
+							if(($v1['tel'] && $v2['tel'] && $v1['tel'] === $v2['tel'])){
+								$orderList = $orderList->where('tel', '<>', $v1['tel']);
+							}
+						}
+					}
+					$orderList = $orderList->paginate(15);
+					$myselfdengji = $orderList->count();
 				}
 			}else{
 				if($btime && !$etime){
@@ -390,6 +490,7 @@ class Order extends Basic {
 						->where('djtime','<', $begintimeend)
 						->where('huifang', $huifang)
 						->order('djtime', 'desc')->paginate(15);
+					$myselfdengji = $orderList->count();
 				}
 				if(!$btime && $etime){
 					$orderList = \think\Db::name('order')
@@ -399,6 +500,7 @@ class Order extends Basic {
 						->where('djtime','<', $endtime)
 						->where('huifang', $huifang)
 						->order('djtime', 'desc')->paginate(15);
+					$myselfdengji = $orderList->count();
 				}
 				if($btime && $etime){
 					$orderList = \think\Db::name('order')
@@ -408,6 +510,7 @@ class Order extends Basic {
 						->where('djtime','<', $endtime)
 						->where('huifang', $huifang)
 						->order('djtime', 'desc')->paginate(15);
+					$myselfdengji = $orderList->count();
 				}
 				if(!$btime && !$etime){
 					$orderList = \think\Db::name('order')
@@ -415,6 +518,7 @@ class Order extends Basic {
 						->where('kefuid', $kefuid)
 						->where('huifang', $huifang)
 						->order('djtime', 'desc')->paginate(15);
+					$myselfdengji = $orderList->count();
 				}
 			}
 		}
@@ -1020,6 +1124,203 @@ class Order extends Basic {
 		$id = input('id');
 		$orderList = db('order')->where('id', $id)->find();
 		$this->assign('orderList', $orderList);
+		return $this->fetch();
+	}
+
+	//test
+	public function test(){
+//		$kefuid = session('id');
+		$kefuid = 8;
+		$kefuList = \think\Db::name('admin')->where('type','<>','1')->where('id','<>','4')->order('id', 'asc')->select();
+		$this->assign('kefuList', $kefuList);
+		$myselfdengji = \think\Db::name('order')->where('del', '0')->where('kefuid', $kefuid)->count();//总登记
+		$orderList = \think\Db::name('order')->where('kefuid', $kefuid)->where('del', 0)->order('djtime', 'desc')->paginate(15);
+		if(request()->isGet()){
+			$btime = input('begintime');
+			$begintime = $btime . ' 00:00:00';
+			$begintimeend = $btime . ' 23:59:59';
+			$etime = input('endtime');
+			$endtimebegin = $etime . ' 00:00:00';
+			$endtime = $etime . ' 23:59:59';
+			$kefu = input('kefu');
+			$id = input('yynum');
+			$disease = input('disease');
+			$name = input('name');
+			$beizhu = input('beizhu');
+			$tel = input('tel');
+			$weixin = input('weixin');
+			$qq = input('qq');
+			$huifang = input('huifang');
+			$czfz = input('czfz');
+			$halfyear = input('halfyear');
+			$halfyeartime = date('Y-m-d H:i:s', time()-3600*24*150);
+
+			if($huifang == 3 || $huifang == null){
+				if($btime && !$etime){
+					$orderList = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('djtime','>', $begintime)
+						->where('djtime','<', $begintimeend)
+						->order('djtime', 'desc')->paginate(15);
+				}
+				if(!$btime && $etime){
+					$orderList = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('djtime','>', $endtimebegin)
+						->where('djtime','<', $endtime)
+						->order('djtime', 'desc')->paginate(15);
+				}
+				if($btime && $etime){
+					$orderList = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('djtime','>', $begintime)
+						->where('djtime','<', $endtime)
+						->order('djtime', 'desc')->paginate(15);
+				}
+				if($kefu){
+					$kefu = '%' . $kefu . '%';
+					$orderList = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('kefu', 'like', $kefu)
+						->order('djtime', 'desc')->paginate(15);
+				}
+				if($id){
+					$id = '%' . $id . '%';
+					$orderList = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('id', 'like', $id)
+						->order('djtime', 'desc')->paginate(15);
+				}
+				if($disease){
+					$disease = '%' . $disease . '%';
+					$orderList = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('disease', 'like', $disease)
+						->order('djtime', 'desc')->paginate(15);
+				}
+				if($name){
+					$name = '%' . $name . '%';
+					$orderList = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('name', 'like', $name)
+						->order('djtime', 'desc')->paginate(15);
+				}
+				if($beizhu){
+					$beizhu = '%' . $beizhu . '%';
+					$orderList = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('beizhu',  'like', $beizhu)
+						->order('djtime', 'desc')->paginate(15);
+				}
+				if($tel){
+					$tel = '%' . $tel . '%';
+					$orderList = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('tel', 'like', $tel)
+						->order('djtime', 'desc')->paginate(15);
+				}
+				if($weixin){
+					$weixin = '%' . $weixin . '%';
+					$orderList = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('weixin', 'like', $weixin)
+						->order('djtime', 'desc')->paginate(15);
+				}
+				if($qq){
+					$qq = '%' . $qq . '%';
+					$orderList = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('qq', 'like', $qq)
+						->order('djtime', 'desc')->paginate(15);
+				}
+				if($czfz){
+					$orderList = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('czfz', $czfz)
+						->order('djtime', 'desc')->paginate(15);
+				}
+				if($halfyear){
+					$orderList1 = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('djtime','<', $halfyeartime)
+						->order('djtime', 'desc')->paginate();
+					$orderList2 = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('djtime','>=', $halfyeartime)
+						->order('djtime', 'desc')->paginate();
+					$orderList = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('djtime','<', $halfyeartime)
+						->order('djtime', 'desc');
+					foreach ($orderList1 as $v1){
+						foreach ($orderList2 as $v2){
+							if($v1['name'] === $v2['name']){
+								$orderList = $orderList->where('name', '<>', $v1['name']);
+							}
+							if(($v1['tel'] && $v2['tel'] && $v1['tel'] === $v2['tel'])){
+								$orderList = $orderList->where('tel', '<>', $v1['tel']);
+							}
+						}
+					}
+					$orderList = $orderList->paginate(15);
+				}
+			}else{
+				if($btime && !$etime){
+					$orderList = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('djtime','>', $begintime)
+						->where('djtime','<', $begintimeend)
+						->where('huifang', $huifang)
+						->order('djtime', 'desc')->paginate(15);
+				}
+				if(!$btime && $etime){
+					$orderList = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('djtime','>', $endtimebegin)
+						->where('djtime','<', $endtime)
+						->where('huifang', $huifang)
+						->order('djtime', 'desc')->paginate(15);
+				}
+				if($btime && $etime){
+					$orderList = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('djtime','>', $begintime)
+						->where('djtime','<', $endtime)
+						->where('huifang', $huifang)
+						->order('djtime', 'desc')->paginate(15);
+				}
+				if(!$btime && !$etime){
+					$orderList = \think\Db::name('order')
+						->where('del', 0)
+						->where('kefuid', $kefuid)
+						->where('huifang', $huifang)
+						->order('djtime', 'desc')->paginate(15);
+				}
+			}
+		}
+		$this->assign([
+			'orderList'=> $orderList,
+			'myselfdengji'=> $myselfdengji,
+
+		]);
 		return $this->fetch();
 	}
 

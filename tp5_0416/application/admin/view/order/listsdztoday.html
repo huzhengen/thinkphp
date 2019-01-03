@@ -28,7 +28,7 @@
 				<td><span class="colorgreen"><b>已到诊</b></span></td>
 				{/if}
 				<td>AT{$vo.id}</td>
-				<td class="relative"><span class="displaylt" data-id="{$vo.id}"><b>{$vo.name}</b> | {$vo.sex}{if condition="$vo.age" } | {$vo.age}岁{else}{/if}<br>{if condition="$vo.czfz eq 1"}初诊{else}复诊{/if}<br>{if condition="(session('type') eq 1 || session('type') eq 3 || $vo.kefuid eq session('id')) && $vo.tel"}{$vo.tel}{/if}</span><div class="jumbotron">和{$vo.name}的聊天记录：<div class="liaotian" id="editor{$vo.id}">"<div><?php echo htmlspecialchars_decode($vo['liaotian']);?></div>"</div></div></td>
+				<td class="relative"><span class="displaylt" data-id="{$vo.id}"><b>{$vo.name}</b> | {$vo.sex}{if condition="$vo.age" } | {$vo.age}岁{else}{/if}<br>{if condition="$vo.czfz eq 1"}初诊{else}复诊{/if}<br>{if condition="(session('type') eq 1 || session('type') eq 3) && $vo.tel"}{$vo.tel}{/if}</span><div class="jumbotron">和{$vo.name}的聊天记录：<div class="liaotian" id="editor{$vo.id}">"<div><?php echo htmlspecialchars_decode($vo['liaotian']);?></div>"</div></div></td>
 				<td class="djtime">{$vo.djtime}<br><span class="colorred">{$vo.keshi} | {$vo.doctor}</span></td>
 				<td class="yytime">{if condition="!$vo.yytime" }-{else}{$vo.yytime|substr=0,10}{/if}</td>
 				<td class="dztime">{if condition="!$vo.dztime" }-{else}<span class="colorred"><b>{$vo.dztime}</b></span>{/if}</td>
@@ -40,7 +40,7 @@
 						备注：{$vo.beizhu}</span>
 				</td>
 				<td>
-					<a href="{:url('edit', array('id'=>$vo.id))}">修改</a>
+					{if condition="session('type') eq 1 || session('type') eq 3 || $vo.kefuid eq session('id')"}<a href="{:url('edit', array('id'=>$vo.id))}">修改</a>{/if}
 				</td>
 			</tr>
 			{/volist}

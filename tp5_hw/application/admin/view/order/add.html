@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	{include file="public/head" /}
+	<title>预约登记_{$Think.BASETITLE}</title>
+	<link href="/public/static/admin/lib/css/datetimepicker.css" rel="stylesheet">
+</head>
+<body>
+{include file="public/header" /}
+<div class="container-fluid">
+	{include file="public/left" /}
+	{include file="public/collgright" /}
+		<h3>预约登记</h3>
+		<hr>
+		<form action="" method="post" id="myform" name="myform" enctype="multipart/form-data">
+			<input type="hidden" class="form-control" id="del" name="del" value="0">
+			<div class="col-lg-2" style="position: relative;">
+				<div class="form-group">
+					<label for="name" class="colorred">姓名</label><label class="colorred warn namewarn"></label>
+					<input type="text" class="form-control" id="name" name="name" placeholder="姓名">
+				</div>
+				<div class="popover fade top in popovername" role="tooltip">
+					<div class="arrow" style="left: 50%;"></div>
+					<h3 class="popover-title" style="display: none;"></h3>
+					<div class="popover-content"></div>
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<div class="form-group">
+					<label for="sex">性别</label>
+					<select class="form-control" name="sex" id="sex">
+						<option value="女">女</option>
+						<option value="男">男</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-2 editlxfs">
+				<div class="form-group">
+					<label for="lxfs">联系方式</label><label class="colorred warn telwarn"></label><br>
+					<select class="form-control" id="lxfs">
+						<option value="选择">选择</option>
+						<option value="电话">电话</option>
+						<option value="微信">微信</option>
+						<option value="QQ">QQ</option>
+						<option value="多项">多项</option>
+					</select>
+					<input type="text" class="form-control" id="tel" name="tel" placeholder="电话" style="display: none;">
+					<input type="text" class="form-control" id="weixin" name="weixin" placeholder="微信" style="display: none;">
+					<input type="text" class="form-control" id="qq" name="qq" placeholder="QQ" style="display: none;">
+				</div>
+				<div class="popover fade top in popovertel" role="tooltip">
+					<div class="arrow" style="left: 50%;"></div>
+					<h3 class="popover-title" style="display: none;"></h3>
+					<div class="popover-content"></div>
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<div class="form-group">
+					<label for="address">机型</label>
+					<input type="text" class="form-control" id="address" name="address" placeholder="机型">
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<div class="form-group">
+					<label for="keshi">预约网点</label>
+					<select class="form-control" name="keshi" id="keshi">
+						<option value="建外soho">建外soho</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<div class="form-group">
+					<label for="kefu">客服姓名</label>
+					<select class="form-control" name="kefu" id="kefu">
+						<option value="<?php echo session('name'); ?>"><?php echo session('name'); ?></option>
+						{volist name="kefuList" id="vo"}
+						{if condition="$vo.name != session('name')"}
+						<option value="{$vo.name}">{$vo.name}</option>
+						{/if}
+						{/volist}
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-12"></div>
+			<div class="col-lg-2">
+				<div class="form-group">
+					<label for="qudao" class="colorred">渠道</label>
+					<select class="form-control" name="qudao" id="qudao">
+						<option value="">请选择</option>
+						<option value="商务通">商务通</option>
+						<option value="400电话">400电话</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<div class="form-group">
+					<label for="yytime">预约时间</label>
+					<input type="text" value="" class="form-control Wdate" maxlength="10" id="yytime" name="yytime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd'})">
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<div class="form-group">
+					<label for="dztime">到店时间</label>
+					<input type="text" value="" class="form-control Wdate" maxlength="10" name="dztime" id="dztime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd'})">
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<div class="form-group">
+					<label>到店后是否维修</label>
+					<select class="form-control" name="daozhen">
+						<option value="0">未到店</option>
+						<option value="3">到店检测</option>
+						<option value="1">到店已维修</option>
+						<option value="2">到店未维修</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<div class="form-group">
+					<label for="hftimeid">预计回访时间</label>
+					<input type="text" value="" class="form-control Wdate" maxlength="10" id="hftimeid" name="hftime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm'})">
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<div class="form-group">
+					<label for="huifang">是否已经回访</label>
+					<select class="form-control" name="huifang" id="huifang">
+						<option value="0">未回访</option>
+						<option value="4">待回访</option>
+						<option value="1">回访中</option>
+						<option value="2">结束回访</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-12"></div>
+			<div class="col-lg-2">
+				<div class="form-group">
+					<label>问题描述</label>
+					<textarea class="form-control" rows="3" name="desc"></textarea>
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<div class="form-group">
+					<label>备注</label>
+					<textarea class="form-control" rows="3" name="beizhu"></textarea>
+				</div>
+			</div>
+			<div class="col-lg-12"></div>
+			<div class="col-lg-12">
+				<div class="form-group" id="ltjl">
+					<label for="liaotian">详细问题描述（可上传图片）</label>
+					<textarea class="form-control1" id="liaotian" rows="13" name="liaotian"></textarea>
+				</div>
+			</div>
+			<div class="col-lg-12"><button type="submit" class="btn btn-primary" id="addbtn">添加</button></div>
+		</form>
+	</div>
+</div>
+{include file="public/footer" /}
+<script type="text/javascript" src="/public/static/admin/lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/public/static/admin/lib/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="/public/static/admin/lib/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" src="/public/static/admin/lib/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+    $("#addbtn").on('click',function(){
+        setTimeout(function(){
+            $("#addbtn").attr('disabled',true);
+        }, 10)
+    });
+    var ue = UE.getEditor(
+        'liaotian',
+	    {
+	        initialFramWidth: '100%',
+		    initialFramHeight: 1000
+	    }
+    );
+    ue.ready(function(){
+        ue.setHeight(200);
+    })
+    var nowDate = new Date();
+    var timeStr = nowDate.getFullYear()+"-"+(addzero(nowDate.getMonth() + 1))+"-"+addzero(nowDate.getDate())+" "+addzero(nowDate.getHours())+":"+addzero(nowDate.getMinutes());
+    $('.inittime').val(timeStr);
+    function addzero(dateVal) {
+        return dateVal < 10 ? '0' + dateVal: dateVal;
+    }
+    $('#name').blur(function(){
+        var nameVal = $('#name').val();
+        $.post('/index.php/admin/order/name', { name: nameVal}, function(data) {
+            if(data.name == nameVal && nameVal!=''){
+                var warnStr = '有重复的' + '(' + data.kefu + '-' + data.name + ')';
+                $('.namewarn').html(warnStr);
+	            $('.popovername').show();
+                $('.popovername .popover-content').html(warnStr);
+            }else{
+                $('.namewarn').html('');
+                $('.popovername').hide();
+                $('.popovername .popover-content').html('');
+            }
+        });
+    })
+    $('#tel').blur(function(){
+        var telVal = $('#tel').val();
+        $.post('/index.php/admin/order/tel', { tel: telVal}, function(data) {
+            if(data.tel == telVal && telVal!=''){
+                var warnStr = '有重复的' + '(' + data.kefu + '-' + data.name + ')';
+                $('.telwarn').html(warnStr);
+                $('.popovertel').show();
+                $('.popovertel .popover-content').html(warnStr);
+            }else{
+                $('.telwarn').html('');
+                $('.popovertel').hide();
+                $('.popovertel .popover-content').html('');
+            }
+        });
+    })
+    $('#lxfs').change(function () {
+        var obj = {
+            'width': '65%',
+            'float': 'right',
+        }
+	    var lxvalue = $(this).val();
+	    $(this).css({
+            'width': '34%',
+		    'float': 'left',
+	    })
+	    if(lxvalue == '电话'){
+			$('#tel').css(obj).show();
+			$('#weixin').hide();
+			$('#qq').hide();
+	    }else if(lxvalue == '微信'){
+            $('#tel').hide();
+            $('#weixin').css(obj).show();
+            $('#qq').hide();
+	    }else if(lxvalue == 'QQ'){
+            $('#tel').hide();
+            $('#weixin').hide();
+            $('#qq').css(obj).show();
+        }else if(lxvalue == '多项'){
+            $('#tel').css(obj).show();
+            $('#weixin').css(obj).show();
+            $('#qq').css(obj).show();
+        }else{
+            $(this).css({
+                'width': '100%',
+                'float': 'left',
+            })
+            $('#tel').hide();
+            $('#weixin').hide();
+            $('#qq').hide();
+	    }
+    })
+</script>
+</body>
+</html>

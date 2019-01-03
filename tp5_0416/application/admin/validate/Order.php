@@ -12,7 +12,7 @@ class Order extends Validate{
 
 	protected $message = [
 		'name.require' => '姓名不能为空',
-		'qudao.require' => '渠道不能为空',
+		'qudao.require' => '请选择渠道',
 		'disease.require' => '病种不能为空',
 		'yuanqu.require' => '院区不能为空',
 	];

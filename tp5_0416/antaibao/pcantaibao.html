@@ -1,0 +1,304 @@
+<meta charset="utf-8">
+<style>
+.clearfix:after {
+	content: '.';
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+.pcatb_container{
+	width: 200px;
+	padding: 10px;
+	background-color: #33a3dc;
+	position: fixed;
+	right: 0;
+	top: 300px;
+	z-index: 50;
+}
+.pcatb_container .pcatb_text{
+	height: 58px;
+	background-image: url(http://4g.atfck.com/images/pcantaibao1.png);
+	background-repeat: no-repeat;
+	background-position: left;
+	color: #fff;
+	font-size: 22px;
+	text-indent: 65px;
+	margin-bottom: 5px;
+}
+.pcatb_container .pcatb_form{
+	width: 100%;
+}
+.pcatb_container .pcatb_input{
+	width: 127px;
+	height: 24px;
+	line-height: 24px;
+	outline: none;
+	float: left;
+	padding: 0;
+	margin: 0;
+	border: none;
+	text-indent: 2px;
+}
+.pcatb_container .pcatb_btn{
+	width: 70px;
+	height: 24px;
+	line-height: 24px;
+	text-align: center;
+	float: right;
+	cursor: pointer;
+	outline: none;
+	border: none;
+	padding: 0;
+	margin: 0;
+	background-color: #fff;
+}
+.pcatb_container .pcatb_close{
+	position: absolute;
+	right: 2px;
+	top: 0;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	text-align: right;
+	color: #fff;
+	cursor: pointer;
+}
+.pcatb_container .pcatb_calltext{
+	color: #fff;
+	margin-top: 5px;
+	font-size: 14px;
+	line-height: 22px;
+}
+.pcatb_container .pcatb_calltext span{
+	color: black;
+}
+.pcatb_free{
+	width: 40px;
+	height: 88px;
+	background-color: #33a3dc;
+	position: fixed;
+	right: 0;
+	top: 300px;
+	background-image: url(http://4g.atfck.com/images/pcantaibao2.png);
+	cursor: pointer;
+	display: none;
+	z-index: 50;
+}
+.submiting {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.7);
+  text-align: center;
+}
+.submiting .con {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.submiting .con ul{
+	padding: 50px 0 0 0;
+	margin: 0;
+}
+.submiting .con ul li {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  margin: 0 0 0 5px;
+  border-radius: 50%;
+  background-color: #33a3dc;
+  animation: bounce 1.4s infinite ease-in-out;
+  -webkit-animation: bounce 1.4s infinite ease-in-out;
+  -moz-animation: bounce 1.4s infinite ease-in-out;
+  -ms-animation: bounce 1.4s infinite ease-in-out;
+  -o-animation: bounce 1.4s infinite ease-in-out;
+  list-style: none;
+  display: inline-block;
+}
+.submiting .con ul p {
+  font-size: 22px;
+  color: #33a3dc;
+}
+.submiting .con ul li:nth-of-type(1) {
+  animation-delay: -0.32s;
+  -webkit-animation-delay: -0.32s;
+  -moz-animation-delay: -0.32s;
+  -ms-animation-delay: -0.32s;
+  -o-animation-delay: -0.32s;
+}
+.submiting .con ul li:nth-of-type(2) {
+  animation-delay: -0.16s;
+  -webkit-animation-delay: -0.16s;
+  -moz-animation-delay: -0.16s;
+  -ms-animation-delay: -0.16s;
+  -o-animation-delay: -0.16s;
+}
+@keyframes bounce {
+  	0%,
+	80%,
+	100% {
+	  transform: scale(0);
+	}
+	40% {
+	  transform: scale(1);
+	}
+}
+@-webkit-keyframes bounce {
+ 	0%,
+	80%,
+	100% {
+	  transform: scale(0);
+	}
+	40% {
+	  transform: scale(1);
+	}
+}
+@-moz-keyframes bounce {
+	0%,
+	80%,
+	100% {
+	  transform: scale(0);
+	}
+	40% {
+	  transform: scale(1);
+	}
+}
+@-o-keyframes bounce {
+  	0%,
+	80%,
+	100% {
+	  transform: scale(0);
+	}
+	40% {
+	  transform: scale(1);
+	}
+}
+</style>
+<div class="pcatb_container">
+	<div class="pcatb_close">X</div>
+	<div class="pcatb_text">免费回电</div>
+	<div class="pcatb_form clearfix">
+		<input class="pcatb_input" type="text" name="phone" maxlength="12" placeholder="请输入电话">
+		<button class="pcatb_btn" id="tijiaopctel">给您回电</button>
+	</div>
+	<div class="pcatb_calltext">我们将立即回电。该通话对您免费，请放心接听！<br>手机请直接输入，座机前加区号：如01067537758</div>
+</div>
+<div class="pcatb_free"></div>
+
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script>
+(function(){
+	$('.pcatb_close').click(function(event) {
+		/* Act on the event */
+		$('.pcatb_container').hide();
+		$('.pcatb_free').show();
+	});
+	$('.pcatb_free').click(function(event) {
+		/* Act on the event */
+		$('.pcatb_free').hide();
+		$('.pcatb_container').show();
+	});
+
+	$('.pcatb_input').click(function(){
+	    $('.pcatb_calltext').html('我们将立即回电。该通话对您免费，请放心接听！<br>手机请直接输入，座机前加区号：如01067537758');
+	})
+	//validate
+	$('.pcatb_input').blur(function(){
+	    var tel = $('.pcatb_input').val();
+	    if(tel){
+	    	check(tel);
+	    }
+	})
+	$('#tijiaopctel').click(function(){
+	    var tel = $('.pcatb_input').val();
+	    if(tel){
+	    	if(!check(tel)){
+	            console.log('检查是错误的号码');
+				return;
+	        }
+	    }else{
+	    	return;
+	    }
+	    var system = {
+	        win : false,
+	        mac : false,
+	        xll : false
+	    };
+	    var device = null;
+	    var zd = null;
+	    var p = navigator.platform;
+	    system.win = p.indexOf("Win") == 0;
+	    system.mac = p.indexOf("Mac") == 0;
+	    system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
+	    if(system.win){//转向后台登陆页面
+	        device = 'windows';
+	        zd = 'c';
+	    }else if(system.mac){
+	        device = 'mac';
+	    }else if(system.xll){
+	        device = 'linux或其他';
+	    }else{
+	        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {  	//判断iPhone|iPad|iPod|iOS
+	            zd = 'i';
+	            device = '苹果'
+	        } else if (/(Android)/i.test(navigator.userAgent)) {  	 	//判断Android
+	            zd = 'a';
+	            device='安卓';
+	        } else {
+	            zd = 'x';
+	            device = '其它手机'
+	        };
+	        // device = 'p';
+	    }
+	    var url = window.location.href;
+	    $('.pcatb_container').append('<div class="submiting"><div class="con"><ul><li></li><li></li><li></li><p>正在提交......</p></ul></div></div>');
+	    $('.pcatb_btn').html('正在提交');
+	    $.ajax({
+	        type: 'post',
+	        url: 'http://data.atfck.com/antaibao.php',
+	        // url: 'http://localhost/thinkphp/tp5_0416/antaibao/testantaibao123.php',
+	        data: {'tel':tel,'device':device,'url':url,'device':device},
+	        success:function(data){
+	            alert(data);
+	            $('.pcatb_calltext').html('<b>'+data+'</b>');
+	            $('div').remove('.submiting');
+				$('.pcatb_btn').html('给您回电');
+	        },
+	        error:function(XHR, textStatus, errorThrown){
+	            console.log('error: ' + textStatus);
+	            console.log('error: ' + errorThrown);
+	        }
+	    });
+	});
+	function check(inputVal) {
+	    var subStr = inputVal.substr(0,1);
+	    if(subStr == '0'){
+	        var tel = /^0\d{2,3}(\d{8,9})$/;		//固话
+	        if(!tel.test(inputVal)){
+	            // alert('固话格式错误,请重新填写!');
+	            // console.log(123)
+	            $('.pcatb_calltext').html('请您输入正确的号码，手机号码请直接输入，座机请加区号。');
+	            return false;                
+	        }else{
+	            return true;
+	        }
+	    }else{
+	        var phone = /^1[345678]\d{9}$/;				//手机
+	        if(!phone.test(inputVal)){
+	            // alert('手机号码格式错误,请重新填写!');
+	            // console.log(1234)
+	            $('.pcatb_calltext').html('请您输入正确的号码，手机号码请直接输入，座机请加区号。');
+	            return false;
+	        }else{
+	            return true;
+	        }
+	    }
+	}
+})()
+</script>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	{include file="public/head" /}
+	<title>导入数据_{$Think.BASETITLE}</title>
+</head>
+<body>
+{include file="public/header" /}
+<div class="container-fluid">
+	{include file="public/left" /}
+	{include file="public/collgright" /}
+		<h3>导入数据</h3>
+		<hr>
+		<div class="row">
+			<form action="" method="post" id="myform" name="myform" enctype="multipart/form-data">
+				<div class="form-group">
+					<label for="exampleInputFile">File input</label>
+					<input type="file" id="exampleInputFile" name="excel">
+				</div>
+				<button type="submit" class="btn btn-primary indata">导入数据</button>
+			</form>
+		</div>
+	</div>
+</div>
+{include file="public/footer" /}
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

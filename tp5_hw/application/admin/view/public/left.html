@@ -1,0 +1,22 @@
+<div class="col-lg-1 col-md-1 col-sm-1 col-lg-left">
+	<div class="list-group">
+		<a href="{:url('order/add')}" class="list-group-item backcolorEDBF31 text-center" style="font-size: 18px;">添加信息</a>
+	</div>
+	<div class="list-group lefuserinfo">
+		<li class="list-group-item active">用户信息</li>
+		<a data-href="{:url('order/listsmyself')}" href="{:url('order/listsmyself')}" class="list-group-item">自己信息</a>
+		<a data-href="{:url('order/lists')}" href="{:url('order/lists')}" class="list-group-item">全部信息</a>
+		<a data-href="{:url('order/listsaddtoday')}" href="{:url('order/listsaddtoday')}" class="list-group-item">今日登记</a>
+		<a data-href="{:url('order/listsordertoday')}" href="{:url('order/listsordertoday')}" class="list-group-item">今日预约</a>
+		<a data-href="{:url('order/listsdztoday')}" href="{:url('order/listsdztoday')}" class="list-group-item">今日到店</a>
+		<a data-href="{:url('order/listsdel')}" href="{:url('order/listsdel')}" class="list-group-item">回收站</a>
+	</div>
+	{if condition="session('type') eq 1"}
+	<div class="list-group">
+		<li class="list-group-item active">系统管理</li>
+		<a data-href="{:url('admin/lists')}" href="{:url('admin/lists')}" class="list-group-item">查看所有用户</a>
+		<a data-href="{:url('admin/add')}" href="{:url('admin/add')}" class="list-group-item">新增用户</a>
+		<a data-href="{:url('admin/listslock')}" href="{:url('admin/listslock')}" class="list-group-item">查看锁定用户</a>
+	</div>
+	{else}{/if}
+</div>

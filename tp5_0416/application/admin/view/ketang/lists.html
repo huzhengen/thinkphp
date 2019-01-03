@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	{include file="public/head" /}
+	<title>孕校课堂_{$Think.BASETITLE}</title>
+</head>
+<body>
+{include file="public/header" /}
+<div class="container-fluid">
+	{include file="public/left" /}
+	{include file="public/collgright" /}
+	<h3>孕校课堂</h3>
+	<div class="list-group">
+		<a href="/index.php/admin/ketang/add.html" class="list-group-item text-center" style="width: 123px;">添加新课堂</a>
+	</div>
+	<table class="table table-bordered table-hover">
+		{include file="public/ketanghead" /}
+		<tbody>
+		{volist name="orderList" id="vo"}
+		<tr>
+			<td>{$vo.id}</td>
+			<td class="relative"><span class="ketangtitle" data-id="{$vo.id}">{$vo.title}</span><div class="baomingdetail"><h3>报名详情：</h3><table class="table table-bordered"></table></div></td>
+			<td>{$vo.ketangtime}</td>
+			<td>{if condition="$vo.over eq 0"}未结束{else}结束{/if}</td>
+			<td>{if condition="$vo.online eq 0"}线上活动{else}线下活动{/if}</td>
+			<td>{if condition="$vo.free eq 0"}收费{else}免费{/if}</td>
+			<td>
+				<a href="{:url('edit', array('id'=>$vo.id))}">修改</a>
+			</td>
+		</tr>
+		{/volist}
+		</tbody>
+	</table>
+	{$orderList->render()}
+</div>
+</div>
+{include file="public/footer" /}
+<script>
+$('.ketangtitle').click(function(){
+	let content
+	let ketangid = $(this).attr('data-id')
+	console.log(ketangid)
+    $.ajax({
+        type: 'post',
+        data: {'ketangid':ketangid},
+        success: function(data){
+            console.log(data)
+	        if(data !== 'error'){
+                for(let i=0; i<data.length; i++){
+                    content += `<tr>
+									<td>${data[i].name}</td>
+									<td>${data[i].tel}</td>
+									<td>${data[i].type}</td>
+									<td>${data[i].djtime}</td>
+								</tr>`
+                    $('.baomingdetail table').html(content);
+                }
+	        }else{
+                $('.baomingdetail table').html(data);
+	        }
+        },
+        error:function(error){
+            console.log(error)
+        }
+    })
+    $('.baomingdetail').show()
+})
+$('body').click(function () {
+    $('.baomingdetail table').html('');
+    $('.baomingdetail').hide();
+})
+$('.ketangtitle').click(function (e) {
+    e.stopPropagation();
+})
+$('.baomingdetail').click(function (e) {
+    e.stopPropagation();
+})
+
+</script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	{include file="public/head" /}
+	<title>今日到店</title>
+</head>
+<body>
+{include file="public/header" /}
+<div class="container-fluid">
+	{include file="public/left" /}
+	{include file="public/collgright" /}
+		<h3>今日到店（目前支持开始时间、结束时间、客服和到店状态四项<strong>同时</strong>选中，其它都只能单选）</h3>
+		<div class="row topsearch">
+			<form action="" method="get" id="myform" name="myform" enctype="multipart/form-data" class="form-inline">
+				<div class="form-group">
+					<label for="begintime">开始时间</label>
+					<input type="text" placeholder="开始结束同时选择" value="" class="form-control Wdate" id="begintime" name="begintime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd'})">
+				</div>
+				<div class="form-group">
+					<label for="endtime">结束时间</label>
+					<input type="text" placeholder="开始结束同时选择" value="" class="form-control Wdate" id="endtime" name="endtime" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd'})">
+				</div>
+				<div class="form-group">
+					<label for="kefu">客服</label>
+					<select class="form-control" name="kefu" id="kefu">
+						<option value="">请选择</option>
+						{volist name="kefuList" id="vo"}
+						<option value="{$vo.name}">{$vo.name}</option>
+						{/volist}
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="ddzt">到店状态</label>
+					<select class="form-control" name="ddzt" id="ddzt">
+						<option value="">请选择</option>
+						<option value="3">到店检测</option>
+						<option value="2">到店未维修</option>
+						<option value="1">到店已维修</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="name">姓名</label>
+					<input type="text" value="" class="form-control" id="name" name="name">
+				</div>
+				<div class="form-group">
+					<label for="yynum">预约号</label>
+					<input type="text" value="" class="form-control" id="yynum" name="yynum">
+				</div>
+				<br><br>
+				<div class="form-group">
+					<label for="tel">电话</label>
+					<input type="text" value="" class="form-control" id="tel" name="tel">
+				</div>
+				<div class="form-group">
+					<label for="weixin">微信</label>
+					<input type="text" value="" class="form-control" id="weixin" name="weixin">
+				</div>
+				<div class="form-group">
+					<label for="qq">QQ</label>
+					<input type="text" value="" class="form-control" id="qq" name="qq">
+				</div>
+				<div class="form-group">
+					<label for="beizhu">备注</label>
+					<input type="text" value="" class="form-control" id="beizhu" name="beizhu">
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary">查询</button>
+					<button type="button" class="btn btn-primary reset">重置</button>
+				</div>
+			</form>
+		</div>
+		<hr>
+		<table class="table table-bordered table-hover">
+			{include file="public/liststhead" /}
+			<tbody>
+			{volist name="orderList" id="vo"}
+			<tr>
+				{if condition="$vo.daozhen eq 0"}
+				<td class="daozhen">
+					<input type="hidden" name="id" value="{$vo.id}" class="trid">
+					<select class="form-control dianzhen">
+						<option value="0">未到店</option>
+						<option value="3">到店检测</option>
+						<option value="1">到店已维修</option>
+						<option value="2">到店未维修</option>
+					</select>
+				</td>
+				{elseif condition="$vo.daozhen eq 3"}
+				<td><span class="colorpurple"><b>到店检测</b></span></td>
+				{elseif condition="$vo.daozhen eq 1"}
+				<td><span class="colorgreen"><b>到店已维修</b></span></td>
+				{else}
+				<td><span class="colorpurple"><b>到店未维修</b></span></td>
+				{/if}
+				<td>hwshwx{$vo.id}</td>
+				<td class="relative"><span class="displaylt" data-id="{$vo.id}"><b>{$vo.name}</b> | {$vo.sex}<br>{if condition="$vo.address"}机型：{$vo.address}{else}{/if}<br>{if condition="(session('type') eq 1 || session('type') eq 3) && $vo.tel"}{$vo.tel}{/if}</span><div class="jumbotron">关于{$vo.name}的详细问题描述：<div class="liaotian" id="editor{$vo.id}">"<div><?php echo htmlspecialchars_decode($vo['liaotian']);?></div>"</div></div></td>
+				<td class="djtime">{$vo.djtime}<br><span>预约网点：{$vo.keshi}</span></td>
+				<td class="yytime">{if condition="!$vo.yytime" }-{else}{$vo.yytime|substr=0,10}{/if}</td>
+				<td class="dztime">{if condition="!$vo.dztime" }-{else}<span class="colorred"><b>{$vo.dztime}</b></span>{/if}</td>
+				<td>{$vo.kefu}</td>
+				<td style="text-align: left!important;">
+					渠道：{$vo.qudao}<br>
+					<span class="colorpurple">描述：{$vo.desc}<br>
+						备注：{$vo.beizhu}</span>
+				</td>
+				<td>
+					{if condition="session('type') eq 1 || session('type') eq 3 || $vo.kefuid eq session('id')"}<a href="{:url('edit', array('id'=>$vo.id))}">修改</a>{/if}
+				</td>
+			</tr>
+			{/volist}
+			</tbody>
+		</table>
+		总{$dzlist}条登记
+		{$orderList->render()}
+	</div>
+</div>
+{include file="public/footer" /}
+</body>
+</html>
